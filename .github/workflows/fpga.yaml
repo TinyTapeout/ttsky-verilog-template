@@ -17,3 +17,8 @@ jobs:
 
       - name: FPGA bitstream for TT ASIC Sim (ICE40UP5K)
         uses: TinyTapeout/tt-gds-action/fpga/ice40up5k@ttsky25b
+        with:
+          # example values: MY_CUSTOM_DEFINE ANOTHER_CUSTOM_DEFINE=VALUE
+          VERILOG_DEFINES:
+          # advanced use only, command line arguments passed to yosys for synthesis
+          YOSYS_ARGS:

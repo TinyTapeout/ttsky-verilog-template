@@ -71,3 +71,18 @@ module tt_um_alu4 (
         Z = (R == 4'h0);
         N = R[3];
     end
+
+    // register outputs (TinyTapeout designs usually clock outputs)
+    always @(posedge clk or negedge rst_n) begin
+        if (!rst_n) begin
+            uo_out <= 8'h00;
+        end else begin
+            uo_out[3:0] <= R;
+            uo_out[4]   <= Z;
+            uo_out[5]   <= N;
+            uo_out[6]   <= C;
+            uo_out[7]   <= V;
+        end
+    end
+
+endmodule

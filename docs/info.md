@@ -49,3 +49,5 @@ For each case, the testbench computes expected `R, Z, N, C, V` and compares them
 
 GenAI was used to help draft the Verilog ALU module, the self-checking testbench structure, and this documentation.  
 The final code was reviewed and edited to ensure correctness, clear I/O mapping, and thorough test coverage.
+
+## 

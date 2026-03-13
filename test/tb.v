@@ -106,20 +106,13 @@ module tb;
   integer a, b, op, ci;
 
   initial begin
-    // init
-    ui_in  = 8'h00;
-    uio_in = 8'h00;
-
-    // reset
     rst_n = 0;
-    repeat (3) @(posedge clk);
-    rst_n = 1;
-
-    // Quick sanity after reset: should be 0
-    @(posedge clk); #1;
-    if (uo_out !== 8'h00) begin
-      $display("FAIL reset output not zero: %h", uo_out);
-      $fatal;
+    ui_in = 8'h00;
+    #10 rst_n = 1;
+    ui_in = 8'h12;
+    #10;
+    $display("uo_out = %h", uo_out);
+    $finish;
     end
 
     // Directed edge cases

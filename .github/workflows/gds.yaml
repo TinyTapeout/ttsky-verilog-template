@@ -13,6 +13,11 @@ jobs:
         with:
           submodules: recursive
 
+      - name: Build Spade
+        run:
+          - swim build
+          - cp build/spade.sv src/project.sv
+
       - name: Build GDS
         uses: TinyTapeout/tt-gds-action@ttsky26a
         with:

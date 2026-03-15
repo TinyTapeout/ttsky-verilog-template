@@ -1,0 +1,186 @@
+entity \std::cdc::sync2[954] ((clk, clk, bool), (input, input, bool)) -> bool {
+	reg(clk) sync1: bool = input
+	reg(clk) sync2: bool = sync1
+} => sync2
+
+entity \std::cdc::sync2_bool ((clk, clk, bool), (input, input, bool)) -> bool {
+	let e137: bool = Instance(\std::cdc::sync2[954] )(clk, input)
+} => e137
+
+entity \std::conv::concat_arrays[969] ((l, l, [uint<8>; 1]), (r, r, [uint<8>; 0])) -> [uint<8>; 1] {
+	let e428: ([uint<8>; 0], [uint<8>; 1]) = ConstructTuple(r, l)
+	let e427: [uint<8>; 1] = ZeroExtend(e428)
+} => e427
+
+entity \std::conv::concat_arrays[966] ((l, l, [uint<8>; 1]), (r, r, [uint<8>; 1])) -> [uint<8>; 2] {
+	let e428: ([uint<8>; 1], [uint<8>; 1]) = ConstructTuple(r, l)
+	let e427: [uint<8>; 2] = ZeroExtend(e428)
+} => e427
+
+entity \std::conv::concat_arrays[963] ((l, l, [uint<8>; 1]), (r, r, [uint<8>; 2])) -> [uint<8>; 3] {
+	let e428: ([uint<8>; 2], [uint<8>; 1]) = ConstructTuple(r, l)
+	let e427: [uint<8>; 3] = ZeroExtend(e428)
+} => e427
+
+entity \std::conv::concat_arrays[965] ((l, l, [uint<8>; 1]), (r, r, [uint<8>; 3])) -> [uint<8>; 4] {
+	let e428: ([uint<8>; 3], [uint<8>; 1]) = ConstructTuple(r, l)
+	let e427: [uint<8>; 4] = ZeroExtend(e428)
+} => e427
+
+entity \std::conv::tri_to_bool ((b, b, bool)) -> bool {
+	let e433: bool = ZeroExtend(b)
+} => e433
+
+entity \std::conv::uint_to_bits[959] ((input, input, uint<8>)) -> [bool; 8] {
+	let e471: [bool; 8] = ZeroExtend(input)
+} => e471
+
+entity \std::conv::clock_to_bool ((c, c, bool)) -> bool {
+	let e487: bool = ZeroExtend(c)
+} => e487
+
+entity \std::conv::bool_to_clock ((c, c, bool)) -> bool {
+	let e491: bool = ZeroExtend(c)
+} => e491
+
+entity \std::io::rising_edge ((clk, clk, bool), (sync1, sync1, bool)) -> bool {
+	reg(clk) sync2: bool = sync1
+	let e1505: [bool; 1] = ConstructArray(sync2)
+	let e1504: [bool; 1] = BitwiseNot(e1505)
+	const e1506: uint<0> = 0
+	let e1503: bool = IndexArray(e1504, e1506)
+	let e1513: [bool; 1] = ConstructArray(sync1)
+	let e1514: [bool; 1] = ConstructArray(e1503)
+	let e1512: [bool; 1] = BitwiseAnd(e1513, e1514)
+	const e1515: uint<0> = 0
+	let e1511: bool = IndexArray(e1512, e1515)
+} => e1511
+
+entity \std::io::falling_edge ((clk, clk, bool), (sync1, sync1, bool)) -> bool {
+	reg(clk) sync2: bool = sync1
+	let e1523: [bool; 1] = ConstructArray(sync1)
+	let e1522: [bool; 1] = BitwiseNot(e1523)
+	const e1524: uint<0> = 0
+	let e1521: bool = IndexArray(e1522, e1524)
+	let e1531: [bool; 1] = ConstructArray(sync2)
+	let e1532: [bool; 1] = ConstructArray(e1521)
+	let e1530: [bool; 1] = BitwiseAnd(e1531, e1532)
+	const e1533: uint<0> = 0
+	let e1529: bool = IndexArray(e1530, e1533)
+} => e1529
+
+entity \ttsky_verilog_template::design ((clk, clk, bool), (rst, rst, bool), (ui_in, ui_in, [bool; 8])) -> uint<8> {
+	const e1137: uint<8> = 0
+	const e1140: uint<8> = 1
+	let e1138: uint<8> = Instance(\core::ops::impl#23::wrapping_add[953] )(counter, e1140)
+	reg(clk) counter: uint<8>(rst, e1137) = e1138
+} => counter
+
+entity tt_um_your_design((#[no_mangle]clk, clk, bool), (#[no_mangle]rst_n, rst_n, bool), (#[no_mangle]ui_in, ui_in, [bool; 8]), (#[no_mangle]uo_out, uo_out, &mut ([bool; 8])), (#[no_mangle]uio_in, uio_in, uint<8>), (#[no_mangle]uio_out, uio_out, &mut (uint<8>)), (#[no_mangle]uio_oe, uio_oe, &mut (uint<8>)), (#[no_mangle]ena, ena, bool)) -> () {
+	let e1541: [bool; 1] = ConstructArray(rst_n)
+	let e1540: [bool; 1] = BitwiseNot(e1541)
+	const e1542: uint<0> = 0
+	let rst: bool = IndexArray(e1540, e1542)
+	const e1147: uint<8> = 0
+	set uio_out = e1147
+	const e1150: uint<8> = 0
+	set uio_oe = e1150
+	let output: uint<8> = Instance(\ttsky_verilog_template::design )(clk, rst, ui_in)
+	let e1158: [bool; 8] = Instance(\std::conv::impl#4::to_bits[957] )(output)
+	set uo_out = e1158
+	let e1142: () = Nop()
+} => e1142
+
+entity \std::conv::impl#2::to_uint ((self, self, bool)) -> uint<1> {
+	let e501: uint<1> = ZeroExtend(self)
+} => e501
+
+entity \std::conv::impl#2::to_int ((self, self, bool)) -> int<1> {
+	let e505: int<1> = ZeroExtend(self)
+} => e505
+
+entity \std::conv::impl#4::to_bits[957] ((self, self, uint<8>)) -> [bool; 8] {
+	let e517: [bool; 8] = Instance(\std::conv::uint_to_bits[959] )(self)
+} => e517
+
+entity \std::conv::impl#5::to_be_bytes ((self, self, uint<16>)) -> [uint<8>; 2] {
+	const e524: uint<16> = 8
+	let e522: uint<16> = RightShift(self, e524)
+	let e521: uint<8> = Truncate(e522)
+	let e525: uint<8> = Truncate(self)
+	let e520: [uint<8>; 2] = ConstructArray(e521, e525)
+} => e520
+
+entity \std::conv::impl#5::to_le_bytes ((self, self, uint<16>)) -> [uint<8>; 2] {
+	let e529: [uint<8>; 2] = Instance(\std::conv::impl#5::to_be_bytes )(self)
+	let e1550: [uint<8>; 1] = RangeIndexArray(1, 2)(e529)
+	let e1552: [uint<8>; 1] = RangeIndexArray(0, 1)(e529)
+	let e1576: [uint<8>; 1] = RangeIndexArray(0, 1)(e1552)
+	let e1578: [uint<8>; 0] = RangeIndexArray(0, 0)(e1552)
+	let result: [uint<8>; 0] = ConstructArray()
+	let result_n1: [uint<8>; 1] = Instance(\std::conv::concat_arrays[969] )(e1576, result)
+	let result_n2: [uint<8>; 2] = Instance(\std::conv::concat_arrays[966] )(e1550, result_n1)
+} => result_n2
+
+entity \std::conv::impl#6::to_be_bytes ((self, self, uint<24>)) -> [uint<8>; 3] {
+	const e536: uint<24> = 16
+	let e534: uint<24> = RightShift(self, e536)
+	let e533: uint<8> = Truncate(e534)
+	const e540: uint<24> = 8
+	let e538: uint<24> = RightShift(self, e540)
+	let e537: uint<8> = Truncate(e538)
+	let e541: uint<8> = Truncate(self)
+	let e532: [uint<8>; 3] = ConstructArray(e533, e537, e541)
+} => e532
+
+entity \std::conv::impl#6::to_le_bytes ((self, self, uint<24>)) -> [uint<8>; 3] {
+	let e545: [uint<8>; 3] = Instance(\std::conv::impl#6::to_be_bytes )(self)
+	let e1629: [uint<8>; 1] = RangeIndexArray(2, 3)(e545)
+	let e1631: [uint<8>; 2] = RangeIndexArray(0, 2)(e545)
+	let e1655: [uint<8>; 1] = RangeIndexArray(1, 2)(e1631)
+	let e1657: [uint<8>; 1] = RangeIndexArray(0, 1)(e1631)
+	let e1691: [uint<8>; 1] = RangeIndexArray(0, 1)(e1657)
+	let e1693: [uint<8>; 0] = RangeIndexArray(0, 0)(e1657)
+	let result: [uint<8>; 0] = ConstructArray()
+	let result_n1: [uint<8>; 1] = Instance(\std::conv::concat_arrays[969] )(e1691, result)
+	let result_n2: [uint<8>; 2] = Instance(\std::conv::concat_arrays[966] )(e1655, result_n1)
+	let result_n3: [uint<8>; 3] = Instance(\std::conv::concat_arrays[963] )(e1629, result_n2)
+} => result_n3
+
+entity \std::conv::impl#7::to_be_bytes ((self, self, uint<32>)) -> [uint<8>; 4] {
+	const e552: uint<32> = 24
+	let e550: uint<32> = RightShift(self, e552)
+	let e549: uint<8> = Truncate(e550)
+	const e556: uint<32> = 16
+	let e554: uint<32> = RightShift(self, e556)
+	let e553: uint<8> = Truncate(e554)
+	const e560: uint<32> = 8
+	let e558: uint<32> = RightShift(self, e560)
+	let e557: uint<8> = Truncate(e558)
+	let e561: uint<8> = Truncate(self)
+	let e548: [uint<8>; 4] = ConstructArray(e549, e553, e557, e561)
+} => e548
+
+entity \std::conv::impl#7::to_le_bytes ((self, self, uint<32>)) -> [uint<8>; 4] {
+	let e565: [uint<8>; 4] = Instance(\std::conv::impl#7::to_be_bytes )(self)
+	let e1759: [uint<8>; 1] = RangeIndexArray(3, 4)(e565)
+	let e1761: [uint<8>; 3] = RangeIndexArray(0, 3)(e565)
+	let e1785: [uint<8>; 1] = RangeIndexArray(2, 3)(e1761)
+	let e1787: [uint<8>; 2] = RangeIndexArray(0, 2)(e1761)
+	let e1821: [uint<8>; 1] = RangeIndexArray(1, 2)(e1787)
+	let e1823: [uint<8>; 1] = RangeIndexArray(0, 1)(e1787)
+	let e1867: [uint<8>; 1] = RangeIndexArray(0, 1)(e1823)
+	let e1869: [uint<8>; 0] = RangeIndexArray(0, 0)(e1823)
+	let result: [uint<8>; 0] = ConstructArray()
+	let result_n1: [uint<8>; 1] = Instance(\std::conv::concat_arrays[969] )(e1867, result)
+	let result_n2: [uint<8>; 2] = Instance(\std::conv::concat_arrays[966] )(e1821, result_n1)
+	let result_n3: [uint<8>; 3] = Instance(\std::conv::concat_arrays[963] )(e1785, result_n2)
+	let result_n4: [uint<8>; 4] = Instance(\std::conv::concat_arrays[965] )(e1759, result_n3)
+} => result_n4
+
+entity \core::ops::impl#23::wrapping_add[953] ((self, self, uint<8>), (rhs, rhs, uint<8>)) -> uint<8> {
+	let e1219: uint<9> = UnsignedAdd(self, rhs)
+	let bits: [bool; 9] = ZeroExtend(e1219)
+	let e1224: [bool; 8] = RangeIndexArray(0, 8)(bits)
+	let e1223: uint<8> = ZeroExtend(e1224)
+} => e1223

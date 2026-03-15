@@ -1,0 +1,44 @@
+[2026-03-15][13:33:11][DEBUG] Using OSS cad suite from "/home/frans/.local/share/swim/bin/oss-cad-suite/bin"
+[2026-03-15][13:33:11][DEBUG] Set PATH to Some("/home/frans/.local/share/swim/bin/oss-cad-suite/bin:/home/frans/bin:/home/frans/.cargo/bin:/home/frans/.local/bin:/home/frans/.local/share/swim/bin/oss-cad-suite/bin:/home/frans/.nix-profile/bin:/nix/var/nix/profiles/default/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:/var/lib/flatpak/exports/bin:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/usr/lib/rustup/bin")
+[2026-03-15][13:33:11][DEBUG] Built-in command Args { command: Build, quiet: false, wrap_spadec: None, wrapper_args: [], spadec_debug: false, rustflags: None, debug_spadec: false, profile_spadec: false, override_compiler: None, num_threads: None, use_system_tools: false }
+[2026-03-15][13:33:11][DEBUG] Exists in lock file
+[2026-03-15][13:33:11][DEBUG] cd "/home/frans/Documents/spade/ttsky-verilog-template/build/spade" && "git" "diff" "--exit-code"
+working dir: Some("/home/frans/Documents/spade/ttsky-verilog-template/build/spade")
+[2026-03-15][13:33:11][DEBUG] cd "/home/frans/Documents/spade/ttsky-verilog-template/build/spade" && "git" "checkout" "--detach" "--force" "daf8e8d4451f79e0315c72c37d8443415631ce40" "--"
+working dir: Some("/home/frans/Documents/spade/ttsky-verilog-template/build/spade")
+[2026-03-15][13:33:11][DEBUG] cd "/home/frans/Documents/spade/ttsky-verilog-template/build/spade" && "git" "rev-parse" "HEAD"
+working dir: Some("/home/frans/Documents/spade/ttsky-verilog-template/build/spade")
+[2026-03-15][13:33:11][DEBUG] [stdout]:
+daf8e8d4451f79e0315c72c37d8443415631ce40
+
+[2026-03-15][13:33:11][DEBUG] Dropping lock file LockFileRef { inner: LockFile { libraries: None, plugins: None, spade: Some(LockFileLibrary { commit: "daf8e8d4451f79e0315c72c37d8443415631ce40", seen: true }) }, path: "/home/frans/Documents/spade/ttsky-verilog-template/swim.lock" }
+[2026-03-15][13:33:12][INFO] Building Spade Compiler
+[2026-03-15][13:33:58][INFO] Finished: Building Spade Compiler
+[2026-03-15][13:33:58][INFO] Attempting to download surfer plugin wasm file.
+[2026-03-15][13:33:58][DEBUG] starting new connection: https://gitlab.com/
+[2026-03-15][13:33:59][DEBUG] starting new connection: https://cdn.artifacts.gitlab-static.net/
+[2026-03-15][13:34:00][INFO] Done downloading surfer plugin
+[2026-03-15][13:34:00][DEBUG] Dropping lock file LockFileRef { inner: LockFile { libraries: None, plugins: None, spade: Some(LockFileLibrary { commit: "daf8e8d4451f79e0315c72c37d8443415631ce40", seen: false }) }, path: "/home/frans/Documents/spade/ttsky-verilog-template/swim.lock" }
+[2026-03-15][13:34:00][DEBUG] Opened LockFileRef { inner: LockFile { libraries: None, plugins: None, spade: Some(LockFileLibrary { commit: "daf8e8d4451f79e0315c72c37d8443415631ce40", seen: false }) }, path: "/home/frans/Documents/spade/ttsky-verilog-template/swim.lock" }
+[2026-03-15][13:34:00][DEBUG] Dropping lock file LockFileRef { inner: LockFile { libraries: None, plugins: None, spade: Some(LockFileLibrary { commit: "daf8e8d4451f79e0315c72c37d8443415631ce40", seen: false }) }, path: "/home/frans/Documents/spade/ttsky-verilog-template/swim.lock" }
+[2026-03-15][13:34:00][INFO] Building spade code
+[2026-03-15][13:34:00][INFO] Built /home/frans/Documents/spade/ttsky-verilog-template/build/spade.sv
+[2026-03-15][14:13:00][DEBUG] Using OSS cad suite from "/home/frans/.local/share/swim/bin/oss-cad-suite/bin"
+[2026-03-15][14:13:00][DEBUG] Set PATH to Some("/home/frans/.local/share/swim/bin/oss-cad-suite/bin:/home/frans/bin:/home/frans/.cargo/bin:/home/frans/.local/bin:/home/frans/.local/share/swim/bin/oss-cad-suite/bin:/home/frans/.nix-profile/bin:/nix/var/nix/profiles/default/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:/var/lib/flatpak/exports/bin:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/usr/lib/rustup/bin")
+[2026-03-15][14:13:00][DEBUG] Built-in command Args { command: Build, quiet: false, wrap_spadec: None, wrapper_args: [], spadec_debug: false, rustflags: None, debug_spadec: false, profile_spadec: false, override_compiler: None, num_threads: None, use_system_tools: false }
+[2026-03-15][14:13:00][DEBUG] Exists in lock file
+[2026-03-15][14:13:00][DEBUG] cd "/home/frans/Documents/spade/ttsky-verilog-template/build/spade" && "git" "diff" "--exit-code"
+working dir: Some("/home/frans/Documents/spade/ttsky-verilog-template/build/spade")
+[2026-03-15][14:13:00][DEBUG] cd "/home/frans/Documents/spade/ttsky-verilog-template/build/spade" && "git" "checkout" "--detach" "--force" "daf8e8d4451f79e0315c72c37d8443415631ce40" "--"
+working dir: Some("/home/frans/Documents/spade/ttsky-verilog-template/build/spade")
+[2026-03-15][14:13:00][DEBUG] cd "/home/frans/Documents/spade/ttsky-verilog-template/build/spade" && "git" "rev-parse" "HEAD"
+working dir: Some("/home/frans/Documents/spade/ttsky-verilog-template/build/spade")
+[2026-03-15][14:13:00][DEBUG] [stdout]:
+daf8e8d4451f79e0315c72c37d8443415631ce40
+
+[2026-03-15][14:13:00][DEBUG] Dropping lock file LockFileRef { inner: LockFile { libraries: None, plugins: None, spade: Some(LockFileLibrary { commit: "daf8e8d4451f79e0315c72c37d8443415631ce40", seen: true }) }, path: "/home/frans/Documents/spade/ttsky-verilog-template/swim.lock" }
+[2026-03-15][14:13:01][DEBUG] Dropping lock file LockFileRef { inner: LockFile { libraries: None, plugins: None, spade: Some(LockFileLibrary { commit: "daf8e8d4451f79e0315c72c37d8443415631ce40", seen: false }) }, path: "/home/frans/Documents/spade/ttsky-verilog-template/swim.lock" }
+[2026-03-15][14:13:01][DEBUG] Opened LockFileRef { inner: LockFile { libraries: None, plugins: None, spade: Some(LockFileLibrary { commit: "daf8e8d4451f79e0315c72c37d8443415631ce40", seen: false }) }, path: "/home/frans/Documents/spade/ttsky-verilog-template/swim.lock" }
+[2026-03-15][14:13:01][DEBUG] Dropping lock file LockFileRef { inner: LockFile { libraries: None, plugins: None, spade: Some(LockFileLibrary { commit: "daf8e8d4451f79e0315c72c37d8443415631ce40", seen: false }) }, path: "/home/frans/Documents/spade/ttsky-verilog-template/swim.lock" }
+[2026-03-15][14:13:01][INFO] Building spade code
+[2026-03-15][14:13:01][INFO] Built /home/frans/Documents/spade/ttsky-verilog-template/build/spade.sv

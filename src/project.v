@@ -5,7 +5,7 @@
 
 `default_nettype none
 
-module tt_um_MichaelBell_tinyQV (
+module tt_um_authQV (
     input  wire [7:0] ui_in,    // Dedicated inputs
     output wire [7:0] uo_out,   // Dedicated outputs
 /*verilator lint_off UNUSEDSIGNAL*/
@@ -19,6 +19,12 @@ module tt_um_MichaelBell_tinyQV (
     input  wire       clk,
     input  wire       rst_n
 );
+    // Assign all IOs to 0 for safety.
+    assign uo_out  = 8'b0;
+    assign uio_out = 8'b0;
+    assign uio_oe  = 8'b0;
+
+
 
     // Address to peripheral map
     localparam PERI_NONE = 4'hF;

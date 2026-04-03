@@ -1,0 +1,15 @@
+{
+    "meta": {
+        "version": 2
+    },
+    "PDK": "sky130A",
+    "DESIGN_NAME": "tt_um_MichaelBell_tinyQV",
+    "VERILOG_FILES": ["dir::src/project.v"],
+    "CLOCK_PORT": "clk",
+    "CLOCK_PERIOD": 25.0,
+    "DIE_AREA": [0, 0, 161.84, 110.64],
+    "FP_CORE_UTIL": 40,
+    "PL_TARGET_DENSITY_PCT": 35,
+    "SYNTH_STRATEGY": "AREA 0",
+    "RUN_KLAYOUT_XOR": false
+}

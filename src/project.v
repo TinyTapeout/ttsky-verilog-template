@@ -56,8 +56,8 @@ module tt_um_authQV (
     wire [27:0] addr;
     wire  [1:0] write_n;
     wire  [1:0] read_n;
-    wire        read_complete;
 /*verilator lint_off UNUSEDSIGNAL*/
+    wire        read_complete;
     wire [31:0] data_to_write;  // Currently only bottom byte used.
 /*verilator lint_on UNUSEDSIGNAL*/
 
@@ -93,12 +93,15 @@ module tt_um_authQV (
     reg debug_register_data;
     reg [3:0] debug_rd_r;
 
-  // Interrupt requests
+    // Interrupt requests
     reg [1:0] ui_in_reg;
     always @(posedge clk) begin
         ui_in_reg <= ui_in[1:0];
     end
-    wire [3:0] interrupt_req = {2'b00, ui_in_reg[1:0]}; // Removed UART interrupts
+
+    // Removed UART interrupts
+    wire [3:0] interrupt_req = {2'b00, ui_in_reg[1:0]};
+    wire timer_interrupt = 1'b0; // FIXME: Add timer interrupt
 
     tinyQV i_tinyqv(
         .clk(clk),
@@ -113,6 +116,7 @@ module tt_um_authQV (
         .data_ready(data_ready),
         .data_in(data_from_read),
 
+        .timer_interrupt(timer_interrupt),   // FIXME: Check timer interrupt
         .interrupt_req(interrupt_req),
 
         .spi_data_in(qspi_data_in),

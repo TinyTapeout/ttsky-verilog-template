@@ -5,9 +5,9 @@ on:
     # Comment out (or remove) the following line to run the FPGA workflow on every push:
     branches: none
   workflow_dispatch:
-
+  
 jobs:
-  fpga:
+  fpga-ice40:
     runs-on: ubuntu-24.04
     steps:
       - name: checkout repo
@@ -15,5 +15,21 @@ jobs:
         with:
           submodules: recursive
 
-      - name: FPGA bitstream for TT ASIC Sim (ICE40UP5K)
-        uses: TinyTapeout/tt-gds-action/fpga/ice40up5k@ttsky26a
+      - name: FPGA bitstream for TT ASIC Sim (iCE40 UP5K)
+        uses: TinyTapeout/tt-gds-action/fpga/ice40up5k@ulx3s
+
+  fpga-ulx3s:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: checkout repo
+        uses: actions/checkout@v6
+        with:
+          submodules: recursive
+
+      - name: FPGA bitstream for TT ASIC Sim (ULX3S ECP5)
+        uses: TinyTapeout/tt-gds-action/fpga/ulx3s@ulx3s
+        with:
+          ecp5-device: 85k
+          lpf: tt/fpga/ulx3s/ulx3s_v20.lpf
+          artifact-name: fpga_ulx3s_ecp5
+          uart-enabled: true

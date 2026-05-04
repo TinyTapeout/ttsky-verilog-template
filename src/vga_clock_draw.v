@@ -20,7 +20,7 @@ module vga_clock_draw (
     wire [10:0] ax = x[10] ? -x : x;
     wire [10:0] ay = y[10] ? -y : y;
 
-    // ── 시간대 (비교기 공유) ─────────────────────────────────
+    // ── 시간대 ───────────────────────────────────────────────
     wire h_lt6  = (hour < 6'd6);
     wire h_lt12 = (hour < 6'd12);
     wire h_lt18 = (hour < 6'd18);
@@ -45,7 +45,7 @@ module vga_clock_draw (
          (min >= 6'd24) ? 6'd2 :
          (min >= 6'd12) ? 6'd1 : 6'd0);
 
-    // ── 하늘 오브젝트 위치 ───────────────────────────────────
+    // ── 하늘 오브젝트 위치 (절댓값+부호 분리) ────────────────
     reg [7:0] sky_dx_abs;
     reg [7:0] sky_dy_abs;
     reg       sky_dx_neg;
@@ -53,18 +53,18 @@ module vga_clock_draw (
 
     always @(*) begin
         case (hour12_safe)
-            4'd0:  begin sky_dx_abs=8'd0;   sky_dy_abs=8'd170; sky_dx_neg=0; sky_dy_neg=1; end
-            4'd1:  begin sky_dx_abs=8'd85;  sky_dy_abs=8'd147; sky_dx_neg=0; sky_dy_neg=1; end
-            4'd2:  begin sky_dx_abs=8'd147; sky_dy_abs=8'd85;  sky_dx_neg=0; sky_dy_neg=1; end
-            4'd3:  begin sky_dx_abs=8'd170; sky_dy_abs=8'd0;   sky_dx_neg=0; sky_dy_neg=0; end
-            4'd4:  begin sky_dx_abs=8'd147; sky_dy_abs=8'd85;  sky_dx_neg=0; sky_dy_neg=0; end
-            4'd5:  begin sky_dx_abs=8'd85;  sky_dy_abs=8'd147; sky_dx_neg=0; sky_dy_neg=0; end
-            4'd6:  begin sky_dx_abs=8'd0;   sky_dy_abs=8'd170; sky_dx_neg=0; sky_dy_neg=0; end
-            4'd7:  begin sky_dx_abs=8'd85;  sky_dy_abs=8'd147; sky_dx_neg=1; sky_dy_neg=0; end
-            4'd8:  begin sky_dx_abs=8'd147; sky_dy_abs=8'd85;  sky_dx_neg=1; sky_dy_neg=0; end
-            4'd9:  begin sky_dx_abs=8'd170; sky_dy_abs=8'd0;   sky_dx_neg=1; sky_dy_neg=0; end
-            4'd10: begin sky_dx_abs=8'd147; sky_dy_abs=8'd85;  sky_dx_neg=1; sky_dy_neg=1; end
-            default:begin sky_dx_abs=8'd85; sky_dy_abs=8'd147; sky_dx_neg=1; sky_dy_neg=1; end
+            4'd0:   begin sky_dx_abs=8'd0;   sky_dy_abs=8'd170; sky_dx_neg=0; sky_dy_neg=1; end
+            4'd1:   begin sky_dx_abs=8'd85;  sky_dy_abs=8'd147; sky_dx_neg=0; sky_dy_neg=1; end
+            4'd2:   begin sky_dx_abs=8'd147; sky_dy_abs=8'd85;  sky_dx_neg=0; sky_dy_neg=1; end
+            4'd3:   begin sky_dx_abs=8'd170; sky_dy_abs=8'd0;   sky_dx_neg=0; sky_dy_neg=0; end
+            4'd4:   begin sky_dx_abs=8'd147; sky_dy_abs=8'd85;  sky_dx_neg=0; sky_dy_neg=0; end
+            4'd5:   begin sky_dx_abs=8'd85;  sky_dy_abs=8'd147; sky_dx_neg=0; sky_dy_neg=0; end
+            4'd6:   begin sky_dx_abs=8'd0;   sky_dy_abs=8'd170; sky_dx_neg=0; sky_dy_neg=0; end
+            4'd7:   begin sky_dx_abs=8'd85;  sky_dy_abs=8'd147; sky_dx_neg=1; sky_dy_neg=0; end
+            4'd8:   begin sky_dx_abs=8'd147; sky_dy_abs=8'd85;  sky_dx_neg=1; sky_dy_neg=0; end
+            4'd9:   begin sky_dx_abs=8'd170; sky_dy_abs=8'd0;   sky_dx_neg=1; sky_dy_neg=0; end
+            4'd10:  begin sky_dx_abs=8'd147; sky_dy_abs=8'd85;  sky_dx_neg=1; sky_dy_neg=1; end
+            default:begin sky_dx_abs=8'd85;  sky_dy_abs=8'd147; sky_dx_neg=1; sky_dy_neg=1; end
         endcase
     end
 
@@ -80,7 +80,7 @@ module vga_clock_draw (
     wire sun_body  = (morn_t | day_t)  && (sky_dist <= 12'd34);
     wire moon_body = (night_t | eve_t) && (sky_dist <= 12'd24);
 
-    // ── 별/새/반딧불 ─────────────────────────────────────────
+    // ── 별 (밤) ───────────────────────────────────────────────
     wire [7:0] hp7 = hpos[7:0];
     wire [6:0] vp6 = vpos[6:0];
     wire [6:0] hp6 = hpos[6:0];
@@ -93,23 +93,7 @@ module vga_clock_draw (
         ((hp7==8'd170) && (vp6==7'd70)) |
         ((hp7==8'd230) && (vp6==7'd35)));
 
-    wire bird = day_t && (
-        ((hp7==8'd120) && (vp5==6'd65)) |
-        ((hp7==8'd180) && (vp5==6'd50)) |
-        ((hp7==8'd55)  && (vp5==6'd45)) |
-        ((hp7==8'd220) && (vp5==6'd30)) |
-        ((hp7==8'd480) && (vp5==6'd55)));
-
-    wire firefly = eve_t && (
-        ((hp7==8'd55)  && (vp6==7'd80))  |
-        ((hp7==8'd180) && (vp6==7'd35))  |
-        ((hp7==8'd250) && (vp6==7'd95))  |
-        ((hp7==8'd400) && (vp6==7'd60))  |
-        ((hp7==8'd490) && (vp6==7'd110)) |
-        ((hp7==8'd130) && (vp6==7'd120)) |
-        ((hp7==8'd530) && (vp6==7'd45)));
-
-    // ── 구름 — 비트슬라이스 점 방식 (별/반딧불과 동일 구조) ──
+    // ── 구름 (아침) ───────────────────────────────────────────
     wire cloud = morn_t && (
         ((hp7==8'd80)  && (vp5==6'd55)) |
         ((hp7==8'd84)  && (vp5==6'd52)) |
@@ -132,7 +116,7 @@ module vga_clock_draw (
         ((hp7==8'd229) && (vp5==6'd40)) |
         ((hp7==8'd245) && (vp5==6'd39)));
 
-    // ── 시계판 (다각형, 원복) ────────────────────────────────
+    // ── 시계판 (다각형) ──────────────────────────────────────
     wire face_ring =
         ((ay <= 11'd122) && (ay >= 11'd118) && (ax <= 11'd28)) ||
         ((ay <= 11'd118) && (ay >= 11'd110) && (ax >= 11'd28)  && (ax <= 11'd58)) ||
@@ -205,10 +189,8 @@ module vga_clock_draw (
         else if (face_ring)   rgb = 6'b001100;
         else if (sun_body)    rgb = 6'b111100;
         else if (moon_body)   rgb = 6'b111111;
-        else if (cloud)       rgb = 6'b111111;
         else if (star)        rgb = 6'b111111;
-        else if (bird)        rgb = 6'b000000;
-        else if (firefly)     rgb = 6'b111100;
+        else if (cloud)       rgb = 6'b111111;
         else                  rgb = bg_color;
     end
 

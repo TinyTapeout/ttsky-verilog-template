@@ -20,7 +20,7 @@ module vga_clock_draw (
     wire [10:0] ax = x[10] ? -x : x;
     wire [10:0] ay = y[10] ? -y : y;
 
-    // ── 시간대 ───────────────────────────────────────────────
+    // ── 시간대 (비교기 공유) ─────────────────────────────────
     wire h_lt6  = (hour < 6'd6);
     wire h_lt12 = (hour < 6'd12);
     wire h_lt18 = (hour < 6'd18);
@@ -68,8 +68,12 @@ module vga_clock_draw (
         endcase
     end
 
-    wire signed [10:0] sky_cx = sky_dx_neg ? -$signed({1'b0, sky_dx_abs}) : $signed({1'b0, sky_dx_abs});
-    wire signed [10:0] sky_cy = sky_dy_neg ? -$signed({1'b0, sky_dy_abs}) : $signed({1'b0, sky_dy_abs});
+    wire signed [10:0] sky_cx = sky_dx_neg
+        ? -$signed({1'b0, sky_dx_abs})
+        :  $signed({1'b0, sky_dx_abs});
+    wire signed [10:0] sky_cy = sky_dy_neg
+        ? -$signed({1'b0, sky_dy_abs})
+        :  $signed({1'b0, sky_dy_abs});
 
     wire signed [10:0] sky_obj_dx = x - sky_cx;
     wire signed [10:0] sky_obj_dy = y - sky_cy;
@@ -80,12 +84,13 @@ module vga_clock_draw (
     wire sun_body  = (morn_t | day_t)  && (sky_dist <= 12'd34);
     wire moon_body = (night_t | eve_t) && (sky_dist <= 12'd24);
 
-    // ── 별 (밤) ───────────────────────────────────────────────
+    // ── 공통 비트슬라이스 ────────────────────────────────────
     wire [7:0] hp7 = hpos[7:0];
     wire [6:0] vp6 = vpos[6:0];
     wire [6:0] hp6 = hpos[6:0];
     wire [5:0] vp5 = vpos[5:0];
 
+    // ── 별 (밤) ───────────────────────────────────────────────
     wire star = night_t && (
         ((hp6==7'd20)  && (vp5==6'd10)) |
         ((hp6==7'd85)  && (vp5==6'd25)) |
@@ -96,27 +101,29 @@ module vga_clock_draw (
     // ── 구름 (아침) ───────────────────────────────────────────
     wire cloud = morn_t && (
         ((hp7==8'd80)  && (vp5==6'd55)) |
-        ((hp7==8'd84)  && (vp5==6'd52)) |
-        ((hp7==8'd88)  && (vp5==6'd55)) |
         ((hp7==8'd76)  && (vp5==6'd55)) |
-        ((hp7==8'd92)  && (vp5==6'd54)) |
+        ((hp7==8'd84)  && (vp5==6'd52)) |
         ((hp7==8'd210) && (vp5==6'd35)) |
-        ((hp7==8'd214) && (vp5==6'd32)) |
-        ((hp7==8'd218) && (vp5==6'd35)) |
         ((hp7==8'd206) && (vp5==6'd35)) |
-        ((hp7==8'd222) && (vp5==6'd34)) |
+        ((hp7==8'd214) && (vp5==6'd32)) |
+        ((hp7==8'd178) && (vp5==6'd65)) |
         ((hp7==8'd174) && (vp5==6'd65)) |
-        ((hp7==8'd178) && (vp5==6'd62)) |
-        ((hp7==8'd182) && (vp5==6'd65)) |
-        ((hp7==8'd170) && (vp5==6'd65)) |
-        ((hp7==8'd186) && (vp5==6'd64)) |
+        ((hp7==8'd182) && (vp5==6'd62)) |
+        ((hp7==8'd237) && (vp5==6'd40)) |
         ((hp7==8'd233) && (vp5==6'd40)) |
-        ((hp7==8'd237) && (vp5==6'd37)) |
-        ((hp7==8'd241) && (vp5==6'd40)) |
-        ((hp7==8'd229) && (vp5==6'd40)) |
-        ((hp7==8'd245) && (vp5==6'd39)));
+        ((hp7==8'd241) && (vp5==6'd37)));
 
-    // ── 시계판 (다각형) ──────────────────────────────────────
+    // ── 반딧불 (저녁) ─────────────────────────────────────────
+    wire firefly = eve_t && (
+        ((hp7==8'd55)  && (vp6==7'd80))  |
+        ((hp7==8'd180) && (vp6==7'd35))  |
+        ((hp7==8'd250) && (vp6==7'd95))  |
+        ((hp7==8'd400) && (vp6==7'd60))  |
+        ((hp7==8'd490) && (vp6==7'd110)) |
+        ((hp7==8'd130) && (vp6==7'd120)) |
+        ((hp7==8'd530) && (vp6==7'd45)));
+
+    // ── 시계판 (7구간 다각형) ────────────────────────────────
     wire face_ring =
         ((ay <= 11'd122) && (ay >= 11'd118) && (ax <= 11'd28)) ||
         ((ay <= 11'd118) && (ay >= 11'd110) && (ax >= 11'd28)  && (ax <= 11'd58)) ||
@@ -191,6 +198,7 @@ module vga_clock_draw (
         else if (moon_body)   rgb = 6'b111111;
         else if (star)        rgb = 6'b111111;
         else if (cloud)       rgb = 6'b111111;
+        else if (firefly)     rgb = 6'b111100;
         else                  rgb = bg_color;
     end
 

@@ -32,70 +32,71 @@ module hand_60dir3 (
     wire q2 = x_le_0 & y_ge_0;
     wire q3 = x_le_0 & y_le_0;
 
-    function [3:0] dir60;
+    // dir60_rom: 비교기 대신 64-entry ROM으로 교체
+    // 출력 인코딩: bit[3:2]=사분면(q0~q3), bit[1:0]=계산패턴(axis/ad1/ad0/ad2)
+    // → hand_calc에서 비교기 없이 bit-slice만으로 패턴/사분면 선택 가능
+    function [3:0] dir60_rom;
         input [5:0] pos;
+        reg [3:0] rom [0:63];
         begin
-            if      ((pos <= 6'd1) || (pos >= 6'd58)) dir60 = 4'd0;
-            else if (pos <= 6'd5)  dir60 = 4'd1;
-            else if (pos <= 6'd9)  dir60 = 4'd2;
-            else if (pos <= 6'd13) dir60 = 4'd3;
-            else if (pos <= 6'd16) dir60 = 4'd4;
-            else if (pos <= 6'd20) dir60 = 4'd5;
-            else if (pos <= 6'd24) dir60 = 4'd6;
-            else if (pos <= 6'd28) dir60 = 4'd7;
-            else if (pos <= 6'd31) dir60 = 4'd8;
-            else if (pos <= 6'd35) dir60 = 4'd9;
-            else if (pos <= 6'd39) dir60 = 4'd10;
-            else if (pos <= 6'd43) dir60 = 4'd11;
-            else if (pos <= 6'd46) dir60 = 4'd12;
-            else if (pos <= 6'd50) dir60 = 4'd13;
-            else if (pos <= 6'd54) dir60 = 4'd14;
-            else                   dir60 = 4'd15;
+            rom[ 0]=4'b0000; rom[ 1]=4'b0000;                          // pos  0~ 1 : 12시 축
+            rom[ 2]=4'b0001; rom[ 3]=4'b0001; rom[ 4]=4'b0001; rom[ 5]=4'b0001; // pos  2~ 5 : q0 ad1
+            rom[ 6]=4'b0010; rom[ 7]=4'b0010; rom[ 8]=4'b0010; rom[ 9]=4'b0010; // pos  6~ 9 : q0 ad0
+            rom[10]=4'b0011; rom[11]=4'b0011; rom[12]=4'b0011; rom[13]=4'b0011; // pos 10~13 : q0 ad2
+            rom[14]=4'b0100; rom[15]=4'b0100; rom[16]=4'b0100;                  // pos 14~16 : 3시 축
+            rom[17]=4'b0111; rom[18]=4'b0111; rom[19]=4'b0111; rom[20]=4'b0111; // pos 17~20 : q1 ad2
+            rom[21]=4'b0110; rom[22]=4'b0110; rom[23]=4'b0110; rom[24]=4'b0110; // pos 21~24 : q1 ad0
+            rom[25]=4'b0101; rom[26]=4'b0101; rom[27]=4'b0101; rom[28]=4'b0101; // pos 25~28 : q1 ad1
+            rom[29]=4'b1000; rom[30]=4'b1000; rom[31]=4'b1000;                  // pos 29~31 : 6시 축
+            rom[32]=4'b1001; rom[33]=4'b1001; rom[34]=4'b1001; rom[35]=4'b1001; // pos 32~35 : q2 ad1
+            rom[36]=4'b1010; rom[37]=4'b1010; rom[38]=4'b1010; rom[39]=4'b1010; // pos 36~39 : q2 ad0
+            rom[40]=4'b1011; rom[41]=4'b1011; rom[42]=4'b1011; rom[43]=4'b1011; // pos 40~43 : q2 ad2
+            rom[44]=4'b1100; rom[45]=4'b1100; rom[46]=4'b1100;                  // pos 44~46 : 9시 축
+            rom[47]=4'b1111; rom[48]=4'b1111; rom[49]=4'b1111; rom[50]=4'b1111; // pos 47~50 : q3 ad2
+            rom[51]=4'b1110; rom[52]=4'b1110; rom[53]=4'b1110; rom[54]=4'b1110; // pos 51~54 : q3 ad0
+            rom[55]=4'b1101; rom[56]=4'b1101; rom[57]=4'b1101;                  // pos 55~57 : q3 ad1
+            rom[58]=4'b0000; rom[59]=4'b0000; rom[60]=4'b0000; rom[61]=4'b0000; // pos 58~63 : 12시 축
+            rom[62]=4'b0000; rom[63]=4'b0000;
+            dir60_rom = rom[pos];
         end
     endfunction
 
+    wire [3:0] sec_dir  = dir60_rom(sec_pos);
+    wire [3:0] min_dir  = dir60_rom(min_pos);
+    wire [3:0] hour_dir = dir60_rom(hour_pos);
+
+    // hand_calc: dir[3:2]로 사분면, dir[1:0]로 패턴 선택
+    // 비교기 없이 bit-slice MUX만 사용
     function hand_calc;
         input [3:0]  dir;
         input [10:0] len;
         input [10:0] wid;
         reg q_ok;
         begin
-            q_ok =
-                ((dir >= 4'd1)  & (dir <= 4'd3) ) ? q0 :
-                ((dir >= 4'd5)  & (dir <= 4'd7) ) ? q1 :
-                ((dir >= 4'd9)  & (dir <= 4'd11)) ? q2 :
-                ((dir >= 4'd13) & (dir <= 4'd15)) ? q3 :
-                                                     1'b0;
+            // dir[3:2]로 사분면 직접 선택 (비교기 없음)
+            case (dir[3:2])
+                2'b00: q_ok = q0;
+                2'b01: q_ok = q1;
+                2'b10: q_ok = q2;
+                2'b11: q_ok = q3;
+            endcase
 
-            case (dir)
-                4'd0:  hand_calc = y_le_0 & (ay <= len) & (ax <= wid);
-                4'd4:  hand_calc = x_ge_0 & (ax <= len) & (ay <= wid);
-                4'd8:  hand_calc = y_ge_0 & (ay <= len) & (ax <= wid);
-                4'd12: hand_calc = x_le_0 & (ax <= len) & (ay <= wid);
-
-                4'd1,
-                4'd7,
-                4'd9,
-                4'd15: hand_calc = q_ok & (ay <= len) & (ad1 <= wid);
-
-                4'd2,
-                4'd6,
-                4'd10,
-                4'd14: hand_calc = q_ok & (ax <= len) & (ay <= len) & (ad0 <= wid);
-
-                4'd3,
-                4'd5,
-                4'd11,
-                4'd13: hand_calc = q_ok & (ax <= len) & (ad2 <= wid);
-
-                default: hand_calc = 1'b0;
+            // dir[1:0]로 계산 패턴 선택
+            case (dir[1:0])
+                2'b00: begin                                               // 축방향
+                    case (dir[3:2])
+                        2'b00: hand_calc = y_le_0 & (ay <= len) & (ax <= wid); // 12시
+                        2'b01: hand_calc = x_ge_0 & (ax <= len) & (ay <= wid); //  3시
+                        2'b10: hand_calc = y_ge_0 & (ay <= len) & (ax <= wid); //  6시
+                        2'b11: hand_calc = x_le_0 & (ax <= len) & (ay <= wid); //  9시
+                    endcase
+                end
+                2'b01: hand_calc = q_ok & (ay <= len) & (ad1 <= wid);
+                2'b10: hand_calc = q_ok & (ax <= len) & (ay <= len) & (ad0 <= wid);
+                2'b11: hand_calc = q_ok & (ax <= len) & (ad2 <= wid);
             endcase
         end
     endfunction
-
-    wire [3:0] sec_dir  = dir60(sec_pos);
-    wire [3:0] min_dir  = dir60(min_pos);
-    wire [3:0] hour_dir = dir60(hour_pos);
 
     assign sec_hand  = hand_calc(sec_dir,  11'd95, 11'd4);
     assign min_hand  = hand_calc(min_dir,  11'd75, 11'd5);

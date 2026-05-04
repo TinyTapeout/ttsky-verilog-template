@@ -34,7 +34,6 @@ module clock(
     localparam [1:0] MIN  = 2'b01;
     localparam [1:0] HOUR = 2'b10;
 
-    wire [26:0] cnt;
     wire        tick_sec, tick_min;
     wire        w_tick;
 
@@ -49,12 +48,12 @@ module clock(
     wire hour_sub = ctl_sub && (ctl_time == HOUR);
 
     tick_gen #(
-        .COUNT(27'd50_000_000)
+        .COUNT(27'd25_000)
+        //.COUNT(27'd50_000_000)
         //.COUNT(27'd10) //TEST FOR TESTBENCH ONLY
     ) U1_tick (
         .clk    (clk     ),
         .nrst   (nrst    ),
-        .cnt    (cnt     ),
         .tick   (w_tick  )
     );
 
@@ -103,9 +102,10 @@ module tick_gen #(
 )(
     input                clk ,
     input                nrst,
-    output  reg [26:0]   cnt ,
     output  reg          tick
 );
+
+    reg [26:0] cnt;
 
     always @(posedge clk or negedge nrst) begin
         if(!nrst) begin

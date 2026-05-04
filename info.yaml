@@ -2,44 +2,44 @@ project:
   title:        "VGA Clock Demo"
   author:       "electron65"
   discord:      "john_is_wicked"
-  description:  "VGA analog/digital clock with sync output"
+  description:  "VGA analog clock demo using VGA sync and gamepad input"
   language:     "Verilog"
-  clock_hz:     25000000   # VGA용 (25MHz 권장)
+  clock_hz:     25000000
 
   tiles: "1x1"
 
   top_module:  "tt_um_electron65_vga"
 
   source_files:
+    - "top.v"
     - "clock_top.v"
     - "clock_controller.v"
     - "clock.v"
     - "hvsync_generator.v"
     - "vga_clock_draw.v"
     - "hand_60dir.v"
+    - "gamepad_button_pulse.v"
+    - "gamepad_pmod.v"
 
 pinout:
-  # Inputs
-  ui[0]: "mode"
-  ui[1]: "select"
-  ui[2]: "up"
-  ui[3]: "down"
-  ui[4]: ""
-  ui[5]: ""
-  ui[6]: ""
+  ui[0]: ""
+  ui[1]: ""
+  ui[2]: ""
+  ui[3]: ""
+  ui[4]: "pmod_latch"
+  ui[5]: "pmod_clk"
+  ui[6]: "pmod_data"
   ui[7]: ""
 
-  # Outputs
-  uo[0]: "hsync"
-  uo[1]: "vsync"
-  uo[2]: "red"
-  uo[3]: "green"
-  uo[4]: "blue"
-  uo[5]: ""
-  uo[6]: ""
-  uo[7]: ""
+  uo[0]: "R1"
+  uo[1]: "G1"
+  uo[2]: "B1"
+  uo[3]: "VSYNC"
+  uo[4]: "R0"
+  uo[5]: "G0"
+  uo[6]: "B0"
+  uo[7]: "HSYNC"
 
-  # Bidirectional pins
   uio[0]: ""
   uio[1]: ""
   uio[2]: ""

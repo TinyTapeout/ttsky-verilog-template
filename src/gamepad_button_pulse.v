@@ -1,3 +1,5 @@
+`timescale 1ns / 1ps
+
 module gamepad_button_pulse (
     input  wire clk,
     input  wire nrst,

@@ -18,8 +18,8 @@ module vga_clock_draw (
     wire signed [10:0] x = $signed({1'b0, hpos}) - 11'sd320;
     wire signed [10:0] y = $signed({1'b0, vpos}) - 11'sd240;
 
-    wire signed [10:0] ax = x[10] ? -x : x;
-    wire signed [10:0] ay = y[10] ? -y : y;
+    wire [10:0] ax = x[10] ? -x : x;
+    wire [10:0] ay = y[10] ? -y : y;
 
     wire night_time = (hour < 6'd6);
     wire morn_time  = (hour >= 6'd6)  && (hour < 6'd12);
@@ -40,59 +40,71 @@ module vga_clock_draw (
          (min >= 6'd24) ? 6'd2 :
          (min >= 6'd12) ? 6'd1 : 6'd0);
 
+    reg [3:0] sky_dir;
+
+    always @(*) begin
+        if      ((hour_pos <= 6'd1) || (hour_pos >= 6'd58)) sky_dir = 4'd0;
+        else if (hour_pos <= 6'd5)  sky_dir = 4'd1;
+        else if (hour_pos <= 6'd9)  sky_dir = 4'd2;
+        else if (hour_pos <= 6'd13) sky_dir = 4'd3;
+        else if (hour_pos <= 6'd16) sky_dir = 4'd4;
+        else if (hour_pos <= 6'd20) sky_dir = 4'd5;
+        else if (hour_pos <= 6'd24) sky_dir = 4'd6;
+        else if (hour_pos <= 6'd28) sky_dir = 4'd7;
+        else if (hour_pos <= 6'd31) sky_dir = 4'd8;
+        else if (hour_pos <= 6'd35) sky_dir = 4'd9;
+        else if (hour_pos <= 6'd39) sky_dir = 4'd10;
+        else if (hour_pos <= 6'd43) sky_dir = 4'd11;
+        else if (hour_pos <= 6'd46) sky_dir = 4'd12;
+        else if (hour_pos <= 6'd50) sky_dir = 4'd13;
+        else if (hour_pos <= 6'd54) sky_dir = 4'd14;
+        else                        sky_dir = 4'd15;
+    end
+
     reg signed [10:0] sky_dx;
     reg signed [10:0] sky_dy;
 
     always @(*) begin
-        case (hour_pos)
-            6'd0,  6'd1:  begin sky_dx =  11'sd0;   sky_dy = -11'sd170; end
-            6'd2,  6'd3:  begin sky_dx =  11'sd44;  sky_dy = -11'sd164; end
-            6'd4,  6'd5:  begin sky_dx =  11'sd85;  sky_dy = -11'sd147; end
-            6'd6,  6'd7:  begin sky_dx =  11'sd120; sky_dy = -11'sd120; end
-            6'd8,  6'd9:  begin sky_dx =  11'sd147; sky_dy = -11'sd85;  end
-            6'd10, 6'd11: begin sky_dx =  11'sd164; sky_dy = -11'sd44;  end
-            6'd12, 6'd13: begin sky_dx =  11'sd170; sky_dy =  11'sd0;   end
-            6'd14, 6'd15: begin sky_dx =  11'sd164; sky_dy =  11'sd44;  end
-            6'd16, 6'd17: begin sky_dx =  11'sd147; sky_dy =  11'sd85;  end
-            6'd18, 6'd19: begin sky_dx =  11'sd120; sky_dy =  11'sd120; end
-            6'd20, 6'd21: begin sky_dx =  11'sd85;  sky_dy =  11'sd147; end
-            6'd22, 6'd23: begin sky_dx =  11'sd44;  sky_dy =  11'sd164; end
-            6'd24, 6'd25: begin sky_dx =  11'sd0;   sky_dy =  11'sd170; end
-            6'd26, 6'd27: begin sky_dx = -11'sd44;  sky_dy =  11'sd164; end
-            6'd28, 6'd29: begin sky_dx = -11'sd85;  sky_dy =  11'sd147; end
-            6'd30, 6'd31: begin sky_dx = -11'sd120; sky_dy =  11'sd120; end
-            6'd32, 6'd33: begin sky_dx = -11'sd147; sky_dy =  11'sd85;  end
-            6'd34, 6'd35: begin sky_dx = -11'sd164; sky_dy =  11'sd44;  end
-            6'd36, 6'd37: begin sky_dx = -11'sd170; sky_dy =  11'sd0;   end
-            6'd38, 6'd39: begin sky_dx = -11'sd164; sky_dy = -11'sd44;  end
-            6'd40, 6'd41: begin sky_dx = -11'sd147; sky_dy = -11'sd85;  end
-            6'd42, 6'd43: begin sky_dx = -11'sd120; sky_dy = -11'sd120; end
-            6'd44, 6'd45: begin sky_dx = -11'sd85;  sky_dy = -11'sd147; end
-            6'd46, 6'd47: begin sky_dx = -11'sd44;  sky_dy = -11'sd164; end
-            default:      begin sky_dx =  11'sd0;   sky_dy = -11'sd170; end
+        case (sky_dir)
+            4'd0:  begin sky_dx =  11'sd0;   sky_dy = -11'sd170; end
+            4'd1:  begin sky_dx =  11'sd44;  sky_dy = -11'sd164; end
+            4'd2:  begin sky_dx =  11'sd120; sky_dy = -11'sd120; end
+            4'd3:  begin sky_dx =  11'sd164; sky_dy = -11'sd44;  end
+            4'd4:  begin sky_dx =  11'sd170; sky_dy =  11'sd0;   end
+            4'd5:  begin sky_dx =  11'sd164; sky_dy =  11'sd44;  end
+            4'd6:  begin sky_dx =  11'sd120; sky_dy =  11'sd120; end
+            4'd7:  begin sky_dx =  11'sd44;  sky_dy =  11'sd164; end
+            4'd8:  begin sky_dx =  11'sd0;   sky_dy =  11'sd170; end
+            4'd9:  begin sky_dx = -11'sd44;  sky_dy =  11'sd164; end
+            4'd10: begin sky_dx = -11'sd120; sky_dy =  11'sd120; end
+            4'd11: begin sky_dx = -11'sd164; sky_dy =  11'sd44;  end
+            4'd12: begin sky_dx = -11'sd170; sky_dy =  11'sd0;   end
+            4'd13: begin sky_dx = -11'sd164; sky_dy = -11'sd44;  end
+            4'd14: begin sky_dx = -11'sd120; sky_dy = -11'sd120; end
+            default: begin sky_dx = -11'sd44; sky_dy = -11'sd164; end
         endcase
     end
 
     wire signed [10:0] sky_obj_dx = x - sky_dx;
     wire signed [10:0] sky_obj_dy = y - sky_dy;
 
-    wire signed [10:0] sky_ax = sky_obj_dx[10] ? -sky_obj_dx : sky_obj_dx;
-    wire signed [10:0] sky_ay = sky_obj_dy[10] ? -sky_obj_dy : sky_obj_dy;
+    wire [10:0] sky_ax = sky_obj_dx[10] ? -sky_obj_dx : sky_obj_dx;
+    wire [10:0] sky_ay = sky_obj_dy[10] ? -sky_obj_dy : sky_obj_dy;
 
     wire [11:0] sky_dist = sky_ax + sky_ay;
 
-    wire sun_body  = (morn_time | day_time)  && (sky_dist <= 12'd34);
-    wire moon_body = (night_time | eve_time) && (sky_dist <= 12'd24);
+    wire sun_body  = (morn_time | day_time)   && (sky_dist <= 12'd34);
+    wire moon_body = (night_time | eve_time)  && (sky_dist <= 12'd24);
 
-    wire star1 = night_time && (hpos[6:0] == 7'd20)  && (vpos[5:0] == 6'd10);
-    wire star2 = night_time && (hpos[6:0] == 7'd85)  && (vpos[5:0] == 6'd25);
-    wire star3 = night_time && (hpos[6:0] == 7'd110) && (vpos[5:0] == 6'd45);
-    wire star4 = night_time && (hpos[7:0] == 8'd170) && (vpos[6:0] == 7'd70);
-    wire star5 = night_time && (hpos[7:0] == 8'd230) && (vpos[6:0] == 7'd35);
+    wire star =
+        night_time &&
+        (((hpos[6:0] == 7'd20)  && (vpos[5:0] == 6'd10)) |
+         ((hpos[6:0] == 7'd85)  && (vpos[5:0] == 6'd25)) |
+         ((hpos[6:0] == 7'd110) && (vpos[5:0] == 6'd45)) |
+         ((hpos[7:0] == 8'd170) && (vpos[6:0] == 7'd70)) |
+         ((hpos[7:0] == 8'd230) && (vpos[6:0] == 7'd35)));
 
-    wire star = star1 | star2 | star3 | star4 | star5;
-
-    wire ring_a =
+    wire face_ring =
         ((ay <= 11'd122) && (ay >= 11'd118) && (ax <= 11'd28)) ||
         ((ay <= 11'd118) && (ay >= 11'd110) && (ax >= 11'd28)  && (ax <= 11'd58)) ||
         ((ay <= 11'd108) && (ay >= 11'd96 ) && (ax >= 11'd58)  && (ax <= 11'd84)) ||
@@ -101,40 +113,27 @@ module vga_clock_draw (
         ((ay <= 11'd58 ) && (ay >= 11'd28 ) && (ax >= 11'd112) && (ax <= 11'd118)) ||
         ((ax <= 11'd122) && (ax >= 11'd118) && (ay <= 11'd28));
 
-    wire face_ring = ring_a;
-
     wire center_dot = (ax <= 11'd3) && (ay <= 11'd3);
 
-    wire mark12 = (ax <= 11'd3) && (y <= -11'sd105) && (y >= -11'sd120);
-    wire mark06 = (ax <= 11'd3) && (y >=  11'sd105) && (y <=  11'sd120);
-    wire mark03 = (ay <= 11'd3) && (x >=  11'sd105) && (x <=  11'sd120);
-    wire mark09 = (ay <= 11'd3) && (x <= -11'sd105) && (x >= -11'sd120);
-
-    wire major_mark = mark12 | mark03 | mark06 | mark09;
+    wire major_mark =
+        ((ax <= 11'd3) && (y <= -11'sd105) && (y >= -11'sd120)) ||
+        ((ax <= 11'd3) && (y >=  11'sd105) && (y <=  11'sd120)) ||
+        ((ay <= 11'd3) && (x >=  11'sd105) && (x <=  11'sd120)) ||
+        ((ay <= 11'd3) && (x <= -11'sd105) && (x >= -11'sd120));
 
     wire sec_hand;
     wire min_hand;
     wire hour_hand;
 
-    hand_60dir #(.LEN(95), .WIDTH(1)) U_SEC (
-        .x(x),
-        .y(y),
-        .pos(sec),
-        .hand(sec_hand)
-    );
-
-    hand_60dir #(.LEN(75), .WIDTH(2)) U_MIN (
-        .x(x),
-        .y(y),
-        .pos(min),
-        .hand(min_hand)
-    );
-
-    hand_60dir #(.LEN(50), .WIDTH(3)) U_HOUR (
-        .x(x),
-        .y(y),
-        .pos(hour_pos),
-        .hand(hour_hand)
+    hand_60dir3 U_HANDS (
+        .x         (x),
+        .y         (y),
+        .sec_pos   (sec),
+        .min_pos   (min),
+        .hour_pos  (hour_pos),
+        .sec_hand  (sec_hand),
+        .min_hand  (min_hand),
+        .hour_hand (hour_hand)
     );
 
     always @(*) begin

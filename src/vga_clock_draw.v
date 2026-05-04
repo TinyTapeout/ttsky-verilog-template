@@ -21,6 +21,85 @@ module vga_clock_draw (
     wire signed [10:0] ax = x[10] ? -x : x;
     wire signed [10:0] ay = y[10] ? -y : y;
 
+    wire night_time = (hour < 6'd6);
+    wire morn_time  = (hour >= 6'd6)  && (hour < 6'd12);
+    wire day_time   = (hour >= 6'd12) && (hour < 6'd18);
+    wire eve_time   = (hour >= 6'd18);
+
+    wire [5:0] bg_color = night_time ? 6'b000001 :
+                          morn_time  ? 6'b011011 :
+                          day_time   ? 6'b101111 :
+                                      6'b100101;
+
+    reg signed [10:0] sky_dx;
+    reg signed [10:0] sky_dy;
+
+    always @(*) begin
+        case (hour)
+            6'd0:  begin sky_dx = 11'sd0;    sky_dy = -11'sd170; end
+            6'd1:  begin sky_dx = 11'sd44;   sky_dy = -11'sd164; end
+            6'd2:  begin sky_dx = 11'sd85;   sky_dy = -11'sd147; end
+            6'd3:  begin sky_dx = 11'sd120;  sky_dy = -11'sd120; end
+            6'd4:  begin sky_dx = 11'sd147;  sky_dy = -11'sd85;  end
+            6'd5:  begin sky_dx = 11'sd164;  sky_dy = -11'sd44;  end
+            6'd6:  begin sky_dx = 11'sd170;  sky_dy = 11'sd0;    end
+            6'd7:  begin sky_dx = 11'sd164;  sky_dy = -11'sd44;  end
+            6'd8:  begin sky_dx = 11'sd147;  sky_dy = -11'sd85;  end
+            6'd9:  begin sky_dx = 11'sd120;  sky_dy = -11'sd120; end
+            6'd10: begin sky_dx = 11'sd85;   sky_dy = -11'sd147; end
+            6'd11: begin sky_dx = 11'sd44;   sky_dy = -11'sd164; end
+            6'd12: begin sky_dx = 11'sd0;    sky_dy = -11'sd170; end
+            6'd13: begin sky_dx = -11'sd44;  sky_dy = -11'sd164; end
+            6'd14: begin sky_dx = -11'sd85;  sky_dy = -11'sd147; end
+            6'd15: begin sky_dx = -11'sd120; sky_dy = -11'sd120; end
+            6'd16: begin sky_dx = -11'sd147; sky_dy = -11'sd85;  end
+            6'd17: begin sky_dx = -11'sd164; sky_dy = -11'sd44;  end
+            6'd18: begin sky_dx = -11'sd170; sky_dy = 11'sd0;    end
+            6'd19: begin sky_dx = -11'sd164; sky_dy = -11'sd44;  end
+            6'd20: begin sky_dx = -11'sd147; sky_dy = -11'sd85;  end
+            6'd21: begin sky_dx = -11'sd120; sky_dy = -11'sd120; end
+            6'd22: begin sky_dx = -11'sd85;  sky_dy = -11'sd147; end
+            6'd23: begin sky_dx = -11'sd44;  sky_dy = -11'sd164; end
+            default: begin sky_dx = 11'sd0;  sky_dy = -11'sd170; end
+        endcase
+    end
+
+    wire signed [10:0] sun_cx = sky_dx;
+    wire signed [10:0] sun_cy = sky_dy;
+
+    wire signed [10:0] moon_cx = sky_dx;
+    wire signed [10:0] moon_cy = sky_dy;
+
+    wire signed [10:0] sun_dx = x - sun_cx;
+    wire signed [10:0] sun_dy = y - sun_cy;
+    wire signed [10:0] asx = sun_dx[10] ? -sun_dx : sun_dx;
+    wire signed [10:0] asy = sun_dy[10] ? -sun_dy : sun_dy;
+
+    wire signed [10:0] moon_dx = x - moon_cx;
+    wire signed [10:0] moon_dy = y - moon_cy;
+    wire signed [10:0] amx = moon_dx[10] ? -moon_dx : moon_dx;
+    wire signed [10:0] amy = moon_dy[10] ? -moon_dy : moon_dy;
+
+    wire sun_body = (morn_time | day_time | eve_time) &&
+                    ((asx + asy) <= 11'd34);
+
+    wire moon_full = (night_time | eve_time) &&
+                     ((amx + amy) <= 11'd30);
+
+    wire moon_cut = (moon_dx > -11'sd4) &&
+                    (moon_dx < 11'sd22) &&
+                    ((amx + amy) <= 11'd26);
+
+    wire moon_body = moon_full && !moon_cut;
+
+    wire star1 = night_time && (hpos[6:0] == 7'd20)  && (vpos[5:0] == 6'd10);
+    wire star2 = night_time && (hpos[6:0] == 7'd85)  && (vpos[5:0] == 6'd25);
+    wire star3 = night_time && (hpos[6:0] == 7'd110) && (vpos[5:0] == 6'd45);
+    wire star4 = night_time && (hpos[7:0] == 8'd170) && (vpos[6:0] == 7'd70);
+    wire star5 = night_time && (hpos[7:0] == 8'd230) && (vpos[6:0] == 7'd35);
+
+    wire star = star1 | star2 | star3 | star4 | star5;
+
     wire ring_a = ((ay <= 11'd122) && (ay >= 11'd118) && (ax <= 11'd28)) ||
                   ((ay <= 11'd118) && (ay >= 11'd110) && (ax >= 11'd28) && (ax <= 11'd58)) ||
                   ((ay <= 11'd108) && (ay >= 11'd96 ) && (ax >= 11'd58) && (ax <= 11'd84)) ||
@@ -82,10 +161,10 @@ module vga_clock_draw (
             rgb = 6'b111111;
         end
         else if (sec_hand) begin
-            rgb = 6'b111111;
+            rgb = 6'b110000;
         end
         else if (min_hand) begin
-            rgb = 6'b111100;
+            rgb = 6'b111111;
         end
         else if (hour_hand) begin
             rgb = 6'b001111;
@@ -96,11 +175,20 @@ module vga_clock_draw (
         else if (face_ring) begin
             rgb = 6'b001100;
         end
+        else if (sun_body) begin
+            rgb = 6'b111100;
+        end
+        else if (moon_body) begin
+            rgb = 6'b111111;
+        end
+        else if (star) begin
+            rgb = 6'b111111;
+        end
         else if (ctl_mode) begin
             rgb = 6'b000010;
         end
         else begin
-            rgb = 6'b000000;
+            rgb = bg_color;
         end
     end
 

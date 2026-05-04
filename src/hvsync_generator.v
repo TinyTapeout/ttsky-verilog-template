@@ -1,5 +1,3 @@
-`timescale 1ns / 1ps
-
 `ifndef HVSYNC_GENERATOR_H
 `define HVSYNC_GENERATOR_H
 

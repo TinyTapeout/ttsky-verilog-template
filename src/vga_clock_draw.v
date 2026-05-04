@@ -81,6 +81,44 @@ module vga_clock_draw (
          ((hpos[7:0] == 8'd170) && (vpos[6:0] == 7'd70)) |
          ((hpos[7:0] == 8'd230) && (vpos[6:0] == 7'd35)));
 
+    // ── 새 (낮 12~18시) ─ 경사진 V자, 4행 슬라이스 ─────────────
+    // 각 행마다 날개 범위를 이동시켜 경사 표현
+    wire bird1 = day_time && (
+        ((vpos==10'd62)&&(hpos>=10'd108)&&(hpos<=10'd117)) |
+        ((vpos==10'd62)&&(hpos>=10'd123)&&(hpos<=10'd132)) |
+        ((vpos==10'd63)&&(hpos>=10'd111)&&(hpos<=10'd118)) |
+        ((vpos==10'd63)&&(hpos>=10'd122)&&(hpos<=10'd129)) |
+        ((vpos==10'd64)&&(hpos>=10'd114)&&(hpos<=10'd119)) |
+        ((vpos==10'd64)&&(hpos>=10'd121)&&(hpos<=10'd126)) |
+        ((vpos==10'd65)&&(hpos>=10'd117)&&(hpos<=10'd123)));
+    wire bird2 = day_time && (
+        ((vpos==10'd47)&&(hpos>=10'd298)&&(hpos<=10'd307)) |
+        ((vpos==10'd47)&&(hpos>=10'd313)&&(hpos<=10'd322)) |
+        ((vpos==10'd48)&&(hpos>=10'd301)&&(hpos<=10'd308)) |
+        ((vpos==10'd48)&&(hpos>=10'd312)&&(hpos<=10'd319)) |
+        ((vpos==10'd49)&&(hpos>=10'd304)&&(hpos<=10'd309)) |
+        ((vpos==10'd49)&&(hpos>=10'd311)&&(hpos<=10'd316)) |
+        ((vpos==10'd50)&&(hpos>=10'd307)&&(hpos<=10'd313)));
+    wire bird3 = day_time && (
+        ((vpos==10'd77)&&(hpos>=10'd468)&&(hpos<=10'd477)) |
+        ((vpos==10'd77)&&(hpos>=10'd483)&&(hpos<=10'd492)) |
+        ((vpos==10'd78)&&(hpos>=10'd471)&&(hpos<=10'd478)) |
+        ((vpos==10'd78)&&(hpos>=10'd482)&&(hpos<=10'd489)) |
+        ((vpos==10'd79)&&(hpos>=10'd474)&&(hpos<=10'd479)) |
+        ((vpos==10'd79)&&(hpos>=10'd481)&&(hpos<=10'd486)) |
+        ((vpos==10'd80)&&(hpos>=10'd477)&&(hpos<=10'd483)));
+    wire bird = bird1 | bird2 | bird3;
+
+    // ── 반딧불 (저녁 18~24시) ─ 별과 동일한 구조, 노란색 ──────
+    wire firefly = eve_time &&
+        (((hpos[7:0] == 8'd55)  && (vpos[6:0] == 7'd80)) |
+         ((hpos[7:0] == 8'd180) && (vpos[6:0] == 7'd35)) |
+         ((hpos[7:0] == 8'd250) && (vpos[6:0] == 7'd95)) |
+         ((hpos[7:0] == 8'd400) && (vpos[6:0] == 7'd60)) |
+         ((hpos[7:0] == 8'd490) && (vpos[6:0] == 7'd110)) |
+         ((hpos[7:0] == 8'd130) && (vpos[6:0] == 7'd120)) |
+         ((hpos[7:0] == 8'd530) && (vpos[6:0] == 7'd45)));
+
     // ── 구름 (아침 6~12시) ─ 3봉우리 실루엣 ──────────────────
     // 각 구름: 넓은 몸통 + 왼쪽 봉우리 + 오른쪽 봉우리 (위쪽으로만)
 
@@ -276,13 +314,17 @@ module vga_clock_draw (
             rgb = 6'b111111;   // 흰 구름
         end
         else if (star) begin
-            rgb = 6'b111111;
+            rgb = 6'b111111;   // 흰 별
+        end
+        else if (bird) begin
+            rgb = 6'b000000;   // 검은 새 실루엣 (낮 배경 연두 위에)
+        end
+        else if (firefly) begin
+            rgb = 6'b111100;   // 노란 반딧불 #ffff00
         end
         else begin
             rgb = bg_color;
         end
     end
-
-    wire _unused = &{1'b0};
 
 endmodule

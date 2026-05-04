@@ -2,7 +2,7 @@ project:
   title:        "VGA Clock Demo"
   author:       "electron65"
   discord:      "john_is_wicked"
-  description:  "VGA analog clock demo using VGA sync and gamepad input"
+  description:  "VGA clock"
   language:     "Verilog"
   clock_hz:     25000000
 
@@ -10,14 +10,14 @@ project:
 
   top_module:  "tt_um_electron65_vga"
 
-source_files:
-  - "top.v"
-  - "clock_top.v"
-  - "clock_controller.v"
-  - "clock.v"
-  - "hvsync_generator.v"
-  - "vga_clock_draw.v"
-  - "hand_60dir.v"
+  source_files:
+    - "top.v"
+    - "clock_top.v"
+    - "clock_controller.v"
+    - "clock.v"
+    - "hvsync_generator.v"
+    - "vga_clock_draw.v"
+    - "hand_60dir.v"
 
 pinout:
   ui[0]: ""

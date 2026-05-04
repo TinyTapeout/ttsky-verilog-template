@@ -42,7 +42,7 @@ module vga_clock_draw (
     wire [5:0] min_pos = min;
 
     wire [5:0] hour12 = (hour >= 12) ? (hour - 12) : hour;
-    wire [6:0] hour_pos_tmp = hour12 * 5 + (min / 12);
+    wire [6:0] hour_pos_tmp = {1'b0, hour12} * 7'd5 + ({1'b0, min} / 7'd12);
     wire [5:0] hour_pos = hour_pos_tmp[5:0];
 
     wire sec_hand;

@@ -3,6 +3,8 @@
 module hand_60dir3 (
     input  wire signed [10:0] x,
     input  wire signed [10:0] y,
+    input  wire        [10:0] ax,
+    input  wire        [10:0] ay,
     input  wire [5:0]         sec_pos,
     input  wire [5:0]         min_pos,
     input  wire [5:0]         hour_pos,
@@ -11,8 +13,7 @@ module hand_60dir3 (
     output wire               hour_hand
 );
 
-    wire [10:0] ax = x[10] ? -x : x;
-    wire [10:0] ay = y[10] ? -y : y;
+    // ax, ay는 상위 모듈(vga_clock_draw)에서 전달받음 (중복 계산 제거)
 
     wire signed [11:0] d0 = $signed({1'b0, ax}) - $signed({1'b0, ay});
     wire signed [11:0] d1 = $signed({1'b0, ax}) - $signed({1'b0, ay[10:1]});

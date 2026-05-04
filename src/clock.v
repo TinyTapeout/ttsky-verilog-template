@@ -37,7 +37,7 @@ module clock(
     wire [26:0] cnt;
     wire        tick_sec, tick_min;
     wire        w_tick;
-    wire        dummy_tick;
+
     //ADD or SUB SEC
     wire sec_add  = ctl_add && (ctl_time == SEC);
     wire sec_sub  = ctl_sub && (ctl_time == SEC);
@@ -82,6 +82,8 @@ module clock(
         .tick   (tick_min)
     );
     
+    wire tick_hour;
+
     utime_ctl #(
         .COUNT(6'd24)
     ) U_hour (
@@ -91,7 +93,7 @@ module clock(
         .add    (hour_add ),
         .sub    (hour_sub ),
         .cnt    (hour     ),
-        .tick   (dummy_tick)
+        .tick   (tick_hour)
     );
 
 endmodule

@@ -1,3 +1,5 @@
+`timescale 1ns / 1ps
+
 module hand_60dir #(
     parameter LEN   = 100,
     parameter WIDTH = 3

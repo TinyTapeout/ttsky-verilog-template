@@ -40,48 +40,23 @@ module vga_clock_draw (
          (min >= 6'd24) ? 6'd2 :
          (min >= 6'd12) ? 6'd1 : 6'd0);
 
-    reg [3:0] sky_dir;
-
-    always @(*) begin
-        if      ((hour_pos <= 6'd1) || (hour_pos >= 6'd58)) sky_dir = 4'd0;
-        else if (hour_pos <= 6'd5)  sky_dir = 4'd1;
-        else if (hour_pos <= 6'd9)  sky_dir = 4'd2;
-        else if (hour_pos <= 6'd13) sky_dir = 4'd3;
-        else if (hour_pos <= 6'd16) sky_dir = 4'd4;
-        else if (hour_pos <= 6'd20) sky_dir = 4'd5;
-        else if (hour_pos <= 6'd24) sky_dir = 4'd6;
-        else if (hour_pos <= 6'd28) sky_dir = 4'd7;
-        else if (hour_pos <= 6'd31) sky_dir = 4'd8;
-        else if (hour_pos <= 6'd35) sky_dir = 4'd9;
-        else if (hour_pos <= 6'd39) sky_dir = 4'd10;
-        else if (hour_pos <= 6'd43) sky_dir = 4'd11;
-        else if (hour_pos <= 6'd46) sky_dir = 4'd12;
-        else if (hour_pos <= 6'd50) sky_dir = 4'd13;
-        else if (hour_pos <= 6'd54) sky_dir = 4'd14;
-        else                        sky_dir = 4'd15;
-    end
-
     reg signed [10:0] sky_dx;
     reg signed [10:0] sky_dy;
 
     always @(*) begin
-        case (sky_dir)
+        case (hour12)
             4'd0:  begin sky_dx =  11'sd0;   sky_dy = -11'sd170; end
-            4'd1:  begin sky_dx =  11'sd44;  sky_dy = -11'sd164; end
-            4'd2:  begin sky_dx =  11'sd120; sky_dy = -11'sd120; end
-            4'd3:  begin sky_dx =  11'sd164; sky_dy = -11'sd44;  end
-            4'd4:  begin sky_dx =  11'sd170; sky_dy =  11'sd0;   end
-            4'd5:  begin sky_dx =  11'sd164; sky_dy =  11'sd44;  end
-            4'd6:  begin sky_dx =  11'sd120; sky_dy =  11'sd120; end
-            4'd7:  begin sky_dx =  11'sd44;  sky_dy =  11'sd164; end
-            4'd8:  begin sky_dx =  11'sd0;   sky_dy =  11'sd170; end
-            4'd9:  begin sky_dx = -11'sd44;  sky_dy =  11'sd164; end
-            4'd10: begin sky_dx = -11'sd120; sky_dy =  11'sd120; end
-            4'd11: begin sky_dx = -11'sd164; sky_dy =  11'sd44;  end
-            4'd12: begin sky_dx = -11'sd170; sky_dy =  11'sd0;   end
-            4'd13: begin sky_dx = -11'sd164; sky_dy = -11'sd44;  end
-            4'd14: begin sky_dx = -11'sd120; sky_dy = -11'sd120; end
-            default: begin sky_dx = -11'sd44; sky_dy = -11'sd164; end
+            4'd1:  begin sky_dx =  11'sd85;  sky_dy = -11'sd147; end
+            4'd2:  begin sky_dx =  11'sd147; sky_dy = -11'sd85;  end
+            4'd3:  begin sky_dx =  11'sd170; sky_dy =  11'sd0;   end
+            4'd4:  begin sky_dx =  11'sd147; sky_dy =  11'sd85;  end
+            4'd5:  begin sky_dx =  11'sd85;  sky_dy =  11'sd147; end
+            4'd6:  begin sky_dx =  11'sd0;   sky_dy =  11'sd170; end
+            4'd7:  begin sky_dx = -11'sd85;  sky_dy =  11'sd147; end
+            4'd8:  begin sky_dx = -11'sd147; sky_dy =  11'sd85;  end
+            4'd9:  begin sky_dx = -11'sd170; sky_dy =  11'sd0;   end
+            4'd10: begin sky_dx = -11'sd147; sky_dy = -11'sd85;  end
+            default: begin sky_dx = -11'sd85; sky_dy = -11'sd147; end
         endcase
     end
 

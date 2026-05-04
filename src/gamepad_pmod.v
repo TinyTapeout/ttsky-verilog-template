@@ -1,3 +1,5 @@
+`timescale 1ns / 1ps
+
 /*
  * Copyright (c) 2025 Pat Deegan, https://psychogenic.com
  * SPDX-License-Identifier: Apache-2.0

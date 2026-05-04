@@ -1,56 +1,52 @@
-# Tiny Tapeout project information
 project:
-  title:        "VGA"      # Project title
-  author:       "electron65"      # Your name
-  discord:      "john_is_wicked"      # Your discord username, for communication and automatically assigning you a Tapeout role (optional)
-  description:  "VGA DEMO"      # One line description of what your project does
-  language:     "Verilog" # other examples include SystemVerilog, Amaranth, VHDL, etc
-  clock_hz:     0       # Clock frequency in Hz (or 0 if not applicable)
+  title:        "VGA Clock Demo"
+  author:       "electron65"
+  discord:      "john_is_wicked"
+  description:  "VGA analog/digital clock with sync output"
+  language:     "Verilog"
+  clock_hz:     25000000   # VGA용 (25MHz 권장)
 
-  # How many tiles your design occupies? A single tile is about 167x108 uM.
-  tiles: "1x1"          # Valid values: 1x1, 1x2, 2x2, 3x2, 4x2, 6x2 or 8x2
+  tiles: "1x1"
 
-  # Your top module name must start with "tt_um_". Make it unique by including your github username:
   top_module:  "tt_um_electron65_vga"
 
-  # List your project's source files here.
-  # Source files must be in ./src and you must list each source file separately, one per line.
-  # Don't forget to also update `PROJECT_SOURCES` in test/Makefile.
   source_files:
-    - "top.v"
+    - "clock_top.v"
+    - "clock_controller.v"
+    - "clock.v"
+    - "hvsync_generator.v"
+    - "vga_clock_draw.v"
+    - "hand_60dir.v"
 
-# The pinout of your project. Leave unused pins blank. DO NOT delete or add any pins.
-# This section is for the datasheet/website. Use descriptive names (e.g., RX, TX, MOSI, SCL, SEG_A, etc.).
 pinout:
   # Inputs
-  ui[0]: "in0"
-  ui[1]: "in1"
-  ui[2]: "in2"
-  ui[3]: "in3"
-  ui[4]: "in4"
-  ui[5]: "in5"
-  ui[6]: "in6"
-  ui[7]: "in7"
+  ui[0]: "mode"
+  ui[1]: "select"
+  ui[2]: "up"
+  ui[3]: "down"
+  ui[4]: ""
+  ui[5]: ""
+  ui[6]: ""
+  ui[7]: ""
 
   # Outputs
-  uo[0]: "out0"
-  uo[1]: "out1"
-  uo[2]: "out2"
-  uo[3]: "out3"
-  uo[4]: "out4"
-  uo[5]: "out5"
-  uo[6]: "out6"
-  uo[7]: "out7"
+  uo[0]: "hsync"
+  uo[1]: "vsync"
+  uo[2]: "red"
+  uo[3]: "green"
+  uo[4]: "blue"
+  uo[5]: ""
+  uo[6]: ""
+  uo[7]: ""
 
   # Bidirectional pins
-  uio[0]: "io0"
-  uio[1]: "io1"
-  uio[2]: "io2"
-  uio[3]: "io3"
-  uio[4]: "io4"
-  uio[5]: "io5"
-  uio[6]: "io6"
-  uio[7]: "io7"
+  uio[0]: ""
+  uio[1]: ""
+  uio[2]: ""
+  uio[3]: ""
+  uio[4]: ""
+  uio[5]: ""
+  uio[6]: ""
+  uio[7]: ""
 
-# Do not change!
 yaml_version: 6

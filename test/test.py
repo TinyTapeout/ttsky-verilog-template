@@ -23,21 +23,23 @@ async def test_project(dut):
     await ClockCycles(dut.clk, 10)
     dut.rst_n.value = 1
 
-    dut._log.info("Test project behavior")
+    dut._log.info("Test VGA behavior")
 
-    # 초기 상태 관찰
-    await ClockCycles(dut.clk, 200)
+    seen_hsync_low = False
+    seen_hsync_high = False
 
-    val1 = dut.uo_out.value.integer
+    for _ in range(1000):
+        await ClockCycles(dut.clk, 1)
+        hsync = int(dut.uo_out.value) >> 7 & 1
+        if hsync == 0:
+            seen_hsync_low = True
+        else:
+            seen_hsync_high = True
 
-    await ClockCycles(dut.clk, 200)
+    assert seen_hsync_low and seen_hsync_high
 
-    val2 = dut.uo_out.value.integer
+    dut._log.info("Test button input")
 
-    # VGA는 계속 바뀌는 신호이므로 고정값 비교 금지
-    assert val1 != 0 or val2 != 0
-
-    # 버튼 입력 테스트 (동작 깨지지 않는지만 확인)
     dut.ui_in.value = 1
     await ClockCycles(dut.clk, 5)
     dut.ui_in.value = 0

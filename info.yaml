@@ -19,6 +19,7 @@ project:
     - "vga_clock_draw.v"
     - "hand_60dir.v"
     - "gamepad_pmod.v"
+    - "gamepad_button_pulse.v"
 
 pinout:
   ui[0]: ""

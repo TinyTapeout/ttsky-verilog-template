@@ -15,6 +15,7 @@ module gamepad_pmod_min (
 );
 
   wire [11:0] gamepad_pmod_data;
+  wire reg_empty;
 
   gamepad_pmod_driver #(
       .BIT_WIDTH(12)
@@ -27,14 +28,12 @@ module gamepad_pmod_min (
       .data_reg(gamepad_pmod_data)
   );
 
-  gamepad_pmod_decoder_min decoder (
-      .data_reg(gamepad_pmod_data),
-      .select(select),
-      .start(start),
-      .up(up),
-      .down(down),
-      .is_present(is_present)
-  );
+  assign reg_empty  = (gamepad_pmod_data == 12'hfff);
+  assign is_present = ~reg_empty;
+  assign select     = ~reg_empty & gamepad_pmod_data[9];
+  assign start      = ~reg_empty & gamepad_pmod_data[8];
+  assign up         = ~reg_empty & gamepad_pmod_data[7];
+  assign down       = ~reg_empty & gamepad_pmod_data[6];
 
 endmodule
 
@@ -88,24 +87,5 @@ module gamepad_pmod_driver #(
       end
     end
   end
-
-endmodule
-
-module gamepad_pmod_decoder_min (
-    input wire [11:0] data_reg,
-    output wire select,
-    output wire start,
-    output wire up,
-    output wire down,
-    output wire is_present
-);
-
-  wire reg_empty = (data_reg == 12'hfff);
-
-  assign is_present = reg_empty ? 1'b0 : 1'b1;
-  assign select = reg_empty ? 1'b0 : data_reg[9];
-  assign start  = reg_empty ? 1'b0 : data_reg[8];
-  assign up     = reg_empty ? 1'b0 : data_reg[7];
-  assign down   = reg_empty ? 1'b0 : data_reg[6];
 
 endmodule

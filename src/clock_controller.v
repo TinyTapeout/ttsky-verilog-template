@@ -56,16 +56,8 @@ assign ctl_time = TIME_STATE;
 always @(posedge clk or negedge nrst) begin
     if(!nrst)
         MODE_STATE <= CLOCK_MODE;
-    else if(mode == 1'b1) begin
-        if(MODE_STATE == CLOCK_MODE) begin
-            MODE_STATE <= SET_MODE;
-        end else if(MODE_STATE == SET_MODE) begin
-            MODE_STATE <= CLOCK_MODE;
-        end else
-            MODE_STATE <= MODE_STATE;
-    end
-    else
-        MODE_STATE <= MODE_STATE;
+    else if(mode == 1'b1)
+        MODE_STATE <= ~MODE_STATE;
 end
 
 //TIME SET STATE MACHINE
@@ -73,22 +65,16 @@ always @(posedge clk or negedge nrst) begin
     if(!nrst)
         TIME_STATE <= SEC;
     else if((MODE_STATE == SET_MODE) && (sel_t == 1'b1))begin
-        if(TIME_STATE == SEC) begin
+        if(TIME_STATE == SEC)
             TIME_STATE <= MIN;
-        end else if(TIME_STATE == MIN) begin
+        else if(TIME_STATE == MIN)
             TIME_STATE <= HOUR;
-        end else if(TIME_STATE == HOUR) begin
+        else
             TIME_STATE <= SEC;
-        end
-        else begin
-            TIME_STATE <= TIME_STATE;
-        end
     end
-    else
-        TIME_STATE <= TIME_STATE;
 end
 
-wire enable_set =  ((MODE_STATE == SET_MODE) && ((TIME_STATE == SEC) || (TIME_STATE == MIN) || (TIME_STATE == HOUR)));
+wire enable_set =  (MODE_STATE == SET_MODE);
 
 wire add_only =  add & ~sub;
 wire sub_only = ~add &  sub;

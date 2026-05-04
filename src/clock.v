@@ -3,14 +3,14 @@
 // Company: 
 // Engineer: 
 // 
-// Create Date: 05/03/2026 02:29:12 PM
+// Create Date: 04/30/2026 08:39:52 PM
 // Design Name: 
-// Module Name: clock_controller
+// Module Name: clock
 // Project Name: 
 // Target Devices: 
 // Tool Versions: 
 // Description: 
-// 
+
 // Dependencies: 
 // 
 // Revision:
@@ -20,88 +20,188 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module clock_controller(
-    input                   clk     ,
-    input                   nrst    ,
-    input       [3:0]       button  ,
-    output                  ctl_mode,
-    output      [1:0]       ctl_time,
-    output  reg             ctl_add ,
-    output  reg             ctl_sub
+module clock(
+    input               clk     ,
+    input               nrst    ,
+    input       [1:0]   ctl_time,
+    input               ctl_add ,
+    input               ctl_sub ,
+    output wire [5:0]   sec     ,
+    output wire [5:0]   min     ,
+    output wire [5:0]   hour
+);
+    localparam [1:0] SEC  = 2'b00;
+    localparam [1:0] MIN  = 2'b01;
+    localparam [1:0] HOUR = 2'b10;
+
+    wire [26:0] cnt;
+    wire        tick_sec, tick_min;
+    wire        w_tick;
+
+    //ADD or SUB SEC
+    wire sec_add  = ctl_add && (ctl_time == SEC);
+    wire sec_sub  = ctl_sub && (ctl_time == SEC);
+    //ADD or SUB MIN
+    wire min_add  = ctl_add && (ctl_time == MIN);
+    wire min_sub  = ctl_sub && (ctl_time == MIN);
+    //ADD or SUB HOUR
+    wire hour_add = ctl_add && (ctl_time == HOUR);
+    wire hour_sub = ctl_sub && (ctl_time == HOUR);
+
+    tick_gen #(
+        .COUNT(27'd50_000_000)
+        //.COUNT(27'd10) //TEST FOR TESTBENCH ONLY
+    ) U1_tick (
+        .clk    (clk     ),
+        .nrst   (nrst    ),
+        .cnt    (cnt     ),
+        .tick   (w_tick  )
     );
 
-wire mode, sel_t, add, sub;
+    utime_ctl #(
+        .COUNT(6'd60)
+    ) U_sec (
+        .clk    (clk     ),
+        .nrst   (nrst    ),
+        .flag   (w_tick  ),
+        .add    (sec_add ),
+        .sub    (sec_sub ),
+        .cnt    (sec     ),
+        .tick   (tick_sec)
+    );
 
-assign mode  = button[0];
-assign sel_t = button[1];
-assign add   = button[2];
-assign sub   = button[3];
+    utime_ctl #(
+        .COUNT(6'd60)
+    ) U_min (
+        .clk    (clk     ),
+        .nrst   (nrst    ),
+        .flag   (tick_sec),
+        .add    (min_add ),
+        .sub    (min_sub ),
+        .cnt    (min     ),
+        .tick   (tick_min)
+    );
+    
+    wire tick_hour;
 
-//MODE STATE
-localparam          CLOCK_MODE   = 1'b0;
-localparam          SET_MODE     = 1'b1;
-//TIME STATE
-localparam [1:0]    SEC          = 2'b00;
-localparam [1:0]    MIN          = 2'b01;
-localparam [1:0]    HOUR         = 2'b10;
+    utime_ctl #(
+        .COUNT(6'd24)
+    ) U_hour (
+        .clk    (clk      ),
+        .nrst   (nrst     ),
+        .flag   (tick_min ),
+        .add    (hour_add ),
+        .sub    (hour_sub ),
+        .cnt    (hour     ),
+        .tick   (tick_hour)
+    );
 
-//STATES
-reg         MODE_STATE;
-reg [1:0]   TIME_STATE;
+endmodule
 
-assign ctl_mode = MODE_STATE;
-assign ctl_time = TIME_STATE;
+module tick_gen #(
+    parameter [26:0] COUNT = 27'd50_000_000
+)(
+    input                clk ,
+    input                nrst,
+    output  reg [26:0]   cnt ,
+    output  reg          tick
+);
 
-//MODE STATE MACHINE
-always @(posedge clk or negedge nrst) begin
-    if(!nrst)
-        MODE_STATE <= CLOCK_MODE;
-    else if(mode == 1'b1) begin
-        if(MODE_STATE == CLOCK_MODE) begin
-            MODE_STATE <= SET_MODE;
-        end else if(MODE_STATE == SET_MODE) begin
-            MODE_STATE <= CLOCK_MODE;
-        end else
-            MODE_STATE <= MODE_STATE;
-    end
-    else
-        MODE_STATE <= MODE_STATE;
-end
-
-//TIME SET STATE MACHINE
-always @(posedge clk or negedge nrst) begin
-    if(!nrst)
-        TIME_STATE <= SEC;
-    else if((MODE_STATE == SET_MODE) && (sel_t == 1'b1))begin
-        if(TIME_STATE == SEC) begin
-            TIME_STATE <= MIN;
-        end else if(TIME_STATE == MIN) begin
-            TIME_STATE <= HOUR;
-        end else if(TIME_STATE == HOUR) begin
-            TIME_STATE <= SEC;
+    always @(posedge clk or negedge nrst) begin
+        if(!nrst) begin
+            cnt     <= 27'b0;
+            tick    <= 1'b0;
+        end
+        else if (cnt == COUNT - 1) begin
+            cnt     <= 27'b0;
+            tick    <=  1'b1;
         end
         else begin
-            TIME_STATE <= TIME_STATE;
+            cnt     <= cnt + 27'b1;
+            tick    <= 1'b0;      
+        end
+
+    end   
+endmodule
+
+//Original User Time Counter
+/*
+module utime #(
+    parameter [5:0] COUNT = 6'd60
+)(
+    input                clk ,
+    input                nrst,
+    input                flag,
+    output  reg [5:0]    cnt ,
+    output  reg          tick
+);
+    always @(posedge clk or negedge nrst) begin
+        if(!nrst) begin
+            cnt     <= 6'b0;
+            tick    <= 1'b0;
+        end
+        else begin
+            tick    <= 1'b0;                        
+            
+            if(flag == 1'b1) begin
+                if(cnt == COUNT - 1) begin
+                    cnt <= 6'b0;
+                    tick <= 1'b1;
+                end
+                else
+                    cnt <= cnt + 6'b1;
+            end
         end
     end
-    else
-        TIME_STATE <= TIME_STATE;
-end
 
-wire enable_set =  ((MODE_STATE == SET_MODE) && ((TIME_STATE == SEC) || (TIME_STATE == MIN) || (TIME_STATE == HOUR)));
+endmodule
+*/
 
-wire add_only =  add & ~sub;
-wire sub_only = ~add &  sub;
+//Add/SUB User Time Counter
+module utime_ctl #(
+    parameter [5:0] COUNT = 6'd60
+)(
+    input                clk , 
+    input                nrst,
+    input                flag,
+    input                add ,
+    input                sub ,
+    output reg  [5:0]    cnt ,
+    output reg           tick
+);
 
-// CLOCK CONTROLLER
-always @(posedge clk or negedge nrst) begin
-    if(!nrst) begin
-        ctl_add <= 1'b0;
-        ctl_sub <= 1'b0;
-    end else begin
-        ctl_add <= enable_set & add_only;
-        ctl_sub <= enable_set & sub_only; 
+    always @(posedge clk or negedge nrst) begin
+        if(!nrst) begin
+            cnt     <= 6'b0;
+            tick    <= 1'b0;
+        end
+        else begin
+            tick    <= 1'b0;   
+            //ADD TIME                     
+            if(add == 1'b1) begin
+                if(cnt == COUNT - 1)
+                    cnt <= 6'b0;
+                else
+                    cnt <= cnt + 6'd1; 
+            end
+            //SUBTRACT TIME
+            else if(sub == 1'b1) begin
+                if(cnt == 6'd0)
+                    cnt <= COUNT - 1;
+                else
+                    cnt <= cnt - 6'd1;
+            end       
+            //NORMAL COUNT TIME
+            else if(flag == 1'b1) begin
+                if(cnt == COUNT - 1) begin
+                    cnt  <= 6'b0;
+                    tick <= 1'b1;
+                end
+                else
+                    cnt <= cnt + 6'b1;
+            end
+        end
     end
-end
+
 
 endmodule

@@ -25,16 +25,41 @@ async def test_project(dut):
 
     dut._log.info("Test project behavior")
 
-    # Set the input values you want to test
-    dut.ui_in.value = 20
-    dut.uio_in.value = 30
+    # 초기 상태 관찰
+    await ClockCycles(dut.clk, 200)
 
-    # Wait for one clock cycle to see the output values
-    await ClockCycles(dut.clk, 1)
+    val1 = dut.uo_out.value.integer
 
-    # The following assersion is just an example of how to check the output values.
-    # Change it to match the actual expected output of your module:
-    assert dut.uo_out.value == 50
+    await ClockCycles(dut.clk, 200)
 
-    # Keep testing the module by changing the input values, waiting for
-    # one or more clock cycles, and asserting the expected output values.
+    val2 = dut.uo_out.value.integer
+
+    # VGA는 계속 바뀌는 신호이므로 고정값 비교 금지
+    assert val1 != 0 or val2 != 0
+
+    # 버튼 입력 테스트 (동작 깨지지 않는지만 확인)
+    dut.ui_in.value = 1
+    await ClockCycles(dut.clk, 5)
+    dut.ui_in.value = 0
+
+    await ClockCycles(dut.clk, 100)
+
+    dut.ui_in.value = 2
+    await ClockCycles(dut.clk, 5)
+    dut.ui_in.value = 0
+
+    await ClockCycles(dut.clk, 100)
+
+    dut.ui_in.value = 4
+    await ClockCycles(dut.clk, 5)
+    dut.ui_in.value = 0
+
+    await ClockCycles(dut.clk, 100)
+
+    dut.ui_in.value = 8
+    await ClockCycles(dut.clk, 5)
+    dut.ui_in.value = 0
+
+    await ClockCycles(dut.clk, 100)
+
+    dut._log.info("Done")

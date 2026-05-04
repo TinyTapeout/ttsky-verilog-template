@@ -1,5 +1,4 @@
 `timescale 1ns / 1ps
-`default_nettype none
 
 module hand_60dir #(
     parameter LEN   = 100,
@@ -11,22 +10,8 @@ module hand_60dir #(
     output wire               hand
 );
 
-    localparam [10:0] L    = LEN;
-    localparam [10:0] W    = WIDTH + 2;
-    localparam [11:0] ERR  = WIDTH + 4;
-
-    wire [10:0] ax;
-    wire [10:0] ay;
-
-    assign ax = x[10] ? (~x + 11'd1) : x;
-    assign ay = y[10] ? (~y + 11'd1) : y;
-
-    function [11:0] abs12;
-        input signed [11:0] v;
-        begin
-            abs12 = v[11] ? (~v + 12'd1) : v;
-        end
-    endfunction
+    wire signed [10:0] ax = x[10] ? -x : x;
+    wire signed [10:0] ay = y[10] ? -y : y;
 
     reg [3:0] dir;
 
@@ -49,112 +34,41 @@ module hand_60dir #(
         else                   dir = 4'd15;
     end
 
+    wire signed [11:0] d0 = $signed({1'b0, ax}) - $signed({1'b0, ay});
+    wire signed [11:0] d1 = $signed({1'b0, ax}) - $signed({1'b0, (ay >> 1)});
+    wire signed [11:0] d2 = $signed({1'b0, ay}) - $signed({1'b0, (ax >> 1)});
+
+    wire [11:0] ad0 = d0[11] ? -d0 : d0;
+    wire [11:0] ad1 = d1[11] ? -d1 : d1;
+    wire [11:0] ad2 = d2[11] ? -d2 : d2;
+
+    wire [10:0] len = LEN[10:0];
+    wire [10:0] wid = WIDTH[10:0] + 11'd3;
+
     reg hand_r;
 
     always @(*) begin
-        hand_r = 1'b0;
-
         case (dir)
-            // Up
-            4'd0: begin
-                hand_r = (y <= 0) && (ay <= L) && (ax <= W);
-            end
-
-            // Up-right, near up
-            4'd1: begin
-                hand_r = (x >= 0) && (y <= 0) && (ay <= L) &&
-                         (abs12($signed({1'b0, ax}) - $signed({1'b0, (ay >> 1)})) <= ERR);
-            end
-
-            // Up-right diagonal
-            4'd2: begin
-                hand_r = (x >= 0) && (y <= 0) && (ax <= L) && (ay <= L) &&
-                         (abs12($signed({1'b0, ax}) - $signed({1'b0, ay})) <= ERR);
-            end
-
-            // Right-up, near right
-            4'd3: begin
-                hand_r = (x >= 0) && (y <= 0) && (ax <= L) &&
-                         (abs12($signed({1'b0, ay}) - $signed({1'b0, (ax >> 1)})) <= ERR);
-            end
-
-            // Right
-            4'd4: begin
-                hand_r = (x >= 0) && (ax <= L) && (ay <= W);
-            end
-
-            // Right-down, near right
-            4'd5: begin
-                hand_r = (x >= 0) && (y >= 0) && (ax <= L) &&
-                         (abs12($signed({1'b0, ay}) - $signed({1'b0, (ax >> 1)})) <= ERR);
-            end
-
-            // Down-right diagonal
-            4'd6: begin
-                hand_r = (x >= 0) && (y >= 0) && (ax <= L) && (ay <= L) &&
-                         (abs12($signed({1'b0, ax}) - $signed({1'b0, ay})) <= ERR);
-            end
-
-            // Down-right, near down
-            4'd7: begin
-                hand_r = (x >= 0) && (y >= 0) && (ay <= L) &&
-                         (abs12($signed({1'b0, ax}) - $signed({1'b0, (ay >> 1)})) <= ERR);
-            end
-
-            // Down
-            4'd8: begin
-                hand_r = (y >= 0) && (ay <= L) && (ax <= W);
-            end
-
-            // Down-left, near down
-            4'd9: begin
-                hand_r = (x <= 0) && (y >= 0) && (ay <= L) &&
-                         (abs12($signed({1'b0, ax}) - $signed({1'b0, (ay >> 1)})) <= ERR);
-            end
-
-            // Down-left diagonal
-            4'd10: begin
-                hand_r = (x <= 0) && (y >= 0) && (ax <= L) && (ay <= L) &&
-                         (abs12($signed({1'b0, ax}) - $signed({1'b0, ay})) <= ERR);
-            end
-
-            // Left-down, near left
-            4'd11: begin
-                hand_r = (x <= 0) && (y >= 0) && (ax <= L) &&
-                         (abs12($signed({1'b0, ay}) - $signed({1'b0, (ax >> 1)})) <= ERR);
-            end
-
-            // Left
-            4'd12: begin
-                hand_r = (x <= 0) && (ax <= L) && (ay <= W);
-            end
-
-            // Left-up, near left
-            4'd13: begin
-                hand_r = (x <= 0) && (y <= 0) && (ax <= L) &&
-                         (abs12($signed({1'b0, ay}) - $signed({1'b0, (ax >> 1)})) <= ERR);
-            end
-
-            // Up-left diagonal
-            4'd14: begin
-                hand_r = (x <= 0) && (y <= 0) && (ax <= L) && (ay <= L) &&
-                         (abs12($signed({1'b0, ax}) - $signed({1'b0, ay})) <= ERR);
-            end
-
-            // Up-left, near up
-            4'd15: begin
-                hand_r = (x <= 0) && (y <= 0) && (ay <= L) &&
-                         (abs12($signed({1'b0, ax}) - $signed({1'b0, (ay >> 1)})) <= ERR);
-            end
-
-            default: begin
-                hand_r = 1'b0;
-            end
+            4'd0:  hand_r = (y <= 0) && (ay <= len) && (ax <= wid);
+            4'd1:  hand_r = (x >= 0) && (y <= 0) && (ay <= len) && (ad1 <= wid);
+            4'd2:  hand_r = (x >= 0) && (y <= 0) && (ax <= len) && (ay <= len) && (ad0 <= wid);
+            4'd3:  hand_r = (x >= 0) && (y <= 0) && (ax <= len) && (ad2 <= wid);
+            4'd4:  hand_r = (x >= 0) && (ax <= len) && (ay <= wid);
+            4'd5:  hand_r = (x >= 0) && (y >= 0) && (ax <= len) && (ad2 <= wid);
+            4'd6:  hand_r = (x >= 0) && (y >= 0) && (ax <= len) && (ay <= len) && (ad0 <= wid);
+            4'd7:  hand_r = (x >= 0) && (y >= 0) && (ay <= len) && (ad1 <= wid);
+            4'd8:  hand_r = (y >= 0) && (ay <= len) && (ax <= wid);
+            4'd9:  hand_r = (x <= 0) && (y >= 0) && (ay <= len) && (ad1 <= wid);
+            4'd10: hand_r = (x <= 0) && (y >= 0) && (ax <= len) && (ay <= len) && (ad0 <= wid);
+            4'd11: hand_r = (x <= 0) && (y >= 0) && (ax <= len) && (ad2 <= wid);
+            4'd12: hand_r = (x <= 0) && (ax <= len) && (ay <= wid);
+            4'd13: hand_r = (x <= 0) && (y <= 0) && (ax <= len) && (ad2 <= wid);
+            4'd14: hand_r = (x <= 0) && (y <= 0) && (ax <= len) && (ay <= len) && (ad0 <= wid);
+            4'd15: hand_r = (x <= 0) && (y <= 0) && (ay <= len) && (ad1 <= wid);
+            default: hand_r = 1'b0;
         endcase
     end
 
     assign hand = hand_r;
 
 endmodule
-
-`default_nettype wire

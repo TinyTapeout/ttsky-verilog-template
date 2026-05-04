@@ -18,52 +18,49 @@ module vga_clock_draw (
     wire signed [10:0] x = $signed({1'b0, hpos}) - 11'sd320;
     wire signed [10:0] y = $signed({1'b0, vpos}) - 11'sd240;
 
-    wire signed [10:0] ax = (x < 0) ? -x : x;
-    wire signed [10:0] ay = (y < 0) ? -y : y;
+    wire signed [10:0] ax = x[10] ? -x : x;
+    wire signed [10:0] ay = y[10] ? -y : y;
 
-    // 진짜 원형에 가까운 원: x^2 + y^2
-    wire [21:0] x2 = ax * ax;
-    wire [21:0] y2 = ay * ay;
-    wire [22:0] r2 = x2 + y2;
+    wire face_box = ((ax == 11'd120) && (ay <= 11'd120)) ||
+                    ((ay == 11'd120) && (ax <= 11'd120));
 
-    wire face_ring  = (r2 > 23'd21025) && (r2 < 23'd23409); // 145^2 ~ 153^2
-    wire center_dot = (r2 < 23'd36);
+    wire center_dot = (ax <= 11'd3) && (ay <= 11'd3);
 
-    // 12/3/6/9 눈금
-    wire mark12 = (ax < 5) && (y < -130) && (y > -155);
-    wire mark06 = (ax < 5) && (y >  130) && (y <  155);
-    wire mark03 = (ay < 5) && (x >  130) && (x <  155);
-    wire mark09 = (ay < 5) && (x < -130) && (x > -155);
+    wire mark12 = (ax <= 11'd3) && (y <= -11'sd105) && (y >= -11'sd120);
+    wire mark06 = (ax <= 11'd3) && (y >=  11'sd105) && (y <=  11'sd120);
+    wire mark03 = (ay <= 11'd3) && (x >=  11'sd105) && (x <=  11'sd120);
+    wire mark09 = (ay <= 11'd3) && (x <= -11'sd105) && (x >= -11'sd120);
 
     wire major_mark = mark12 | mark03 | mark06 | mark09;
 
-    // 60단계
     wire [5:0] sec_pos = sec;
     wire [5:0] min_pos = min;
 
-    wire [5:0] hour12 = (hour >= 12) ? (hour - 12) : hour;
-    wire [6:0] hour_pos_tmp = {1'b0, hour12} * 7'd5 + ({1'b0, min} / 7'd12);
-    wire [5:0] hour_pos = hour_pos_tmp[5:0];
+    wire [3:0] hour12 = (hour >= 6'd12) ? (hour - 6'd12) : hour;
+    wire [5:0] hour_pos = {hour12, 2'b00} + hour12 +
+                           ((min >= 6'd36) ? 6'd3 :
+                            (min >= 6'd24) ? 6'd2 :
+                            (min >= 6'd12) ? 6'd1 : 6'd0);
 
     wire sec_hand;
     wire min_hand;
     wire hour_hand;
 
-    hand_60dir #(.LEN(120), .WIDTH(2)) U_SEC (
+    hand_60dir #(.LEN(95), .WIDTH(2)) U_SEC (
         .x(x),
         .y(y),
         .pos(sec_pos),
         .hand(sec_hand)
     );
 
-    hand_60dir #(.LEN(100), .WIDTH(4)) U_MIN (
+    hand_60dir #(.LEN(75), .WIDTH(3)) U_MIN (
         .x(x),
         .y(y),
         .pos(min_pos),
         .hand(min_hand)
     );
 
-    hand_60dir #(.LEN(70), .WIDTH(6)) U_HOUR (
+    hand_60dir #(.LEN(50), .WIDTH(4)) U_HOUR (
         .x(x),
         .y(y),
         .pos(hour_pos),
@@ -74,22 +71,22 @@ module vga_clock_draw (
         if (!display_on) begin
             rgb = 6'b000000;
         end
+        else if (center_dot) begin
+            rgb = 6'b111111;
+        end
         else if (sec_hand) begin
-            rgb = 6'b110000;
+            rgb = 6'b111111;
         end
         else if (min_hand) begin
-            rgb = 6'b111111;
+            rgb = 6'b111100;
         end
         else if (hour_hand) begin
             rgb = 6'b001111;
         end
-        else if (center_dot) begin
-            rgb = 6'b111111;
-        end
         else if (major_mark) begin
             rgb = 6'b111100;
         end
-        else if (face_ring) begin
+        else if (face_box) begin
             rgb = 6'b001100;
         end
         else if (ctl_mode) begin
@@ -99,5 +96,7 @@ module vga_clock_draw (
             rgb = 6'b000000;
         end
     end
+
+    wire _unused = &{ctl_time, 1'b0};
 
 endmodule

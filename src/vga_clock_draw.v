@@ -85,10 +85,8 @@ module vga_clock_draw (
     wire center_dot = (ax <= 11'd3) && (ay <= 11'd3);
 
     wire major_mark =
-        ((ax <= 11'd3) && (y <= -11'sd105) && (y >= -11'sd120)) ||
-        ((ax <= 11'd3) && (y >=  11'sd105) && (y <=  11'sd120)) ||
-        ((ay <= 11'd3) && (x >=  11'sd105) && (x <=  11'sd120)) ||
-        ((ay <= 11'd3) && (x <= -11'sd105) && (x >= -11'sd120));
+        ((ax <= 11'd3) && (ay >= 11'd105) && (ay <= 11'd120)) ||
+        ((ay <= 11'd3) && (ax >= 11'd105) && (ax <= 11'd120));
 
     wire sec_hand;
     wire min_hand;
@@ -97,6 +95,8 @@ module vga_clock_draw (
     hand_60dir3 U_HANDS (
         .x         (x),
         .y         (y),
+        .ax        (ax),
+        .ay        (ay),
         .sec_pos   (sec),
         .min_pos   (min),
         .hour_pos  (hour_pos),

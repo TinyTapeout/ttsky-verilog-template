@@ -1,5 +1,3 @@
-`timescale 1ns / 1ps
-
 module gamepad_button_pulse (
     input  wire clk,
     input  wire nrst,
@@ -12,22 +10,19 @@ module gamepad_button_pulse (
     output wire [3:0] button
 );
 
-    reg d0, d1, d2, d3;
+    reg [3:0] d;
 
     always @(posedge clk or negedge nrst) begin
         if (!nrst) begin
-            d0 <= 0; d1 <= 0; d2 <= 0; d3 <= 0;
+            d <= 4'b0000;
         end else begin
-            d0 <= gp_start;
-            d1 <= gp_select;
-            d2 <= gp_up;
-            d3 <= gp_down;
+            d <= {gp_down, gp_up, gp_select, gp_start};
         end
     end
 
-    assign button[0] = gp_start  & ~d0;
-    assign button[1] = gp_select & ~d1;
-    assign button[2] = gp_up     & ~d2;
-    assign button[3] = gp_down   & ~d3;
+    assign button[0] = gp_start  & ~d[0];
+    assign button[1] = gp_select & ~d[1];
+    assign button[2] = gp_up     & ~d[2];
+    assign button[3] = gp_down   & ~d[3];
 
 endmodule

@@ -13,7 +13,8 @@ PROJECT_SOURCES = top.v \
                   clock.v \
                   hvsync_generator.v \
                   vga_clock_draw.v \
-                  hand_60dir.v
+                  hand_60dir.v \
+                  gamepad_pmod.v
 
 ifneq ($(GATES),yes)
 

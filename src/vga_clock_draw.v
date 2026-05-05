@@ -44,32 +44,34 @@ module vga_clock_draw (
 
     wire [5:0] hour_pos = hour12_safe * 6'd5 + {4'd0, min_off};
 
-    reg [7:0] sky_dx_table  [0:11];
-    reg [7:0] sky_dy_table  [0:11];
-    reg       sky_dxn_table [0:11];
-    reg       sky_dyn_table [0:11];
+    reg [7:0] sky_dx_abs;
+    reg [7:0] sky_dy_abs;
+    reg       sky_dx_neg;
+    reg       sky_dy_neg;
 
-    initial begin
-        sky_dx_table[0]=8'd0;   sky_dy_table[0]=8'd170; sky_dxn_table[0]=0; sky_dyn_table[0]=1;
-        sky_dx_table[1]=8'd85;  sky_dy_table[1]=8'd147; sky_dxn_table[1]=0; sky_dyn_table[1]=1;
-        sky_dx_table[2]=8'd147; sky_dy_table[2]=8'd85;  sky_dxn_table[2]=0; sky_dyn_table[2]=1;
-        sky_dx_table[3]=8'd170; sky_dy_table[3]=8'd0;   sky_dxn_table[3]=0; sky_dyn_table[3]=0;
-        sky_dx_table[4]=8'd147; sky_dy_table[4]=8'd85;  sky_dxn_table[4]=0; sky_dyn_table[4]=0;
-        sky_dx_table[5]=8'd85;  sky_dy_table[5]=8'd147; sky_dxn_table[5]=0; sky_dyn_table[5]=0;
-        sky_dx_table[6]=8'd0;   sky_dy_table[6]=8'd170; sky_dxn_table[6]=0; sky_dyn_table[6]=0;
-        sky_dx_table[7]=8'd85;  sky_dy_table[7]=8'd147; sky_dxn_table[7]=1; sky_dyn_table[7]=0;
-        sky_dx_table[8]=8'd147; sky_dy_table[8]=8'd85;  sky_dxn_table[8]=1; sky_dyn_table[8]=0;
-        sky_dx_table[9]=8'd170; sky_dy_table[9]=8'd0;   sky_dxn_table[9]=1; sky_dyn_table[9]=0;
-        sky_dx_table[10]=8'd147;sky_dy_table[10]=8'd85; sky_dxn_table[10]=1;sky_dyn_table[10]=1;
-        sky_dx_table[11]=8'd85; sky_dy_table[11]=8'd147;sky_dxn_table[11]=1;sky_dyn_table[11]=1;
+    always @(*) begin
+        case (hour12_safe)
+            4'd0:   begin sky_dx_abs=8'd0;   sky_dy_abs=8'd170; sky_dx_neg=0; sky_dy_neg=1; end
+            4'd1:   begin sky_dx_abs=8'd85;  sky_dy_abs=8'd147; sky_dx_neg=0; sky_dy_neg=1; end
+            4'd2:   begin sky_dx_abs=8'd147; sky_dy_abs=8'd85;  sky_dx_neg=0; sky_dy_neg=1; end
+            4'd3:   begin sky_dx_abs=8'd170; sky_dy_abs=8'd0;   sky_dx_neg=0; sky_dy_neg=0; end
+            4'd4:   begin sky_dx_abs=8'd147; sky_dy_abs=8'd85;  sky_dx_neg=0; sky_dy_neg=0; end
+            4'd5:   begin sky_dx_abs=8'd85;  sky_dy_abs=8'd147; sky_dx_neg=0; sky_dy_neg=0; end
+            4'd6:   begin sky_dx_abs=8'd0;   sky_dy_abs=8'd170; sky_dx_neg=0; sky_dy_neg=0; end
+            4'd7:   begin sky_dx_abs=8'd85;  sky_dy_abs=8'd147; sky_dx_neg=1; sky_dy_neg=0; end
+            4'd8:   begin sky_dx_abs=8'd147; sky_dy_abs=8'd85;  sky_dx_neg=1; sky_dy_neg=0; end
+            4'd9:   begin sky_dx_abs=8'd170; sky_dy_abs=8'd0;   sky_dx_neg=1; sky_dy_neg=0; end
+            4'd10:  begin sky_dx_abs=8'd147; sky_dy_abs=8'd85;  sky_dx_neg=1; sky_dy_neg=1; end
+            default:begin sky_dx_abs=8'd85;  sky_dy_abs=8'd147; sky_dx_neg=1; sky_dy_neg=1; end
+        endcase
     end
 
-    wire signed [10:0] sky_cx = sky_dxn_table[hour12_safe]
-        ? -$signed({3'b0, sky_dx_table[hour12_safe]})
-        :  $signed({3'b0, sky_dx_table[hour12_safe]});
-    wire signed [10:0] sky_cy = sky_dyn_table[hour12_safe]
-        ? -$signed({3'b0, sky_dy_table[hour12_safe]})
-        :  $signed({3'b0, sky_dy_table[hour12_safe]});
+    wire signed [10:0] sky_cx = sky_dx_neg
+        ? -$signed({3'b0, sky_dx_abs})
+        :  $signed({3'b0, sky_dx_abs});
+    wire signed [10:0] sky_cy = sky_dy_neg
+        ? -$signed({3'b0, sky_dy_abs})
+        :  $signed({3'b0, sky_dy_abs});
 
     wire signed [10:0] sky_obj_dx = x - sky_cx;
     wire signed [10:0] sky_obj_dy = y - sky_cy;

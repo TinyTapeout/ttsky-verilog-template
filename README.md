@@ -3,6 +3,7 @@
 # Tiny Tapeout Verilog Project TTSKY26A Demoscene Competition
 
 - [Read the documentation for project](docs/info.md)
+- [Read full article](www.kokw.com)
 
 ## What is Tiny Tapeout?
 

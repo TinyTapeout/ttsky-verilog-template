@@ -81,3 +81,7 @@ Here is the link to test it out.
 
 - VGA monitor
 - Gamepad PMOD
+
+# External Links
+Visit my [Website](www.kojw.com) for more detail about the project. [TBD]
+Add me on [Linkedin](www.linkedin.com/in/jong-wan-ko-673149256)! 

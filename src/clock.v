@@ -48,8 +48,8 @@ module clock(
     wire hour_sub = ctl_sub && (ctl_time == HOUR);
 
     tick_gen #(
-        .COUNT(27'd25_000)
-        //.COUNT(27'd50_000_000)
+        .COUNT(27'd25_000_0) // For DEMO Purpose
+        //.COUNT(27'd50_000_000) // For 50Mhz Clock
         //.COUNT(27'd10) //TEST FOR TESTBENCH ONLY
     ) U1_tick (
         .clk    (clk     ),

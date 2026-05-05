@@ -22,4 +22,4 @@ To adjust the time, connect a Gamepad PMOD to the input pins. Press Start to ent
 # External hardware
 
 - VGA monitor
-- Gamepad PMOD (NES-compatible)
+- Gamepad PMOD

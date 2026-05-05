@@ -83,6 +83,8 @@ Here is the link to test it out.
 - Gamepad PMOD
 
 # External Links
+About the concept of [clockywock](https://kmandla.wordpress.com/2009/12/26/an-analog-clock-for-the-console/)
+
 Visit my [Website](www.kojw.com) for more detail about the project. [TBD]
 
 Add me on [Linkedin](www.linkedin.com/in/jong-wan-ko-673149256)! 

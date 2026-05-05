@@ -20,7 +20,6 @@ module vga_clock_draw (
     wire [10:0] ax = x[10] ? -x : x;
     wire [10:0] ay = y[10] ? -y : y;
 
-    // ── 시간대 (비교기 공유) ─────────────────────────────────
     wire h_lt6  = (hour < 6'd6);
     wire h_lt12 = (hour < 6'd12);
     wire h_lt18 = (hour < 6'd18);
@@ -36,44 +35,41 @@ module vga_clock_draw (
         day_t   ? 6'b101110 :
                   6'b100101;
 
-    // ── 시침 위치 ────────────────────────────────────────────
     wire [3:0] hour12_safe = (hour >= 6'd12) ? (hour[3:0] - 4'd12) : hour[3:0];
 
-    wire [5:0] hour_pos =
-        {hour12_safe, 2'b00} + {2'b00, hour12_safe} +
-        ((min >= 6'd36) ? 6'd3 :
-         (min >= 6'd24) ? 6'd2 :
-         (min >= 6'd12) ? 6'd1 : 6'd0);
+    wire [1:0] min_off =
+        (min >= 6'd36) ? 2'd3 :
+        (min >= 6'd24) ? 2'd2 :
+        (min >= 6'd12) ? 2'd1 : 2'd0;
 
-    // ── 하늘 오브젝트 위치 (절댓값+부호 분리) ────────────────
-    reg [7:0] sky_dx_abs;
-    reg [7:0] sky_dy_abs;
-    reg       sky_dx_neg;
-    reg       sky_dy_neg;
+    wire [5:0] hour_pos = hour12_safe * 6'd5 + {4'd0, min_off};
 
-    always @(*) begin
-        case (hour12_safe)
-            4'd0:   begin sky_dx_abs=8'd0;   sky_dy_abs=8'd170; sky_dx_neg=0; sky_dy_neg=1; end
-            4'd1:   begin sky_dx_abs=8'd85;  sky_dy_abs=8'd147; sky_dx_neg=0; sky_dy_neg=1; end
-            4'd2:   begin sky_dx_abs=8'd147; sky_dy_abs=8'd85;  sky_dx_neg=0; sky_dy_neg=1; end
-            4'd3:   begin sky_dx_abs=8'd170; sky_dy_abs=8'd0;   sky_dx_neg=0; sky_dy_neg=0; end
-            4'd4:   begin sky_dx_abs=8'd147; sky_dy_abs=8'd85;  sky_dx_neg=0; sky_dy_neg=0; end
-            4'd5:   begin sky_dx_abs=8'd85;  sky_dy_abs=8'd147; sky_dx_neg=0; sky_dy_neg=0; end
-            4'd6:   begin sky_dx_abs=8'd0;   sky_dy_abs=8'd170; sky_dx_neg=0; sky_dy_neg=0; end
-            4'd7:   begin sky_dx_abs=8'd85;  sky_dy_abs=8'd147; sky_dx_neg=1; sky_dy_neg=0; end
-            4'd8:   begin sky_dx_abs=8'd147; sky_dy_abs=8'd85;  sky_dx_neg=1; sky_dy_neg=0; end
-            4'd9:   begin sky_dx_abs=8'd170; sky_dy_abs=8'd0;   sky_dx_neg=1; sky_dy_neg=0; end
-            4'd10:  begin sky_dx_abs=8'd147; sky_dy_abs=8'd85;  sky_dx_neg=1; sky_dy_neg=1; end
-            default:begin sky_dx_abs=8'd85;  sky_dy_abs=8'd147; sky_dx_neg=1; sky_dy_neg=1; end
-        endcase
+    reg [7:0] sky_dx_table  [0:11];
+    reg [7:0] sky_dy_table  [0:11];
+    reg       sky_dxn_table [0:11];
+    reg       sky_dyn_table [0:11];
+
+    initial begin
+        sky_dx_table[0]=8'd0;   sky_dy_table[0]=8'd170; sky_dxn_table[0]=0; sky_dyn_table[0]=1;
+        sky_dx_table[1]=8'd85;  sky_dy_table[1]=8'd147; sky_dxn_table[1]=0; sky_dyn_table[1]=1;
+        sky_dx_table[2]=8'd147; sky_dy_table[2]=8'd85;  sky_dxn_table[2]=0; sky_dyn_table[2]=1;
+        sky_dx_table[3]=8'd170; sky_dy_table[3]=8'd0;   sky_dxn_table[3]=0; sky_dyn_table[3]=0;
+        sky_dx_table[4]=8'd147; sky_dy_table[4]=8'd85;  sky_dxn_table[4]=0; sky_dyn_table[4]=0;
+        sky_dx_table[5]=8'd85;  sky_dy_table[5]=8'd147; sky_dxn_table[5]=0; sky_dyn_table[5]=0;
+        sky_dx_table[6]=8'd0;   sky_dy_table[6]=8'd170; sky_dxn_table[6]=0; sky_dyn_table[6]=0;
+        sky_dx_table[7]=8'd85;  sky_dy_table[7]=8'd147; sky_dxn_table[7]=1; sky_dyn_table[7]=0;
+        sky_dx_table[8]=8'd147; sky_dy_table[8]=8'd85;  sky_dxn_table[8]=1; sky_dyn_table[8]=0;
+        sky_dx_table[9]=8'd170; sky_dy_table[9]=8'd0;   sky_dxn_table[9]=1; sky_dyn_table[9]=0;
+        sky_dx_table[10]=8'd147;sky_dy_table[10]=8'd85; sky_dxn_table[10]=1;sky_dyn_table[10]=1;
+        sky_dx_table[11]=8'd85; sky_dy_table[11]=8'd147;sky_dxn_table[11]=1;sky_dyn_table[11]=1;
     end
 
-    wire signed [10:0] sky_cx = sky_dx_neg
-        ? -$signed({1'b0, sky_dx_abs})
-        :  $signed({1'b0, sky_dx_abs});
-    wire signed [10:0] sky_cy = sky_dy_neg
-        ? -$signed({1'b0, sky_dy_abs})
-        :  $signed({1'b0, sky_dy_abs});
+    wire signed [10:0] sky_cx = sky_dxn_table[hour12_safe]
+        ? -$signed({1'b0, sky_dx_table[hour12_safe]})
+        :  $signed({1'b0, sky_dx_table[hour12_safe]});
+    wire signed [10:0] sky_cy = sky_dyn_table[hour12_safe]
+        ? -$signed({1'b0, sky_dy_table[hour12_safe]})
+        :  $signed({1'b0, sky_dy_table[hour12_safe]});
 
     wire signed [10:0] sky_obj_dx = x - sky_cx;
     wire signed [10:0] sky_obj_dy = y - sky_cy;
@@ -84,22 +80,21 @@ module vga_clock_draw (
     wire sun_body  = (morn_t | day_t)  && (sky_dist <= 12'd34);
     wire moon_body = (night_t | eve_t) && (sky_dist <= 12'd24);
 
-    // ── 공통 비트슬라이스 ────────────────────────────────────
     wire [7:0] hp7 = hpos[7:0];
     wire [6:0] vp6 = vpos[6:0];
     wire [6:0] hp6 = hpos[6:0];
     wire [5:0] vp5 = vpos[5:0];
 
-    // ── 별 (밤) ───────────────────────────────────────────────
-    wire star = night_t && (
+    wire in_sky_region = (vpos < 10'd150);
+
+    wire star = night_t && in_sky_region && (
         ((hp6==7'd20)  && (vp5==6'd10)) |
         ((hp6==7'd85)  && (vp5==6'd25)) |
         ((hp6==7'd110) && (vp5==6'd45)) |
         ((hp7==8'd170) && (vp6==7'd70)) |
         ((hp7==8'd230) && (vp6==7'd35)));
 
-    // ── 구름 (아침) ───────────────────────────────────────────
-    wire cloud = morn_t && (
+    wire cloud = morn_t && in_sky_region && (
         ((hp7==8'd80)  && (vp5==6'd55)) |
         ((hp7==8'd76)  && (vp5==6'd55)) |
         ((hp7==8'd84)  && (vp5==6'd52)) |
@@ -113,8 +108,7 @@ module vga_clock_draw (
         ((hp7==8'd233) && (vp5==6'd40)) |
         ((hp7==8'd241) && (vp5==6'd37)));
 
-    // ── 반딧불 (저녁) ─────────────────────────────────────────
-    wire firefly = eve_t && (
+    wire firefly = eve_t && in_sky_region && (
         ((hp7==8'd55)  && (vp6==7'd80))  |
         ((hp7==8'd180) && (vp6==7'd35))  |
         ((hp7==8'd250) && (vp6==7'd95))  |
@@ -123,7 +117,6 @@ module vga_clock_draw (
         ((hp7==8'd130) && (vp6==7'd120)) |
         ((hp7==8'd530) && (vp6==7'd45)));
 
-    // ── 시계판 (7구간 다각형) ────────────────────────────────
     wire face_ring =
         ((ay <= 11'd122) && (ay >= 11'd118) && (ax <= 11'd28)) ||
         ((ay <= 11'd118) && (ay >= 11'd110) && (ax >= 11'd28)  && (ax <= 11'd58)) ||
@@ -139,7 +132,6 @@ module vga_clock_draw (
         ((ax <= 11'd3) && (ay >= 11'd105) && (ay <= 11'd120)) ||
         ((ay <= 11'd3) && (ax >= 11'd105) && (ax <= 11'd120));
 
-    // ── 시침/분침/초침 ───────────────────────────────────────
     wire sec_hand, min_hand, hour_hand;
 
     hand_60dir3 U_HANDS (
@@ -155,7 +147,6 @@ module vga_clock_draw (
         .hour_hand(hour_hand)
     );
 
-    // ── 수정 모드 UI ─────────────────────────────────────────
     wire in_lbox_h = ctl_mode && (hpos >= 10'd2) && (hpos <= 10'd85);
 
     wire in_rbox = ctl_mode &&
@@ -181,25 +172,46 @@ module vga_clock_draw (
     wire min_box  = in_min_box  && (min_box_active  || min_edge);
     wire sec_box  = in_sec_box  && (sec_box_active  || sec_edge);
 
-    // ── RGB 출력 ─────────────────────────────────────────────
+    reg [3:0] layer;
     always @(*) begin
-        if (!display_on)      rgb = 6'b000000;
-        else if (mode_box)    rgb = 6'b111111;
-        else if (hour_box)    rgb = hour_box_active ? 6'b001111 : 6'b000101;
-        else if (min_box)     rgb = min_box_active  ? 6'b111111 : 6'b010101;
-        else if (sec_box)     rgb = sec_box_active  ? 6'b110000 : 6'b010000;
-        else if (center_dot)  rgb = 6'b111111;
-        else if (sec_hand)    rgb = 6'b110000;
-        else if (min_hand)    rgb = 6'b111111;
-        else if (hour_hand)   rgb = 6'b001111;
-        else if (major_mark)  rgb = 6'b111100;
-        else if (face_ring)   rgb = 6'b001100;
-        else if (sun_body)    rgb = 6'b111100;
-        else if (moon_body)   rgb = 6'b111111;
-        else if (star)        rgb = 6'b111111;
-        else if (cloud)       rgb = 6'b111111;
-        else if (firefly)     rgb = 6'b111100;
-        else                  rgb = bg_color;
+        if      (!display_on) layer = 4'd0;
+        else if (mode_box)    layer = 4'd1;
+        else if (hour_box)    layer = 4'd2;
+        else if (min_box)     layer = 4'd3;
+        else if (sec_box)     layer = 4'd4;
+        else if (center_dot)  layer = 4'd5;
+        else if (sec_hand)    layer = 4'd6;
+        else if (min_hand)    layer = 4'd7;
+        else if (hour_hand)   layer = 4'd8;
+        else if (major_mark)  layer = 4'd9;
+        else if (face_ring)   layer = 4'd10;
+        else if (sun_body)    layer = 4'd11;
+        else if (moon_body)   layer = 4'd12;
+        else if (star)        layer = 4'd13;
+        else if (cloud)       layer = 4'd13;
+        else if (firefly)     layer = 4'd14;
+        else                  layer = 4'd15;
+    end
+
+    always @(*) begin
+        case (layer)
+            4'd0:  rgb = 6'b000000;
+            4'd1:  rgb = 6'b111111;
+            4'd2:  rgb = hour_box_active ? 6'b001111 : 6'b000101;
+            4'd3:  rgb = min_box_active  ? 6'b111111 : 6'b010101;
+            4'd4:  rgb = sec_box_active  ? 6'b110000 : 6'b010000;
+            4'd5:  rgb = 6'b111111;
+            4'd6:  rgb = 6'b110000;
+            4'd7:  rgb = 6'b111111;
+            4'd8:  rgb = 6'b001111;
+            4'd9:  rgb = 6'b111100;
+            4'd10: rgb = 6'b001100;
+            4'd11: rgb = 6'b111100;
+            4'd12: rgb = 6'b111111;
+            4'd13: rgb = 6'b111111;
+            4'd14: rgb = 6'b111100;
+            default: rgb = bg_color;
+        endcase
     end
 
 endmodule

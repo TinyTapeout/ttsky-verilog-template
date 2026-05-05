@@ -1,6 +1,6 @@
 # How it works
 
-This project is inspired from a analog clock from linux. 
+This project is inspired from a [analog clock](https://kmandla.wordpress.com/2009/12/26/an-analog-clock-for-the-console/by) from linux. 
 
 A VGA clock display implemented in Verilog for Tiny Tapeout demoscene.
 

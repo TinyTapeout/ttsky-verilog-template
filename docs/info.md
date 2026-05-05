@@ -1,6 +1,6 @@
 # How it works
 
-A VGA clock display implemented in Verilog for Tiny Tapeout.
+A analog clock from linux to VGA clock display implemented in Verilog for Tiny Tapeout.
 
 The design renders a circular analog clock face at 640×480 resolution. The background color changes based on the current hour:
 

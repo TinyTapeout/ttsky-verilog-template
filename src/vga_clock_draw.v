@@ -80,43 +80,6 @@ module vga_clock_draw (
     wire sun_body  = (morn_t | day_t)  && (sky_dist <= 12'd34);
     wire moon_body = (night_t | eve_t) && (sky_dist <= 12'd24);
 
-    wire [9:0] hp7 = hpos[9:0];
-    wire [6:0] vp6 = vpos[6:0];
-    wire [6:0] hp6 = hpos[6:0];
-    wire [6:0] vp5 = vpos[6:0];
-
-    wire in_sky_region = (vpos < 10'd150);
-
-    wire star = night_t && in_sky_region && (
-        ((hp6==7'd20)  && (vp5==7'd10)) |
-        ((hp6==7'd85)  && (vp5==7'd25)) |
-        ((hp6==7'd110) && (vp5==7'd45)) |
-        ((hp7==10'd170) && (vp6==7'd70)) |
-        ((hp7==10'd230) && (vp6==7'd35)));
-
-    wire cloud = morn_t && in_sky_region && (
-        ((hp7==10'd80)  && (vp5==7'd55)) |
-        ((hp7==10'd76)  && (vp5==7'd55)) |
-        ((hp7==10'd84)  && (vp5==7'd52)) |
-        ((hp7==10'd210) && (vp5==7'd35)) |
-        ((hp7==10'd206) && (vp5==7'd35)) |
-        ((hp7==10'd214) && (vp5==7'd32)) |
-        ((hp7==10'd178) && (vp5==7'd65)) |
-        ((hp7==10'd174) && (vp5==7'd65)) |
-        ((hp7==10'd182) && (vp5==7'd62)) |
-        ((hp7==10'd237) && (vp5==7'd40)) |
-        ((hp7==10'd233) && (vp5==7'd40)) |
-        ((hp7==10'd241) && (vp5==7'd37)));
-
-    wire firefly = eve_t && in_sky_region && (
-        ((hp7==10'd55)  && (vp6==7'd80))  |
-        ((hp7==10'd180) && (vp6==7'd35))  |
-        ((hp7==10'd250) && (vp6==7'd95))  |
-        ((hp7==10'd400) && (vp6==7'd60))  |
-        ((hp7==10'd490) && (vp6==7'd110)) |
-        ((hp7==10'd130) && (vp6==7'd120)) |
-        ((hp7==10'd530) && (vp6==7'd45)));
-
     wire face_ring =
         ((ay <= 11'd122) && (ay >= 11'd118) && (ax <= 11'd28)) ||
         ((ay <= 11'd118) && (ay >= 11'd110) && (ax >= 11'd28)  && (ax <= 11'd58)) ||
@@ -187,10 +150,7 @@ module vga_clock_draw (
         else if (face_ring)   layer = 4'd10;
         else if (sun_body)    layer = 4'd11;
         else if (moon_body)   layer = 4'd12;
-        else if (star)        layer = 4'd13;
-        else if (cloud)       layer = 4'd13;
-        else if (firefly)     layer = 4'd14;
-        else                  layer = 4'd15;
+        else                  layer = 4'd13;
     end
 
     always @(*) begin
@@ -208,8 +168,6 @@ module vga_clock_draw (
             4'd10: rgb = 6'b001100;
             4'd11: rgb = 6'b111100;
             4'd12: rgb = 6'b111111;
-            4'd13: rgb = 6'b111111;
-            4'd14: rgb = 6'b111100;
             default: rgb = bg_color;
         endcase
     end

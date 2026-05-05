@@ -65,11 +65,11 @@ module vga_clock_draw (
     end
 
     wire signed [10:0] sky_cx = sky_dxn_table[hour12_safe]
-        ? -$signed({1'b0, sky_dx_table[hour12_safe]})
-        :  $signed({1'b0, sky_dx_table[hour12_safe]});
+        ? -$signed({3'b0, sky_dx_table[hour12_safe]})
+        :  $signed({3'b0, sky_dx_table[hour12_safe]});
     wire signed [10:0] sky_cy = sky_dyn_table[hour12_safe]
-        ? -$signed({1'b0, sky_dy_table[hour12_safe]})
-        :  $signed({1'b0, sky_dy_table[hour12_safe]});
+        ? -$signed({3'b0, sky_dy_table[hour12_safe]})
+        :  $signed({3'b0, sky_dy_table[hour12_safe]});
 
     wire signed [10:0] sky_obj_dx = x - sky_cx;
     wire signed [10:0] sky_obj_dy = y - sky_cy;
@@ -80,42 +80,42 @@ module vga_clock_draw (
     wire sun_body  = (morn_t | day_t)  && (sky_dist <= 12'd34);
     wire moon_body = (night_t | eve_t) && (sky_dist <= 12'd24);
 
-    wire [7:0] hp7 = hpos[7:0];
+    wire [9:0] hp7 = hpos[9:0];
     wire [6:0] vp6 = vpos[6:0];
     wire [6:0] hp6 = hpos[6:0];
-    wire [5:0] vp5 = vpos[5:0];
+    wire [6:0] vp5 = vpos[6:0];
 
     wire in_sky_region = (vpos < 10'd150);
 
     wire star = night_t && in_sky_region && (
-        ((hp6==7'd20)  && (vp5==6'd10)) |
-        ((hp6==7'd85)  && (vp5==6'd25)) |
-        ((hp6==7'd110) && (vp5==6'd45)) |
-        ((hp7==8'd170) && (vp6==7'd70)) |
-        ((hp7==8'd230) && (vp6==7'd35)));
+        ((hp6==7'd20)  && (vp5==7'd10)) |
+        ((hp6==7'd85)  && (vp5==7'd25)) |
+        ((hp6==7'd110) && (vp5==7'd45)) |
+        ((hp7==10'd170) && (vp6==7'd70)) |
+        ((hp7==10'd230) && (vp6==7'd35)));
 
     wire cloud = morn_t && in_sky_region && (
-        ((hp7==8'd80)  && (vp5==6'd55)) |
-        ((hp7==8'd76)  && (vp5==6'd55)) |
-        ((hp7==8'd84)  && (vp5==6'd52)) |
-        ((hp7==8'd210) && (vp5==6'd35)) |
-        ((hp7==8'd206) && (vp5==6'd35)) |
-        ((hp7==8'd214) && (vp5==6'd32)) |
-        ((hp7==8'd178) && (vp5==6'd65)) |
-        ((hp7==8'd174) && (vp5==6'd65)) |
-        ((hp7==8'd182) && (vp5==6'd62)) |
-        ((hp7==8'd237) && (vp5==6'd40)) |
-        ((hp7==8'd233) && (vp5==6'd40)) |
-        ((hp7==8'd241) && (vp5==6'd37)));
+        ((hp7==10'd80)  && (vp5==7'd55)) |
+        ((hp7==10'd76)  && (vp5==7'd55)) |
+        ((hp7==10'd84)  && (vp5==7'd52)) |
+        ((hp7==10'd210) && (vp5==7'd35)) |
+        ((hp7==10'd206) && (vp5==7'd35)) |
+        ((hp7==10'd214) && (vp5==7'd32)) |
+        ((hp7==10'd178) && (vp5==7'd65)) |
+        ((hp7==10'd174) && (vp5==7'd65)) |
+        ((hp7==10'd182) && (vp5==7'd62)) |
+        ((hp7==10'd237) && (vp5==7'd40)) |
+        ((hp7==10'd233) && (vp5==7'd40)) |
+        ((hp7==10'd241) && (vp5==7'd37)));
 
     wire firefly = eve_t && in_sky_region && (
-        ((hp7==8'd55)  && (vp6==7'd80))  |
-        ((hp7==8'd180) && (vp6==7'd35))  |
-        ((hp7==8'd250) && (vp6==7'd95))  |
-        ((hp7==8'd400) && (vp6==7'd60))  |
-        ((hp7==8'd490) && (vp6==7'd110)) |
-        ((hp7==8'd130) && (vp6==7'd120)) |
-        ((hp7==8'd530) && (vp6==7'd45)));
+        ((hp7==10'd55)  && (vp6==7'd80))  |
+        ((hp7==10'd180) && (vp6==7'd35))  |
+        ((hp7==10'd250) && (vp6==7'd95))  |
+        ((hp7==10'd400) && (vp6==7'd60))  |
+        ((hp7==10'd490) && (vp6==7'd110)) |
+        ((hp7==10'd130) && (vp6==7'd120)) |
+        ((hp7==10'd530) && (vp6==7'd45)));
 
     wire face_ring =
         ((ay <= 11'd122) && (ay >= 11'd118) && (ax <= 11'd28)) ||

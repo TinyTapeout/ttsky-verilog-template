@@ -1,4 +1,4 @@
-`timescale 1ns / 1ps
+//`timescale 1ns / 1ps
 //////////////////////////////////////////////////////////////////////////////////
 // Company: 
 // Engineer: 
@@ -19,11 +19,10 @@
 // 
 //////////////////////////////////////////////////////////////////////////////////
 
-
 module clock_top(
     input               clk     ,
     input               nrst    ,
-    input       [3:0]   button  ,
+    input       [4:0]   button  ,
     output wire [5:0]   sec     ,
     output wire [5:0]   min     ,
     output wire [5:0]   hour    ,
@@ -31,27 +30,29 @@ module clock_top(
     output wire [1:0]   ctl_time
     );
 
-wire w_ctl_add, w_ctl_sub;
+wire w_ctl_add, w_ctl_sub, w_speed_demo;
 
 clock_controller U1_CLOCK_CONTROLLER(
-    .clk     (clk      ),
-    .nrst    (nrst     ),
-    .button  (button   ),
-    .ctl_mode(ctl_mode ),
-    .ctl_time(ctl_time ),
-    .ctl_add (w_ctl_add),
-    .ctl_sub (w_ctl_sub)
+    .clk       (clk         ),
+    .nrst      (nrst        ),
+    .button    (button      ),
+    .ctl_mode  (ctl_mode    ),
+    .ctl_time  (ctl_time    ),
+    .ctl_add   (w_ctl_add   ),
+    .ctl_sub   (w_ctl_sub   ),
+    .speed_demo(w_speed_demo)
 );
 
 clock U1_CLOCK(
-    .clk     (clk      ),
-    .nrst    (nrst     ),
-    .ctl_time(ctl_time ),
-    .ctl_add (w_ctl_add),
-    .ctl_sub (w_ctl_sub),
-    .sec     (sec      ),
-    .min     (min      ),
-    .hour    (hour     )
+    .clk       (clk         ),
+    .nrst      (nrst        ),
+    .ctl_time  (ctl_time    ),
+    .ctl_add   (w_ctl_add   ),
+    .ctl_sub   (w_ctl_sub   ),
+    .speed_demo(w_speed_demo),
+    .sec       (sec         ),
+    .min       (min         ),
+    .hour      (hour        )
 );
 
 endmodule

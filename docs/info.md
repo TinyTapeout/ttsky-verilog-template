@@ -73,11 +73,11 @@ This is minutes.
 
 <img width="104" height="89" alt="image" src="https://github.com/user-attachments/assets/b0d85fce-0d81-475a-9868-4feeab6aa4d7" />
 
-Lastly this is Hours.
+Lastly, this is Hours.
 
 Here is the link to test it out.
 
-[VGA Playground](https://vga-playground.com/?repo=https%3A%2F%2Fgithub.com%2Felectron65%2Fttsky-electron65&ref=319160fdff16893f049925f5cae72170e576785d)
+[VGA Playground](https://vga-playground.com/?repo=https%3A%2F%2Fgithub.com%2Felectron65%2Fttsky-electron65&ref=dd5cec8e141130985bbc8143fcac65022de57dd9)
 
 # External hardware
 

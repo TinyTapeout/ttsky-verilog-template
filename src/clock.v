@@ -19,6 +19,7 @@
 // 
 //////////////////////////////////////////////////////////////////////////////////
 
+
 module clock(
     input               clk       ,
     input               nrst      ,
@@ -37,12 +38,13 @@ module clock(
     wire        tick_sec, tick_min;
     wire        w_tick;
 
+    //ADD or SUB SEC
     wire sec_add  = ctl_add && (ctl_time == SEC);
     wire sec_sub  = ctl_sub && (ctl_time == SEC);
-
+    //ADD or SUB MIN
     wire min_add  = ctl_add && (ctl_time == MIN);
     wire min_sub  = ctl_sub && (ctl_time == MIN);
-
+    //ADD or SUB HOUR
     wire hour_add = ctl_add && (ctl_time == HOUR);
     wire hour_sub = ctl_sub && (ctl_time == HOUR);
 
@@ -76,19 +78,19 @@ module clock(
         .cnt    (min     ),
         .tick   (tick_min)
     );
-
+    
     wire tick_hour;
 
     utime_ctl #(
         .COUNT(6'd24)
     ) U_hour (
-        .clk    (clk      ),
-        .nrst   (nrst     ),
-        .flag   (tick_min ),
-        .add    (hour_add ),
-        .sub    (hour_sub ),
-        .cnt    (hour     ),
-        .tick   (tick_hour)
+        .clk      (clk      ),
+        .nrst     (nrst     ),
+        .flag     (tick_min ),
+        .add      (hour_add ),
+        .sub      (hour_sub ),
+        .cnt      (hour     ),
+        .tick     (tick_hour)
     );
 
 endmodule
@@ -102,20 +104,20 @@ module tick_gen (
     localparam [26:0] COUNT_DEMO  = 27'd2_500_00;
     localparam [26:0] COUNT_CLOCK = 27'd25_000_000;
 
-    reg [26:0] cnt;
-    wire [26:0] count_sel = speed_demo ? COUNT_DEMO : COUNT_CLOCK;
+    reg [26:0]  cnt;
+    reg         speed_demo_prev;
 
-    reg speed_demo_prev;
+    wire [26:0] count_sel = speed_demo ? COUNT_DEMO : COUNT_CLOCK;
 
     always @(posedge clk or negedge nrst) begin
         if(!nrst) begin
-            cnt            <= 27'b0;
-            tick           <= 1'b0;
+            cnt             <= 27'b0;
+            tick            <= 1'b0;
             speed_demo_prev <= 1'b1;
         end
         else if (speed_demo != speed_demo_prev) begin
-            cnt            <= 27'b0;
-            tick           <= 1'b0;
+            cnt             <= 27'b0;
+            tick            <= 1'b0;
             speed_demo_prev <= speed_demo;
         end
         else if (cnt == count_sel - 1) begin
@@ -124,15 +126,50 @@ module tick_gen (
         end
         else begin
             cnt     <= cnt + 27'b1;
-            tick    <= 1'b0;
+            tick    <= 1'b0;      
         end
-    end
+
+    end   
 endmodule
 
-module utime_ctl #(
+//Original User Time Counter
+/*
+module utime #(
     parameter [5:0] COUNT = 6'd60
 )(
     input                clk ,
+    input                nrst,
+    input                flag,
+    output  reg [5:0]    cnt ,
+    output  reg          tick
+);
+    always @(posedge clk or negedge nrst) begin
+        if(!nrst) begin
+            cnt     <= 6'b0;
+            tick    <= 1'b0;
+        end
+        else begin
+            tick    <= 1'b0;                        
+            
+            if(flag == 1'b1) begin
+                if(cnt == COUNT - 1) begin
+                    cnt <= 6'b0;
+                    tick <= 1'b1;
+                end
+                else
+                    cnt <= cnt + 6'b1;
+            end
+        end
+    end
+
+endmodule
+*/
+
+//Add/SUB User Time Counter
+module utime_ctl #(
+    parameter [5:0] COUNT = 6'd60
+)(
+    input                clk , 
     input                nrst,
     input                flag,
     input                add ,
@@ -147,19 +184,22 @@ module utime_ctl #(
             tick    <= 1'b0;
         end
         else begin
-            tick    <= 1'b0;
+            tick    <= 1'b0;   
+            //ADD TIME                     
             if(add == 1'b1) begin
                 if(cnt == COUNT - 1)
                     cnt <= 6'b0;
                 else
-                    cnt <= cnt + 6'd1;
+                    cnt <= cnt + 6'd1; 
             end
+            //SUBTRACT TIME
             else if(sub == 1'b1) begin
                 if(cnt == 6'd0)
                     cnt <= COUNT - 1;
                 else
                     cnt <= cnt - 6'd1;
-            end
+            end       
+            //NORMAL COUNT TIME
             else if(flag == 1'b1) begin
                 if(cnt == COUNT - 1) begin
                     cnt  <= 6'b0;
@@ -170,5 +210,6 @@ module utime_ctl #(
             end
         end
     end
+
 
 endmodule

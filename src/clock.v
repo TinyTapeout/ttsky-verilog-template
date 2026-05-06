@@ -1,4 +1,4 @@
-`timescale 1ns / 1ps
+//`timescale 1ns / 1ps
 //////////////////////////////////////////////////////////////////////////////////
 // Company: 
 // Engineer: 
@@ -19,15 +19,15 @@
 // 
 //////////////////////////////////////////////////////////////////////////////////
 
-
 module clock(
-    input               clk     ,
-    input               nrst    ,
-    input       [1:0]   ctl_time,
-    input               ctl_add ,
-    input               ctl_sub ,
-    output wire [5:0]   sec     ,
-    output wire [5:0]   min     ,
+    input               clk       ,
+    input               nrst      ,
+    input       [1:0]   ctl_time  ,
+    input               ctl_add   ,
+    input               ctl_sub   ,
+    input               speed_demo,
+    output wire [5:0]   sec       ,
+    output wire [5:0]   min       ,
     output wire [5:0]   hour
 );
     localparam [1:0] SEC  = 2'b00;
@@ -37,24 +37,20 @@ module clock(
     wire        tick_sec, tick_min;
     wire        w_tick;
 
-    //ADD or SUB SEC
     wire sec_add  = ctl_add && (ctl_time == SEC);
     wire sec_sub  = ctl_sub && (ctl_time == SEC);
-    //ADD or SUB MIN
+
     wire min_add  = ctl_add && (ctl_time == MIN);
     wire min_sub  = ctl_sub && (ctl_time == MIN);
-    //ADD or SUB HOUR
+
     wire hour_add = ctl_add && (ctl_time == HOUR);
     wire hour_sub = ctl_sub && (ctl_time == HOUR);
 
-    tick_gen #(
-        .COUNT(27'd25_000_0) // For DEMO Purpose
-        //.COUNT(27'd50_000_000) // For 50Mhz Clock
-        //.COUNT(27'd10) //TEST FOR TESTBENCH ONLY
-    ) U1_tick (
-        .clk    (clk     ),
-        .nrst   (nrst    ),
-        .tick   (w_tick  )
+    tick_gen U1_tick (
+        .clk       (clk       ),
+        .nrst      (nrst      ),
+        .speed_demo(speed_demo),
+        .tick      (w_tick    )
     );
 
     utime_ctl #(
@@ -80,7 +76,7 @@ module clock(
         .cnt    (min     ),
         .tick   (tick_min)
     );
-    
+
     wire tick_hour;
 
     utime_ctl #(
@@ -97,71 +93,46 @@ module clock(
 
 endmodule
 
-module tick_gen #(
-    parameter [26:0] COUNT = 27'd50_000_000
-)(
-    input                clk ,
-    input                nrst,
+module tick_gen (
+    input                clk       ,
+    input                nrst      ,
+    input                speed_demo,
     output  reg          tick
 );
+    localparam [26:0] COUNT_DEMO  = 27'd2_500_00;
+    localparam [26:0] COUNT_CLOCK = 27'd25_000_000;
 
     reg [26:0] cnt;
+    wire [26:0] count_sel = speed_demo ? COUNT_DEMO : COUNT_CLOCK;
+
+    reg speed_demo_prev;
 
     always @(posedge clk or negedge nrst) begin
         if(!nrst) begin
-            cnt     <= 27'b0;
-            tick    <= 1'b0;
+            cnt            <= 27'b0;
+            tick           <= 1'b0;
+            speed_demo_prev <= 1'b1;
         end
-        else if (cnt == COUNT - 1) begin
+        else if (speed_demo != speed_demo_prev) begin
+            cnt            <= 27'b0;
+            tick           <= 1'b0;
+            speed_demo_prev <= speed_demo;
+        end
+        else if (cnt == count_sel - 1) begin
             cnt     <= 27'b0;
             tick    <=  1'b1;
         end
         else begin
             cnt     <= cnt + 27'b1;
-            tick    <= 1'b0;      
-        end
-
-    end   
-endmodule
-
-//Original User Time Counter
-/*
-module utime #(
-    parameter [5:0] COUNT = 6'd60
-)(
-    input                clk ,
-    input                nrst,
-    input                flag,
-    output  reg [5:0]    cnt ,
-    output  reg          tick
-);
-    always @(posedge clk or negedge nrst) begin
-        if(!nrst) begin
-            cnt     <= 6'b0;
             tick    <= 1'b0;
         end
-        else begin
-            tick    <= 1'b0;                        
-            
-            if(flag == 1'b1) begin
-                if(cnt == COUNT - 1) begin
-                    cnt <= 6'b0;
-                    tick <= 1'b1;
-                end
-                else
-                    cnt <= cnt + 6'b1;
-            end
-        end
     end
-
 endmodule
-*/
 
-//Add/SUB User Time Counter
 module utime_ctl #(
     parameter [5:0] COUNT = 6'd60
 )(
-    input                clk , 
+    input                clk ,
     input                nrst,
     input                flag,
     input                add ,
@@ -176,22 +147,19 @@ module utime_ctl #(
             tick    <= 1'b0;
         end
         else begin
-            tick    <= 1'b0;   
-            //ADD TIME                     
+            tick    <= 1'b0;
             if(add == 1'b1) begin
                 if(cnt == COUNT - 1)
                     cnt <= 6'b0;
                 else
-                    cnt <= cnt + 6'd1; 
+                    cnt <= cnt + 6'd1;
             end
-            //SUBTRACT TIME
             else if(sub == 1'b1) begin
                 if(cnt == 6'd0)
                     cnt <= COUNT - 1;
                 else
                     cnt <= cnt - 6'd1;
-            end       
-            //NORMAL COUNT TIME
+            end
             else if(flag == 1'b1) begin
                 if(cnt == COUNT - 1) begin
                     cnt  <= 6'b0;
@@ -202,6 +170,5 @@ module utime_ctl #(
             end
         end
     end
-
 
 endmodule

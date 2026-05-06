@@ -4,21 +4,18 @@ module vga_clock_draw (
     input  wire [9:0] hpos,
     input  wire [9:0] vpos,
     input  wire       display_on,
-
     input  wire [5:0] sec,
     input  wire [5:0] min,
     input  wire [5:0] hour,
-
     input  wire       ctl_mode,
     input  wire [1:0] ctl_time,
-
     output reg  [5:0] rgb
 );
 
-    wire signed [10:0] x = $signed({1'b0, hpos}) - 11'sd320;
-    wire signed [10:0] y = $signed({1'b0, vpos}) - 11'sd240;
-    wire [10:0] ax = x[10] ? -x : x;
-    wire [10:0] ay = y[10] ? -y : y;
+    wire signed [10:0] x  = $signed({1'b0, hpos}) - 11'sd320;
+    wire signed [10:0] y  = $signed({1'b0, vpos}) - 11'sd240;
+    wire        [10:0] ax = x[10] ? -x : x;
+    wire        [10:0] ay = y[10] ? -y : y;
 
     wire h_lt6  = (hour < 6'd6);
     wire h_lt12 = (hour < 6'd12);
@@ -100,15 +97,15 @@ module vga_clock_draw (
     wire sec_hand, min_hand, hour_hand;
 
     hand_60dir3 U_HANDS (
-        .x        (x),
-        .y        (y),
-        .ax       (ax),
-        .ay       (ay),
-        .sec_pos  (sec),
-        .min_pos  (min),
-        .hour_pos (hour_pos),
-        .sec_hand (sec_hand),
-        .min_hand (min_hand),
+        .x        (x        ),
+        .y        (y        ),
+        .ax       (ax       ),
+        .ay       (ay       ),
+        .sec_pos  (sec      ),
+        .min_pos  (min      ),
+        .hour_pos (hour_pos ),
+        .sec_hand (sec_hand ),
+        .min_hand (min_hand ),
         .hour_hand(hour_hand)
     );
 

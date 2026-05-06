@@ -47,10 +47,15 @@ module tt_um_electron65_vga (
 
     wire [3:0] button;
 
-    assign button[0] = gp_start;
-    assign button[1] = gp_select;
-    assign button[2] = gp_up;
-    assign button[3] = gp_down;
+    gamepad_button_pulse U_PULSE (
+        .clk        (clk       ),
+        .nrst       (nrst      ),
+        .gp_start   (gp_start  ),
+        .gp_select  (gp_select ),
+        .gp_up      (gp_up     ),
+        .gp_down    (gp_down   ),
+        .button     (button    )
+    );
 
     wire [5:0]  sec, min, hour;
     wire        ctl_mode;

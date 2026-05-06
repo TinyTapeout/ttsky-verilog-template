@@ -1,15 +1,15 @@
-`timescale 1ns / 1ps
+//`timescale 1ns / 1ps
 
 module hand_60dir3 (
-    input  wire signed [10:0] x,
-    input  wire signed [10:0] y,
-    input  wire        [10:0] ax,
-    input  wire        [10:0] ay,
-    input  wire [5:0]         sec_pos,
-    input  wire [5:0]         min_pos,
-    input  wire [5:0]         hour_pos,
-    output wire               sec_hand,
-    output wire               min_hand,
+    input  wire signed [10:0] x         ,
+    input  wire signed [10:0] y         ,
+    input  wire        [10:0] ax        ,
+    input  wire        [10:0] ay        ,
+    input  wire        [ 5:0] sec_pos   ,
+    input  wire        [ 5:0] min_pos   ,
+    input  wire        [ 5:0] hour_pos  ,
+    output wire               sec_hand  ,
+    output wire               min_hand  ,
     output wire               hour_hand
 );
 

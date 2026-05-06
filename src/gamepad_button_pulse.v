@@ -1,12 +1,10 @@
 module gamepad_button_pulse (
     input  wire clk,
     input  wire nrst,
-
     input  wire gp_start,
     input  wire gp_select,
     input  wire gp_up,
     input  wire gp_down,
-
     output wire [3:0] button
 );
 

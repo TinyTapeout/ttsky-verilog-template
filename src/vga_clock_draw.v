@@ -97,15 +97,15 @@ module vga_clock_draw (
     wire sec_hand, min_hand, hour_hand;
 
     hand_60dir3 U_HANDS (
-        .x        (x),
-        .y        (y),
-        .ax       (ax),
-        .ay       (ay),
-        .sec_pos  (sec),
-        .min_pos  (min),
-        .hour_pos (hour_pos),
-        .sec_hand (sec_hand),
-        .min_hand (min_hand),
+        .x        (x        ),
+        .y        (y        ),
+        .ax       (ax       ),
+        .ay       (ay       ),
+        .sec_pos  (sec      ),
+        .min_pos  (min      ),
+        .hour_pos (hour_pos ),
+        .sec_hand (sec_hand ),
+        .min_hand (min_hand ),
         .hour_hand(hour_hand)
     );
 

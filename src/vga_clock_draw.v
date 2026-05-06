@@ -1,4 +1,4 @@
-//`timescale 1ns / 1ps
+`timescale 1ns / 1ps
 
 module vga_clock_draw (
     input  wire [9:0] hpos,

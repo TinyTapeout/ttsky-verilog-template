@@ -1,4 +1,4 @@
-//`timescale 1ns / 1ps
+`timescale 1ns / 1ps
 
 module hand_60dir3 (
     input  wire signed [10:0] x         ,

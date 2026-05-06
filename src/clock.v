@@ -1,4 +1,4 @@
-//`timescale 1ns / 1ps
+`timescale 1ns / 1ps
 //////////////////////////////////////////////////////////////////////////////////
 // Company: 
 // Engineer: 
@@ -21,14 +21,13 @@
 
 
 module clock(
-    input               clk       ,
-    input               nrst      ,
-    input       [1:0]   ctl_time  ,
-    input               ctl_add   ,
-    input               ctl_sub   ,
-    input               speed_demo,
-    output wire [5:0]   sec       ,
-    output wire [5:0]   min       ,
+    input               clk     ,
+    input               nrst    ,
+    input       [1:0]   ctl_time,
+    input               ctl_add ,
+    input               ctl_sub ,
+    output wire [5:0]   sec     ,
+    output wire [5:0]   min     ,
     output wire [5:0]   hour
 );
     localparam [1:0] SEC  = 2'b00;
@@ -48,11 +47,14 @@ module clock(
     wire hour_add = ctl_add && (ctl_time == HOUR);
     wire hour_sub = ctl_sub && (ctl_time == HOUR);
 
-    tick_gen U1_tick (
-        .clk       (clk       ),
-        .nrst      (nrst      ),
-        .speed_demo(speed_demo),
-        .tick      (w_tick    )
+    tick_gen #(
+        .COUNT(27'd25_000_0) // For DEMO Purpose
+        //.COUNT(27'd50_000_000) // For 50Mhz Clock
+        //.COUNT(27'd10) //TEST FOR TESTBENCH ONLY
+    ) U1_tick (
+        .clk    (clk     ),
+        .nrst   (nrst    ),
+        .tick   (w_tick  )
     );
 
     utime_ctl #(
@@ -84,43 +86,33 @@ module clock(
     utime_ctl #(
         .COUNT(6'd24)
     ) U_hour (
-        .clk      (clk      ),
-        .nrst     (nrst     ),
-        .flag     (tick_min ),
-        .add      (hour_add ),
-        .sub      (hour_sub ),
-        .cnt      (hour     ),
-        .tick     (tick_hour)
+        .clk    (clk      ),
+        .nrst   (nrst     ),
+        .flag   (tick_min ),
+        .add    (hour_add ),
+        .sub    (hour_sub ),
+        .cnt    (hour     ),
+        .tick   (tick_hour)
     );
 
 endmodule
 
-module tick_gen (
-    input                clk       ,
-    input                nrst      ,
-    input                speed_demo,
+module tick_gen #(
+    parameter [26:0] COUNT = 27'd50_000_000
+)(
+    input                clk ,
+    input                nrst,
     output  reg          tick
 );
-    localparam [26:0] COUNT_DEMO  = 27'd2_500_00;
-    localparam [26:0] COUNT_CLOCK = 27'd25_000_000;
 
-    reg [26:0]  cnt;
-    reg         speed_demo_prev;
-
-    wire [26:0] count_sel = speed_demo ? COUNT_DEMO : COUNT_CLOCK;
+    reg [26:0] cnt;
 
     always @(posedge clk or negedge nrst) begin
         if(!nrst) begin
-            cnt             <= 27'b0;
-            tick            <= 1'b0;
-            speed_demo_prev <= 1'b1;
+            cnt     <= 27'b0;
+            tick    <= 1'b0;
         end
-        else if (speed_demo != speed_demo_prev) begin
-            cnt             <= 27'b0;
-            tick            <= 1'b0;
-            speed_demo_prev <= speed_demo;
-        end
-        else if (cnt == count_sel - 1) begin
+        else if (cnt == COUNT - 1) begin
             cnt     <= 27'b0;
             tick    <=  1'b1;
         end

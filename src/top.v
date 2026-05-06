@@ -1,4 +1,4 @@
-//`timescale 1ns / 1ps
+`timescale 1ns / 1ps
 
 module tt_um_electron65_vga (
     input  wire [7:0] ui_in     ,
@@ -30,7 +30,6 @@ module tt_um_electron65_vga (
     wire gp_start;
     wire gp_up;
     wire gp_down;
-    wire gp_a;
     wire gp_present;
 
     gamepad_pmod_min U_GAMEPAD (
@@ -43,11 +42,10 @@ module tt_um_electron65_vga (
         .start      (gp_start   ),
         .up         (gp_up      ),
         .down       (gp_down    ),
-        .a_btn      (gp_a       ),
         .is_present (gp_present )
     );
 
-    wire [4:0] button;
+    wire [3:0] button;
 
     gamepad_button_pulse U_PULSE (
         .clk        (clk       ),
@@ -56,7 +54,6 @@ module tt_um_electron65_vga (
         .gp_select  (gp_select ),
         .gp_up      (gp_up     ),
         .gp_down    (gp_down   ),
-        .gp_a       (gp_a      ),
         .button     (button    )
     );
 

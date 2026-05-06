@@ -1,4 +1,4 @@
-//`timescale 1ns / 1ps
+`timescale 1ns / 1ps
 
 module gamepad_pmod_min (
     input wire rst_n,
@@ -11,7 +11,6 @@ module gamepad_pmod_min (
     output wire start,
     output wire up,
     output wire down,
-    output wire a_btn,
     output wire is_present
 );
 
@@ -35,7 +34,6 @@ module gamepad_pmod_min (
   assign start      = ~reg_empty & gamepad_pmod_data[8];
   assign up         = ~reg_empty & gamepad_pmod_data[7];
   assign down       = ~reg_empty & gamepad_pmod_data[6];
-  assign a_btn      = ~reg_empty & gamepad_pmod_data[3];
 
 endmodule
 
@@ -99,17 +97,16 @@ module gamepad_button_pulse (
     input  wire gp_select,
     input  wire gp_up,
     input  wire gp_down,
-    input  wire gp_a,
-    output wire [4:0] button
+    output wire [3:0] button
 );
 
-    reg [4:0] d;
+    reg [3:0] d;
 
     always @(posedge clk or negedge nrst) begin
         if (!nrst) begin
-            d <= 5'b00000;
+            d <= 4'b0000;
         end else begin
-            d <= {gp_a, gp_down, gp_up, gp_select, gp_start};
+            d <= {gp_down, gp_up, gp_select, gp_start};
         end
     end
 
@@ -117,6 +114,6 @@ module gamepad_button_pulse (
     assign button[1] = gp_select & ~d[1];
     assign button[2] = gp_up     & ~d[2];
     assign button[3] = gp_down   & ~d[3];
-    assign button[4] = gp_a      & ~d[4];
 
 endmodule
+

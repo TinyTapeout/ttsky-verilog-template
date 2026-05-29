@@ -1,6 +1,6 @@
 project:
   title:        "VGA Clock Demo"
-  author:       "electron65"
+  author:       "jongwanko"
   discord:      "john_is_wicked"
   description:  "VGA clock"
   language:     "Verilog"

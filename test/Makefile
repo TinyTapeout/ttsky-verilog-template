@@ -34,6 +34,11 @@ endif
 # Allow sharing configuration between design and testbench via `include`:
 COMPILE_ARGS 		+= -I$(SRC_DIR)
 
+# Get the TOP_MODULE from the info.yaml file, and pass it as a define to the simulator. 
+INFO_YAML ?= ../info.yaml
+TOP_MODULE := $(shell sed -n 's/^[[:space:]]*top_module:[[:space:]]*"\?\([^"]*\)"\?/\1/p' $(INFO_YAML))
+COMPILE_ARGS += -DTT_TOP_MODULE=$(TOP_MODULE)
+
 # Include the testbench sources:
 VERILOG_SOURCES += $(PWD)/tb.v
 TOPLEVEL = tb

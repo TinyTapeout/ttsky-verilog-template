@@ -1,49 +1,51 @@
 # Tiny Tapeout project information
 project:
-  title:        ""      # Project title
-  author:       ""      # Your name
+  title:        "ALU"      # Project title
+  author:       "Pradeep"      # Your name
   discord:      ""      # Your discord username, for communication and automatically assigning you a Tapeout role (optional)
-  description:  ""      # One line description of what your project does
+  description:  "7bit alu"      # One line description of what your project does
   language:     "Verilog" # other examples include SystemVerilog, Amaranth, VHDL, etc
-  clock_hz:     0       # Clock frequency in Hz (or 0 if not applicable)
+  clock_hz:     50      # Clock frequency in Hz (or 0 if not applicable)
 
   # How many tiles your design occupies? A single tile is about 167x108 uM.
   tiles: "1x1"          # Valid values: 1x1, 1x2, 2x2, 3x2, 4x2, 6x2 or 8x2
 
   # Your top module name must start with "tt_um_". Make it unique by including your github username:
-  top_module:  "tt_um_example"
+  top_module:  "tt_um_alu7b"
 
   # List your project's source files here.
   # Source files must be in ./src and you must list each source file separately, one per line.
   # Don't forget to also update `PROJECT_SOURCES` in test/Makefile.
   source_files:
-    - "project.v"
+    - "alu_7b.v"
+    - "serial_alu_ctrl.v"
+    - "tt_um_alu7b.v"
 
 # The pinout of your project. Leave unused pins blank. DO NOT delete or add any pins.
 # This section is for the datasheet/website. Use descriptive names (e.g., RX, TX, MOSI, SCL, SEG_A, etc.).
 pinout:
   # Inputs
-  ui[0]: ""
-  ui[1]: ""
-  ui[2]: ""
-  ui[3]: ""
+  ui[0]: "Bit_in — Serial data input (LSB first: 7 bits operand A, then 7 bits operand B)"
+  ui[1]: "op[0] — Opcode bit 0 (LSB) — stable parallel input throughout operation"
+  ui[2]: "op[1] — Opcode bit 1"
+  ui[3]: "op[2] — Opcode bit 2 (MSB)"
   ui[4]: ""
   ui[5]: ""
   ui[6]: ""
   ui[7]: ""
 
-  # Outputs
-  uo[0]: ""
-  uo[1]: ""
-  uo[2]: ""
-  uo[3]: ""
-  uo[4]: ""
-  uo[5]: ""
-  uo[6]: ""
-  uo[7]: ""
+  # Dedicated outputs
+  uo[0]: "Data_out[0] — Result bit 0 (LSB)"
+  uo[1]: "Data_out[1] — Result bit 1"
+  uo[2]: "Data_out[2] — Result bit 2"
+  uo[3]: "Data_out[3] — Result bit 3"
+  uo[4]: "Data_out[4] — Result bit 4"
+  uo[5]: "Data_out[5] — Result bit 5"
+  uo[6]: "Data_out[6] — Result bit 6 (MSB of operand field)"
+  uo[7]: "Data_out[7] — Carry-out (ADD) / Borrow flag (SUB); always 0 for AND, OR, XOR"
 
   # Bidirectional pins
-  uio[0]: ""
+  uio[0]: "Done — One-cycle high pulse (1 CLK) indicating operation result is valid"
   uio[1]: ""
   uio[2]: ""
   uio[3]: ""

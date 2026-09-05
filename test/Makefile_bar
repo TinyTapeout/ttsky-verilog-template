@@ -1,0 +1,9 @@
+# Makefile_bar -- the Barrett reducer (Theorem 6.2), exhaustively
+SIM ?= icarus
+TOPLEVEL_LANG ?= verilog
+SRC_DIR = $(PWD)/../src
+SIM_BUILD = sim_build/bar
+VERILOG_SOURCES = $(SRC_DIR)/barrett_reduce.v
+TOPLEVEL = barrett_reduce
+COCOTB_TEST_MODULES = test_barrett
+include $(shell cocotb-config --makefiles)/Makefile.sim

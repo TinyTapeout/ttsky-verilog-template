@@ -1,0 +1,41 @@
+[*] GTKWave save file - butterfly stack (montgomery_reduce / fqmul / butterfly)
+[dumpfile] "tb_ntt_butterfly.vcd"
+[timestart] 0
+[size] 1600 900
+[treeopen] tb_ntt_butterfly.
+@28
+tb_ntt_butterfly.clk
+tb_ntt_butterfly.rst_n
+-montgomery_reduce_(a -> t, expect m_exp)
+@22
+tb_ntt_butterfly.m_a[31:0]
+tb_ntt_butterfly.m_t[15:0]
+tb_ntt_butterfly.m_exp[15:0]
+-fqmul_(a,b -> r, expect f_exp)
+@22
+tb_ntt_butterfly.f_a[15:0]
+tb_ntt_butterfly.f_b[15:0]
+tb_ntt_butterfly.f_r[15:0]
+tb_ntt_butterfly.f_exp[15:0]
+-combinational_butterfly
+@22
+tb_ntt_butterfly.bf_a[15:0]
+tb_ntt_butterfly.bf_b[15:0]
+tb_ntt_butterfly.bf_zeta[15:0]
+tb_ntt_butterfly.bf_aout[15:0]
+tb_ntt_butterfly.bf_bout[15:0]
+tb_ntt_butterfly.bf_aexp[15:0]
+tb_ntt_butterfly.bf_bexp[15:0]
+-registered_butterfly
+@28
+tb_ntt_butterfly.r_valid_in
+tb_ntt_butterfly.r_valid_out
+@22
+tb_ntt_butterfly.r_aout[15:0]
+tb_ntt_butterfly.r_bout[15:0]
+-Result
+@24
+tb_ntt_butterfly.errors[31:0]
+tb_ntt_butterfly.total[31:0]
+[pattern_trace] 1
+[pattern_trace] 0

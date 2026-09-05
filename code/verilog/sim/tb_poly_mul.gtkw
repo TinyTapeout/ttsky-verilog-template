@@ -1,0 +1,42 @@
+[*] GTKWave save file - full a*b polynomial multiply (poly_mul orchestrator)
+[dumpfile] "tb_poly_mul.vcd"
+[timestart] 0
+[size] 1600 900
+[treeopen] tb_poly_mul.
+[treeopen] tb_poly_mul.dut.
+@28
+tb_poly_mul.clk
+tb_poly_mul.rst_n
+-Host_handshake
+@28
+tb_poly_mul.start
+tb_poly_mul.busy
+tb_poly_mul.done
+-Orchestrator_FSM_(0=RDY 1=NTT 2=CPAB 3=BASE 4=CPC 5=INTT)
+@22
+tb_poly_mul.dut.state[2:0]
+tb_poly_mul.dut.idx[8:0]
+@28
+tb_poly_mul.dut.n_start
+tb_poly_mul.dut.bm_start
+tb_poly_mul.dut.i_start
+-Sub-engine_done_flags
+@28
+tb_poly_mul.dut.na_done
+tb_poly_mul.dut.nb_done
+tb_poly_mul.dut.bm_done
+tb_poly_mul.dut.it_done
+-Datapath_glue_(barrett)
+@22
+tb_poly_mul.dut.a_bar[15:0]
+tb_poly_mul.dut.b_bar[15:0]
+tb_poly_mul.dut.bm_rd_data[15:0]
+tb_poly_mul.dut.c_bar[15:0]
+-Result
+@22
+tb_poly_mul.rd_addr[7:0]
+tb_poly_mul.rd_data[15:0]
+@24
+tb_poly_mul.errors[31:0]
+[pattern_trace] 1
+[pattern_trace] 0

@@ -1,0 +1,56 @@
+# Tiny Tapeout project information
+project:
+  title:        "ML-KEM NTT Butterfly"      # Project title
+  author:       "bdawg4113"                 # Your name
+  discord:      ""                          # Your discord username (optional)
+  description:  "Cooley-Tukey NTT butterfly (modular multiply-add mod q=3329) for ML-KEM-512"
+  language:     "Verilog"
+  clock_hz:     50000000                     # 50 MHz (20 ns), matches config.json
+
+  # How many tiles your design occupies?
+  tiles: "1x1"                               # single tile: one butterfly + byte interface
+
+  # Top module name must start with "tt_um_" and be unique.
+  top_module:  "tt_um_ntt_butterfly_bdawg4113"
+
+  # Source files (all in ./src, listed one per line).
+  source_files:
+    - "tt_um_ntt_butterfly_bdawg4113.v"
+    - "ntt_butterfly.v"
+    - "fqmul.v"
+    - "montgomery_reduce.v"
+
+# Pinout — describes how the byte-oriented register interface maps to pins.
+pinout:
+  # Inputs
+  ui[0]: "data_in[0]"
+  ui[1]: "data_in[1]"
+  ui[2]: "data_in[2]"
+  ui[3]: "data_in[3]"
+  ui[4]: "data_in[4]"
+  ui[5]: "data_in[5]"
+  ui[6]: "data_in[6]"
+  ui[7]: "data_in[7]"
+
+  # Outputs
+  uo[0]: "data_out[0]"
+  uo[1]: "data_out[1]"
+  uo[2]: "data_out[2]"
+  uo[3]: "data_out[3]"
+  uo[4]: "data_out[4]"
+  uo[5]: "data_out[5]"
+  uo[6]: "data_out[6]"
+  uo[7]: "data_out[7]"
+
+  # Bidirectional pins
+  uio[0]: "addr[0] (in)"
+  uio[1]: "addr[1] (in)"
+  uio[2]: "addr[2] (in)"
+  uio[3]: "we (in)"
+  uio[4]: "start (in)"
+  uio[5]: "unused"
+  uio[6]: "unused"
+  uio[7]: "valid (out)"
+
+# Do not change!
+yaml_version: 6

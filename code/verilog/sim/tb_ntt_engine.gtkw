@@ -1,0 +1,39 @@
+[*] GTKWave save file - forward NTT engine (one 256-point transform)
+[dumpfile] "tb_ntt_engine.vcd"
+[timestart] 0
+[size] 1600 900
+[treeopen] tb_ntt_engine.
+[treeopen] tb_ntt_engine.dut.
+@28
+tb_ntt_engine.clk
+tb_ntt_engine.rst_n
+-Control_handshake
+@28
+tb_ntt_engine.start
+tb_ntt_engine.busy
+tb_ntt_engine.done
+-FSM_state_(len,k,start_idx,j)
+@22
+tb_ntt_engine.dut.len[7:0]
+tb_ntt_engine.dut.k[7:0]
+tb_ntt_engine.dut.start_idx[8:0]
+tb_ntt_engine.dut.j[7:0]
+@28
+tb_ntt_engine.dut.last_in_block
+tb_ntt_engine.dut.layer_done
+tb_ntt_engine.dut.all_done
+-Butterfly_datapath
+@22
+tb_ntt_engine.dut.a_cur[15:0]
+tb_ntt_engine.dut.b_cur[15:0]
+tb_ntt_engine.dut.zeta[15:0]
+tb_ntt_engine.dut.a_new[15:0]
+tb_ntt_engine.dut.b_new[15:0]
+-Result
+@22
+tb_ntt_engine.rd_addr[7:0]
+tb_ntt_engine.rd_data[15:0]
+@24
+tb_ntt_engine.errors[31:0]
+[pattern_trace] 1
+[pattern_trace] 0

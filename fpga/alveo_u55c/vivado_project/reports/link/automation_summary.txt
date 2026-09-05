@@ -1,0 +1,52 @@
+====================================================================
+Version:    xcd v2023.2 (64-bit)
+Copyright:  Copyright 1986-2023 Xilinx, Inc. All Rights Reserved.
+Created:    Fri Aug 21 18:22:24 2026
+====================================================================
+
+1. Kernel and compute unit information
+======================================
+
+Compute Unit: demo_top_krnl_1
+Kernel: demo_top_krnl
+Base Address: 0x800000
+Clock Pin: s_axi_control_aclk
+Reset Pin: s_axi_control_aresetn
+
+2. Interface Connections
+========================
+
+IP to Compute Unit
+------------------
+Source Pin: SLR0/M01_AXI
+Destination Pin: demo_top_krnl_1/s_axi_control
+
+3. Clock Connections
+====================
+
+Compute Unit: demo_top_krnl_1
+Source Pin: clk_wiz/clk_out1
+Destination Pin: demo_top_krnl_1/s_axi_control_aclk
+
+Clock Instance: clk_wiz
+Source Port: /blp_s_aclk_freerun_ref_00
+Destination Pin: clk_wiz/clk_in1
+
+4. Reset Connections
+====================
+
+Compute Unit: demo_top_krnl_1
+Source Pin: rst_clk_wiz_300M/peripheral_aresetn
+Destination Pin: demo_top_krnl_1/s_axi_control_aresetn
+Associated Clock Pin: demo_top_krnl_1/s_axi_control_aclk
+
+5. Clock Summary
+================
+
+PL
++-----------------+---------------+--------------------+---------------+------------+
+| Instance        | Kernel        | Clock Port         | Compile (MHz) | Link (MHz) |
++-----------------+---------------+--------------------+---------------+------------+
+| demo_top_krnl_1 | demo_top_krnl | s_axi_control_aclk | N/A           | 300.00     |
++-----------------+---------------+--------------------+---------------+------------+
+

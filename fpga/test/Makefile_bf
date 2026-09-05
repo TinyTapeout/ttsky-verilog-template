@@ -1,0 +1,6 @@
+SIM = icarus
+TOPLEVEL_LANG = verilog 
+VERILOG_SOURCES = $(PWD)/../src/butterfly.v $(PWD)/../src/mod_mult.v $(PWD)/../src/mod_add.v $(PWD)/../src/mod_sub.v
+TOPLEVEL = butterfly 
+MODULE = test_butterfly
+include $(shell cocotb-config --makefiles)/Makefile.sim

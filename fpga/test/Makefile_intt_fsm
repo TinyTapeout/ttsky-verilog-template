@@ -1,0 +1,6 @@
+SIM = icarus
+TOPLEVEL_LANG = verilog
+VERILOG_SOURCES = $(PWD)/../src/intt_control_fsm.v
+TOPLEVEL = intt_control_fsm
+MODULE = test_intt_control_fsm
+include $(shell cocotb-config --makefiles)/Makefile.sim

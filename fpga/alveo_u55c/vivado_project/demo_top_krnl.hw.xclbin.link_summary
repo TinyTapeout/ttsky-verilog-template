@@ -1,0 +1,1124 @@
+<ENTRY>
+{
+ "thisFile": "/home/coder/ntt-butterfly-sky26c/alveo_demo/build/demo_top_krnl.hw.xclbin.link_summary",
+ "connectId": "",
+ "serverToken": "",
+ "timestamp": "0"
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_CmdStep",
+ "dateTimestamp": "Fri Aug 21 16:58:20 2026",
+ "timestampMillis": "1787331500936",
+ "buildStep": {
+  "cmdId": "74000d1c-c417-44fd-b4d9-2f86cc2c8bf5",
+  "name": "v++",
+  "logFile": "/home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/link/link.steps.log",
+  "commandLine": "/tools/Xilinx/Vitis/2023.2/bin/unwrapped/lnx64.o/v++  --vivado.prop \"run.__KERNEL__.{STEPS.SYNTH_DESIGN.ARGS.MORE OPTIONS}={-directive sdx_optimization_effort_high}\" --advanced.misc \"report=type report_timing_summary name impl_report_timing_summary_route_design_summary steps {route_design} runs {impl_1} options {-max_paths 10}\" --advanced.misc \"report=type report_timing_summary name impl_report_timing_summary_post_route_phys_opt_design_summary steps {post_route_phys_opt_design} runs {impl_1} options {-max_paths 10}\" -l -t hw --platform xilinx_u55c_gen3x16_xdma_3_202210_1 --config ../demo_krnl.cfg -o demo_top_krnl.hw.xclbin demo_top_krnl.xo ",
+  "args": [
+   "-l",
+   "-t",
+   "hw",
+   "--platform",
+   "xilinx_u55c_gen3x16_xdma_3_202210_1",
+   "--config",
+   "../demo_krnl.cfg",
+   "-o",
+   "demo_top_krnl.hw.xclbin",
+   "demo_top_krnl.xo"
+  ],
+  "iniFiles": [
+   {
+    "path": "/home/coder/ntt-butterfly-sky26c/alveo_demo/demo_krnl.cfg",
+    "content": "# v++ link config for the self-contained NTT/INTT round-trip demo kernel.\n# No memory-mapped AXI master ports needed -- the kernel generates its own\n# test vector on-chip and reports pass/fail via the AXI-Lite control bus.\nplatform=xilinx_u55c_gen3x16_xdma_3_202210_1\n\n[connectivity]\nnk=demo_top_krnl:1:demo_top_krnl_1\n\n[clock]\nfreqHz=300000000:demo_top_krnl_1\n"
+   }
+  ],
+  "cwd": "/home/coder/ntt-butterfly-sky26c/alveo_demo/build"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Fri Aug 21 16:58:20 2026",
+ "timestampMillis": "1787331500936",
+ "status": {
+  "cmdId": "74000d1c-c417-44fd-b4d9-2f86cc2c8bf5",
+  "state": "CS_RUNNING"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_FlowMetaData",
+ "dateTimestamp": "Fri Aug 21 16:58:25 2026",
+ "timestampMillis": "1787331505315",
+ "buildSummary": {
+  "hardwarePlatform": "xilinx_u55c_gen3x16_xdma_3_202210_1.xpfm",
+  "hardwareDsa": "",
+  "platformDirectory": "/opt/xilinx/platforms/xilinx_u55c_gen3x16_xdma_3_202210_1",
+  "runtime": "OpenCL",
+  "systemConfig": "Linux",
+  "flow": "BF_LINK",
+  "target": "TT_HW",
+  "binaryContainer": {
+   "base": {
+    "type": "BT_UKNOWN",
+    "name": "demo_top_krnl.hw",
+    "file": "/home/coder/ntt-butterfly-sky26c/alveo_demo/build/demo_top_krnl.hw.xclbin",
+    "reports": [],
+    "uuid": ""
+   },
+   "kernels": []
+  },
+  "kernels": [
+   {
+    "base": {
+     "type": "KERNEL",
+     "name": "demo_top_krnl",
+     "file": "/home/coder/ntt-butterfly-sky26c/alveo_demo/build/demo_top_krnl.xo",
+     "reports": [],
+     "uuid": ""
+    },
+    "sources": [],
+    "psSources": [],
+    "cuNames": [
+     "demo_top_krnl_1"
+    ],
+    "type": "RTL",
+    "frequency": 0,
+    "freqUnits": ""
+   }
+  ],
+  "toolVersion": "Vitis V++ Compiler Release 2023.2. SW Build 4026344 on 2023-10-11-15:42:10"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_SubCmdStep",
+ "dateTimestamp": "Fri Aug 21 16:58:25 2026",
+ "timestampMillis": "1787331505510",
+ "buildStep": {
+  "cmdId": "06f0f006-e77c-42d9-b810-e56ee9b180d5",
+  "name": "system_link",
+  "logFile": "",
+  "commandLine": "system_link --xo /home/coder/ntt-butterfly-sky26c/alveo_demo/build/demo_top_krnl.xo --config /home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/link/int/syslinkConfig.ini --xpfm /opt/xilinx/platforms/xilinx_u55c_gen3x16_xdma_3_202210_1/xilinx_u55c_gen3x16_xdma_3_202210_1.xpfm --target hw --output_dir /home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/link/int --temp_dir /home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/link/sys_link",
+  "args": [
+   "--xo",
+   "/home/coder/ntt-butterfly-sky26c/alveo_demo/build/demo_top_krnl.xo",
+   "--config",
+   "/home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/link/int/syslinkConfig.ini",
+   "--xpfm",
+   "/opt/xilinx/platforms/xilinx_u55c_gen3x16_xdma_3_202210_1/xilinx_u55c_gen3x16_xdma_3_202210_1.xpfm",
+   "--target",
+   "hw",
+   "--output_dir",
+   "/home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/link/int",
+   "--temp_dir",
+   "/home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/link/sys_link"
+  ],
+  "iniFiles": [
+   {
+    "path": "/home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/link/int/syslinkConfig.ini",
+    "content": "nk=demo_top_krnl:1:demo_top_krnl_1\n\nclock.freqHz=300000000:demo_top_krnl_1\n\n"
+   }
+  ],
+  "cwd": "/home/coder/ntt-butterfly-sky26c/alveo_demo/build"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Fri Aug 21 16:58:25 2026",
+ "timestampMillis": "1787331505510",
+ "status": {
+  "cmdId": "06f0f006-e77c-42d9-b810-e56ee9b180d5",
+  "state": "CS_RUNNING"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Fri Aug 21 16:58:44 2026",
+ "timestampMillis": "1787331524162",
+ "status": {
+  "cmdId": "06f0f006-e77c-42d9-b810-e56ee9b180d5",
+  "state": "CS_PASSED"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_SubCmdStep",
+ "dateTimestamp": "Fri Aug 21 16:58:44 2026",
+ "timestampMillis": "1787331524164",
+ "buildStep": {
+  "cmdId": "57f738d3-c492-43d4-b79b-8b38d5662eeb",
+  "name": "cf2sw",
+  "logFile": "",
+  "commandLine": "cf2sw -sdsl /home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/link/int/sdsl.dat -rtd /home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/link/int/cf2sw.rtd -nofilter /home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/link/int/cf2sw_full.rtd -xclbin /home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/link/int/xclbin_orig.xml -o /home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/link/int/xclbin_orig.1.xml",
+  "args": [
+   "-sdsl",
+   "/home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/link/int/sdsl.dat",
+   "-rtd",
+   "/home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/link/int/cf2sw.rtd",
+   "-nofilter",
+   "/home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/link/int/cf2sw_full.rtd",
+   "-xclbin",
+   "/home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/link/int/xclbin_orig.xml",
+   "-o",
+   "/home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/link/int/xclbin_orig.1.xml"
+  ],
+  "iniFiles": [],
+  "cwd": "/home/coder/ntt-butterfly-sky26c/alveo_demo/build"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Fri Aug 21 16:58:44 2026",
+ "timestampMillis": "1787331524164",
+ "status": {
+  "cmdId": "57f738d3-c492-43d4-b79b-8b38d5662eeb",
+  "state": "CS_RUNNING"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Fri Aug 21 16:58:49 2026",
+ "timestampMillis": "1787331529383",
+ "status": {
+  "cmdId": "57f738d3-c492-43d4-b79b-8b38d5662eeb",
+  "state": "CS_PASSED"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_SubCmdStep",
+ "dateTimestamp": "Fri Aug 21 16:58:49 2026",
+ "timestampMillis": "1787331529387",
+ "buildStep": {
+  "cmdId": "9d50ffec-6f39-4b08-a242-e8abc39694d1",
+  "name": "rtd2_system_diagram",
+  "logFile": "",
+  "commandLine": "rtd2SystemDiagram",
+  "args": [],
+  "iniFiles": [],
+  "cwd": "/home/coder/ntt-butterfly-sky26c/alveo_demo/build"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Fri Aug 21 16:58:49 2026",
+ "timestampMillis": "1787331529387",
+ "status": {
+  "cmdId": "9d50ffec-6f39-4b08-a242-e8abc39694d1",
+  "state": "CS_RUNNING"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Fri Aug 21 16:58:49 2026",
+ "timestampMillis": "1787331529671",
+ "report": {
+  "path": "/home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/link/int/systemDiagramModel.json",
+  "name": "",
+  "fileType": "JSON",
+  "reportType": "SYSTEM_DIAGRAM",
+  "cmdId": ""
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Fri Aug 21 16:58:49 2026",
+ "timestampMillis": "1787331529671",
+ "status": {
+  "cmdId": "9d50ffec-6f39-4b08-a242-e8abc39694d1",
+  "state": "CS_PASSED"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_SubCmdStep",
+ "dateTimestamp": "Fri Aug 21 16:58:49 2026",
+ "timestampMillis": "1787331529673",
+ "buildStep": {
+  "cmdId": "f74b6d30-5828-4c6a-a2c4-1a0f378cd1df",
+  "name": "vpl",
+  "logFile": "",
+  "commandLine": "vpl -t hw -f xilinx_u55c_gen3x16_xdma_3_202210_1 --remote_ip_cache /home/coder/ntt-butterfly-sky26c/alveo_demo/build/.ipcache --output_dir /home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/link/int --log_dir /home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/logs/link --report_dir /home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/reports/link --config /home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/link/int/vplConfig.ini -k /home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/link/int/kernel_info.dat --webtalk_flag Vitis --temp_dir /home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/link --no-info --iprepo /home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/link/int/xo/ip_repo/xilinx_com_RTLKernel_demo_top_s_axi_1_0 --messageDb /home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/link/run_link/vpl.pb /home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/link/int/dr.bd.tcl",
+  "args": [
+   "-t",
+   "hw",
+   "-f",
+   "xilinx_u55c_gen3x16_xdma_3_202210_1",
+   "--remote_ip_cache",
+   "/home/coder/ntt-butterfly-sky26c/alveo_demo/build/.ipcache",
+   "--output_dir",
+   "/home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/link/int",
+   "--log_dir",
+   "/home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/logs/link",
+   "--report_dir",
+   "/home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/reports/link",
+   "--config",
+   "/home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/link/int/vplConfig.ini",
+   "-k",
+   "/home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/link/int/kernel_info.dat",
+   "--webtalk_flag",
+   "Vitis",
+   "--temp_dir",
+   "/home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/link",
+   "--no-info",
+   "--iprepo",
+   "/home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/link/int/xo/ip_repo/xilinx_com_RTLKernel_demo_top_s_axi_1_0",
+   "--messageDb",
+   "/home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/link/run_link/vpl.pb",
+   "/home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/link/int/dr.bd.tcl"
+  ],
+  "iniFiles": [
+   {
+    "path": "/home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/link/int/vplConfig.ini",
+    "content": "[advanced]\nmisc=report=type report_timing_summary name impl_report_timing_summary_route_design_summary steps {route_design} runs {impl_1} options {-max_paths 10}\nmisc=report=type report_timing_summary name impl_report_timing_summary_post_route_phys_opt_design_summary steps {post_route_phys_opt_design} runs {impl_1} options {-max_paths 10}\nparam=compiler.enablePerformanceTrace=1\nparam=compiler.vppCurrentWorkingDir=/home/coder/ntt-butterfly-sky26c/alveo_demo/build\nmisc=BinaryName=demo_top_krnl.hw\n\n[connectivity]\nnk=demo_top_krnl:1:demo_top_krnl_1\n\n[vivado]\nprop=run.__KERNEL__.{STEPS.SYNTH_DESIGN.ARGS.MORE OPTIONS}={-directive sdx_optimization_effort_high}\n\n"
+   }
+  ],
+  "cwd": "/home/coder/ntt-butterfly-sky26c/alveo_demo/build"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Fri Aug 21 16:58:49 2026",
+ "timestampMillis": "1787331529674",
+ "status": {
+  "cmdId": "f74b6d30-5828-4c6a-a2c4-1a0f378cd1df",
+  "state": "CS_RUNNING"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_CmdStep",
+ "dateTimestamp": "Fri Aug 21 16:58:51 2026",
+ "timestampMillis": "1787331531157",
+ "buildStep": {
+  "cmdId": "d14eb3cd-9b77-43b9-a80e-233507c4f620",
+  "name": "vpl",
+  "logFile": "/home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/link/link.steps.log",
+  "commandLine": "/tools/Xilinx/Vitis/2023.2/bin/unwrapped/lnx64.o/vpl -t hw -f xilinx_u55c_gen3x16_xdma_3_202210_1 --remote_ip_cache /home/coder/ntt-butterfly-sky26c/alveo_demo/build/.ipcache --output_dir /home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/link/int --log_dir /home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/logs/link --report_dir /home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/reports/link --config /home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/link/int/vplConfig.ini -k /home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/link/int/kernel_info.dat --webtalk_flag Vitis --temp_dir /home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/link --no-info --iprepo /home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/link/int/xo/ip_repo/xilinx_com_RTLKernel_demo_top_s_axi_1_0 --messageDb /home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/link/run_link/vpl.pb /home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/link/int/dr.bd.tcl ",
+  "args": [],
+  "iniFiles": [],
+  "cwd": "/home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/link/run_link"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Fri Aug 21 16:58:51 2026",
+ "timestampMillis": "1787331531157",
+ "status": {
+  "cmdId": "d14eb3cd-9b77-43b9-a80e-233507c4f620",
+  "state": "CS_RUNNING"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_VivadoProject",
+ "dateTimestamp": "Fri Aug 21 16:58:56 2026",
+ "timestampMillis": "1787331536009",
+ "vivadoProject": {
+  "openDir": "/home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/link/vivado/vpl",
+  "openScript": "openprj.tcl",
+  "relativeProject": "prj/prj.xpr"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_SubCmdStep",
+ "dateTimestamp": "Fri Aug 21 16:58:56 2026",
+ "timestampMillis": "1787331536010",
+ "buildStep": {
+  "cmdId": "501d4494-e44d-446c-a6ac-5d1cc67e4e1d",
+  "name": "vivado",
+  "logFile": "/home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/link/vivado/vpl/vivado.log",
+  "commandLine": "vivado -log vivado.log -applog -m64 -messageDb vivado.pb -mode batch -source vpl.tcl -notrace",
+  "args": [
+   "-log",
+   "vivado.log",
+   "-applog",
+   " -m64",
+   "-messageDb",
+   "vivado.pb",
+   "-mode",
+   "batch",
+   "-source",
+   "vpl.tcl",
+   "-notrace"
+  ],
+  "iniFiles": [],
+  "cwd": "/home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/link/run_link"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Fri Aug 21 16:58:56 2026",
+ "timestampMillis": "1787331536011",
+ "status": {
+  "cmdId": "501d4494-e44d-446c-a6ac-5d1cc67e4e1d",
+  "state": "CS_RUNNING"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Fri Aug 21 17:01:04 2026",
+ "timestampMillis": "1787331664722",
+ "report": {
+  "path": "/home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/link/int/automation_summary_pre_synthesis.txt",
+  "name": "",
+  "fileType": "TEXT",
+  "reportType": "VITIS_DESIGN_FLOW",
+  "cmdId": ""
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_CmdStep",
+ "dateTimestamp": "Fri Aug 21 17:04:06 2026",
+ "timestampMillis": "1787331846230",
+ "buildStep": {
+  "cmdId": "ee73edfd-0d85-40aa-a90b-94d3a830e6d6",
+  "name": "vivado.impl",
+  "logFile": "",
+  "commandLine": "",
+  "args": [],
+  "iniFiles": [],
+  "cwd": "/home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/link/vivado/vpl"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Fri Aug 21 17:04:06 2026",
+ "timestampMillis": "1787331846230",
+ "status": {
+  "cmdId": "ee73edfd-0d85-40aa-a90b-94d3a830e6d6",
+  "state": "CS_RUNNING"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_CmdStep",
+ "dateTimestamp": "Fri Aug 21 17:04:06 2026",
+ "timestampMillis": "1787331846231",
+ "buildStep": {
+  "cmdId": "6b0cdd01-87a6-413f-96b1-d0c244e3c4fa",
+  "name": "vivado.impl.impl_1",
+  "logFile": "/home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/link/vivado/vpl/prj/prj.runs/impl_1/runme.log",
+  "commandLine": "",
+  "args": [],
+  "iniFiles": [],
+  "cwd": "/home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/link/vivado/vpl/prj/prj.runs/impl_1"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Fri Aug 21 17:04:06 2026",
+ "timestampMillis": "1787331846231",
+ "status": {
+  "cmdId": "6b0cdd01-87a6-413f-96b1-d0c244e3c4fa",
+  "state": "CS_RUNNING"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Fri Aug 21 18:11:48 2026",
+ "timestampMillis": "1787335908686",
+ "report": {
+  "path": "/home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/link/int/kernel_service.json",
+  "name": "",
+  "fileType": "JSON",
+  "reportType": "KERNEL_SERVICE",
+  "cmdId": ""
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Fri Aug 21 18:11:48 2026",
+ "timestampMillis": "1787335908687",
+ "report": {
+  "path": "/home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/link/int/kernel_service.pb",
+  "name": "",
+  "fileType": "BINARY_PROTOBUF",
+  "reportType": "KERNEL_SERVICE",
+  "cmdId": ""
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Fri Aug 21 18:13:41 2026",
+ "timestampMillis": "1787336021837",
+ "report": {
+  "path": "/home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/link/vivado/vpl/prj/prj.runs/impl_1/dr_timing_summary.rpt",
+  "name": "",
+  "fileType": "TEXT",
+  "reportType": "GLOBAL_REPORT_TIMING_SUMMARY_FAIL",
+  "cmdId": ""
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Fri Aug 21 18:22:19 2026",
+ "timestampMillis": "1787336539734",
+ "status": {
+  "cmdId": "501d4494-e44d-446c-a6ac-5d1cc67e4e1d",
+  "state": "CS_PASSED"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Fri Aug 21 18:22:19 2026",
+ "timestampMillis": "1787336539767",
+ "report": {
+  "path": "/home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/reports/link/imp/impl_1_slr_util_placed.rpt",
+  "name": "",
+  "fileType": "TEXT",
+  "reportType": "GLOBAL_SLR_UTIL_PLACED",
+  "cmdId": ""
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Fri Aug 21 18:22:19 2026",
+ "timestampMillis": "1787336539767",
+ "report": {
+  "path": "/home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/reports/link/imp/impl_1_slr_util_placed.pb",
+  "name": "",
+  "fileType": "BINARY_PROTOBUF",
+  "reportType": "GLOBAL_SLR_UTIL_PLACED",
+  "cmdId": ""
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Fri Aug 21 18:22:19 2026",
+ "timestampMillis": "1787336539767",
+ "report": {
+  "path": "/home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/reports/link/imp/impl_1_full_util_placed.rpt",
+  "name": "",
+  "fileType": "TEXT",
+  "reportType": "GLOBAL_UTILIZATION_PLACEMENT",
+  "cmdId": ""
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Fri Aug 21 18:22:19 2026",
+ "timestampMillis": "1787336539768",
+ "report": {
+  "path": "/home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/reports/link/imp/impl_1_full_util_placed.pb",
+  "name": "",
+  "fileType": "BINARY_PROTOBUF",
+  "reportType": "GLOBAL_UTILIZATION_PLACEMENT",
+  "cmdId": ""
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Fri Aug 21 18:22:19 2026",
+ "timestampMillis": "1787336539768",
+ "report": {
+  "path": "/home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/reports/link/imp/impl_1_slr_util_routed.rpt",
+  "name": "",
+  "fileType": "TEXT",
+  "reportType": "GLOBAL_SLR_UTIL_ROUTED",
+  "cmdId": ""
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Fri Aug 21 18:22:19 2026",
+ "timestampMillis": "1787336539768",
+ "report": {
+  "path": "/home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/reports/link/imp/impl_1_slr_util_routed.pb",
+  "name": "",
+  "fileType": "BINARY_PROTOBUF",
+  "reportType": "GLOBAL_SLR_UTIL_ROUTED",
+  "cmdId": ""
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Fri Aug 21 18:22:19 2026",
+ "timestampMillis": "1787336539769",
+ "report": {
+  "path": "/home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/reports/link/imp/impl_1_full_util_routed.rpt",
+  "name": "",
+  "fileType": "TEXT",
+  "reportType": "GLOBAL_UTILIZATION_ROUTE",
+  "cmdId": ""
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Fri Aug 21 18:22:19 2026",
+ "timestampMillis": "1787336539769",
+ "report": {
+  "path": "/home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/reports/link/imp/impl_1_full_util_routed.pb",
+  "name": "",
+  "fileType": "BINARY_PROTOBUF",
+  "reportType": "GLOBAL_UTILIZATION_ROUTE",
+  "cmdId": ""
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Fri Aug 21 18:22:19 2026",
+ "timestampMillis": "1787336539769",
+ "report": {
+  "path": "/home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/reports/link/syn/ulp_demo_top_krnl_1_0_synth_1_ulp_demo_top_krnl_1_0_utilization_synth.rpt",
+  "name": "",
+  "fileType": "TEXT",
+  "reportType": "GLOBAL_REPORT_UTILIZATION",
+  "cmdId": ""
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Fri Aug 21 18:22:19 2026",
+ "timestampMillis": "1787336539776",
+ "report": {
+  "path": "/home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/reports/link/imp/impl_1_hw_bb_locked_timing_summary_routed.rpt",
+  "name": "",
+  "fileType": "TEXT",
+  "reportType": "GLOBAL_REPORT_TIMING_SUMMARY",
+  "cmdId": "6b0cdd01-87a6-413f-96b1-d0c244e3c4fa"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Fri Aug 21 18:22:19 2026",
+ "timestampMillis": "1787336539782",
+ "report": {
+  "path": "/home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/reports/link/imp/impl_1_hw_bb_locked_timing_summary_routed.rpx",
+  "name": "",
+  "fileType": "BINARY_PROTOBUF",
+  "reportType": "GLOBAL_REPORT_TIMING_SUMMARY",
+  "cmdId": "6b0cdd01-87a6-413f-96b1-d0c244e3c4fa"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Fri Aug 21 18:22:19 2026",
+ "timestampMillis": "1787336539782",
+ "report": {
+  "path": "/home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/reports/link/imp/impl_1_hw_bb_locked_timing_summary_routed.rpv",
+  "name": "",
+  "fileType": "BINARY_PROTOBUF",
+  "reportType": "GLOBAL_REPORT_TIMING_SUMMARY_CONCISE",
+  "cmdId": "6b0cdd01-87a6-413f-96b1-d0c244e3c4fa"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Fri Aug 21 18:22:19 2026",
+ "timestampMillis": "1787336539832",
+ "status": {
+  "cmdId": "d14eb3cd-9b77-43b9-a80e-233507c4f620",
+  "state": "CS_PASSED"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Fri Aug 21 18:22:19 2026",
+ "timestampMillis": "1787336539845",
+ "status": {
+  "cmdId": "f74b6d30-5828-4c6a-a2c4-1a0f378cd1df",
+  "state": "CS_PASSED"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_SubCmdStep",
+ "dateTimestamp": "Fri Aug 21 18:22:19 2026",
+ "timestampMillis": "1787336539849",
+ "buildStep": {
+  "cmdId": "36bfd786-3bc9-450d-8604-9afb6a50202b",
+  "name": "rtdgen",
+  "logFile": "",
+  "commandLine": "rtdgen",
+  "args": [],
+  "iniFiles": [],
+  "cwd": "/home/coder/ntt-butterfly-sky26c/alveo_demo/build"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Fri Aug 21 18:22:19 2026",
+ "timestampMillis": "1787336539849",
+ "status": {
+  "cmdId": "36bfd786-3bc9-450d-8604-9afb6a50202b",
+  "state": "CS_RUNNING"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Fri Aug 21 18:22:19 2026",
+ "timestampMillis": "1787336539850",
+ "report": {
+  "path": "/home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/link/int/demo_top_krnl.hw_xml.rtd",
+  "name": "",
+  "fileType": "JSON",
+  "reportType": "XCLBIN_INFO",
+  "cmdId": ""
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_SubCmdStep",
+ "dateTimestamp": "Fri Aug 21 18:22:19 2026",
+ "timestampMillis": "1787336539851",
+ "buildStep": {
+  "cmdId": "63da1266-0866-4fb0-96c6-f662d24d9e21",
+  "name": "cf2sw",
+  "logFile": "",
+  "commandLine": "cf2sw -a /home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/link/int/address_map.xml -sdsl /home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/link/int/sdsl.dat -xclbin /home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/link/int/xclbin_orig.xml -rtd /home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/link/int/demo_top_krnl.hw.rtd -o /home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/link/int/demo_top_krnl.hw.xml",
+  "args": [
+   "-a",
+   "/home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/link/int/address_map.xml",
+   "-sdsl",
+   "/home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/link/int/sdsl.dat",
+   "-xclbin",
+   "/home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/link/int/xclbin_orig.xml",
+   "-rtd",
+   "/home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/link/int/demo_top_krnl.hw.rtd",
+   "-o",
+   "/home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/link/int/demo_top_krnl.hw.xml"
+  ],
+  "iniFiles": [],
+  "cwd": "/home/coder/ntt-butterfly-sky26c/alveo_demo/build"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Fri Aug 21 18:22:19 2026",
+ "timestampMillis": "1787336539851",
+ "status": {
+  "cmdId": "63da1266-0866-4fb0-96c6-f662d24d9e21",
+  "state": "CS_RUNNING"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Fri Aug 21 18:22:24 2026",
+ "timestampMillis": "1787336544092",
+ "status": {
+  "cmdId": "63da1266-0866-4fb0-96c6-f662d24d9e21",
+  "state": "CS_PASSED"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_SubCmdStep",
+ "dateTimestamp": "Fri Aug 21 18:22:24 2026",
+ "timestampMillis": "1787336544093",
+ "buildStep": {
+  "cmdId": "6c487f15-961d-4601-a57a-0c015c97da12",
+  "name": "rtdgen",
+  "logFile": "",
+  "commandLine": "writeSystemDiagram",
+  "args": [
+   "/home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/link/int/demo_top_krnl.hw.rtd",
+   "/home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/link/int/systemDiagramModelSlrBaseAddress.json"
+  ],
+  "iniFiles": [],
+  "cwd": "/home/coder/ntt-butterfly-sky26c/alveo_demo/build"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Fri Aug 21 18:22:24 2026",
+ "timestampMillis": "1787336544093",
+ "status": {
+  "cmdId": "6c487f15-961d-4601-a57a-0c015c97da12",
+  "state": "CS_RUNNING"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Fri Aug 21 18:22:24 2026",
+ "timestampMillis": "1787336544095",
+ "report": {
+  "path": "/home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/link/int/systemDiagramModelSlrBaseAddress.json",
+  "name": "",
+  "fileType": "JSON",
+  "reportType": "SYSTEM_DIAGRAM_PLUS",
+  "cmdId": ""
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Fri Aug 21 18:22:24 2026",
+ "timestampMillis": "1787336544095",
+ "status": {
+  "cmdId": "6c487f15-961d-4601-a57a-0c015c97da12",
+  "state": "CS_PASSED"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_SubCmdStep",
+ "dateTimestamp": "Fri Aug 21 18:22:24 2026",
+ "timestampMillis": "1787336544095",
+ "buildStep": {
+  "cmdId": "15c55a14-4ba3-4365-9972-18ff475fd5ce",
+  "name": "rtdgen",
+  "logFile": "",
+  "commandLine": "writeAutomationSummary",
+  "args": [
+   "/home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/link/int/automation_summary.txt"
+  ],
+  "iniFiles": [],
+  "cwd": "/home/coder/ntt-butterfly-sky26c/alveo_demo/build"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Fri Aug 21 18:22:24 2026",
+ "timestampMillis": "1787336544095",
+ "status": {
+  "cmdId": "15c55a14-4ba3-4365-9972-18ff475fd5ce",
+  "state": "CS_RUNNING"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Fri Aug 21 18:22:24 2026",
+ "timestampMillis": "1787336544096",
+ "report": {
+  "path": "/home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/link/int/automation_summary.txt",
+  "name": "",
+  "fileType": "TEXT",
+  "reportType": "VITIS_DESIGN_FLOW",
+  "cmdId": ""
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Fri Aug 21 18:22:24 2026",
+ "timestampMillis": "1787336544096",
+ "status": {
+  "cmdId": "15c55a14-4ba3-4365-9972-18ff475fd5ce",
+  "state": "CS_PASSED"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Fri Aug 21 18:22:24 2026",
+ "timestampMillis": "1787336544096",
+ "status": {
+  "cmdId": "36bfd786-3bc9-450d-8604-9afb6a50202b",
+  "state": "CS_PASSED"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_SubCmdStep",
+ "dateTimestamp": "Fri Aug 21 18:22:24 2026",
+ "timestampMillis": "1787336544099",
+ "buildStep": {
+  "cmdId": "70ea9f7c-a140-484a-8200-a691f33051b1",
+  "name": "xclbinutil",
+  "logFile": "",
+  "commandLine": "xclbinutil --add-section BITSTREAM:RAW:/home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/link/int/partial.bit --force --target hw --key-value SYS:dfx_enable:true --add-section :JSON:/home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/link/int/demo_top_krnl.hw.rtd --append-section :JSON:/home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/link/int/appendSection.rtd --add-section CLOCK_FREQ_TOPOLOGY:JSON:/home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/link/int/demo_top_krnl.hw_xml.rtd --add-section BUILD_METADATA:JSON:/home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/link/int/demo_top_krnl.hw_build.rtd --add-section EMBEDDED_METADATA:RAW:/home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/link/int/demo_top_krnl.hw.xml --add-section SYSTEM_METADATA:RAW:/home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/link/int/systemDiagramModelSlrBaseAddress.json --key-value SYS:PlatformVBNV:xilinx_u55c_gen3x16_xdma_3_202210_1 --output /home/coder/ntt-butterfly-sky26c/alveo_demo/build/demo_top_krnl.hw.xclbin",
+  "args": [
+   "--add-section",
+   "BITSTREAM:RAW:/home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/link/int/partial.bit",
+   "--force",
+   "--target",
+   "hw",
+   "--key-value",
+   "SYS:dfx_enable:true",
+   "--add-section",
+   ":JSON:/home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/link/int/demo_top_krnl.hw.rtd",
+   "--append-section",
+   ":JSON:/home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/link/int/appendSection.rtd",
+   "--add-section",
+   "CLOCK_FREQ_TOPOLOGY:JSON:/home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/link/int/demo_top_krnl.hw_xml.rtd",
+   "--add-section",
+   "BUILD_METADATA:JSON:/home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/link/int/demo_top_krnl.hw_build.rtd",
+   "--add-section",
+   "EMBEDDED_METADATA:RAW:/home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/link/int/demo_top_krnl.hw.xml",
+   "--add-section",
+   "SYSTEM_METADATA:RAW:/home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/link/int/systemDiagramModelSlrBaseAddress.json",
+   "--key-value",
+   "SYS:PlatformVBNV:xilinx_u55c_gen3x16_xdma_3_202210_1",
+   "--output",
+   "/home/coder/ntt-butterfly-sky26c/alveo_demo/build/demo_top_krnl.hw.xclbin"
+  ],
+  "iniFiles": [],
+  "cwd": "/home/coder/ntt-butterfly-sky26c/alveo_demo/build"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Fri Aug 21 18:22:24 2026",
+ "timestampMillis": "1787336544099",
+ "status": {
+  "cmdId": "70ea9f7c-a140-484a-8200-a691f33051b1",
+  "state": "CS_RUNNING"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Fri Aug 21 18:22:24 2026",
+ "timestampMillis": "1787336544204",
+ "status": {
+  "cmdId": "70ea9f7c-a140-484a-8200-a691f33051b1",
+  "state": "CS_PASSED"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_SubCmdStep",
+ "dateTimestamp": "Fri Aug 21 18:22:24 2026",
+ "timestampMillis": "1787336544206",
+ "buildStep": {
+  "cmdId": "8086577b-062a-4012-8ecd-5311e92ab2c3",
+  "name": "xclbinutilinfo",
+  "logFile": "",
+  "commandLine": "xclbinutil --quiet --force --info /home/coder/ntt-butterfly-sky26c/alveo_demo/build/demo_top_krnl.hw.xclbin.info --input /home/coder/ntt-butterfly-sky26c/alveo_demo/build/demo_top_krnl.hw.xclbin",
+  "args": [
+   "--quiet",
+   "--force",
+   "--info",
+   "/home/coder/ntt-butterfly-sky26c/alveo_demo/build/demo_top_krnl.hw.xclbin.info",
+   "--input",
+   "/home/coder/ntt-butterfly-sky26c/alveo_demo/build/demo_top_krnl.hw.xclbin"
+  ],
+  "iniFiles": [],
+  "cwd": "/home/coder/ntt-butterfly-sky26c/alveo_demo/build"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Fri Aug 21 18:22:24 2026",
+ "timestampMillis": "1787336544206",
+ "status": {
+  "cmdId": "8086577b-062a-4012-8ecd-5311e92ab2c3",
+  "state": "CS_RUNNING"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Fri Aug 21 18:22:24 2026",
+ "timestampMillis": "1787336544586",
+ "status": {
+  "cmdId": "8086577b-062a-4012-8ecd-5311e92ab2c3",
+  "state": "CS_PASSED"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_SubCmdStep",
+ "dateTimestamp": "Fri Aug 21 18:22:24 2026",
+ "timestampMillis": "1787336544588",
+ "buildStep": {
+  "cmdId": "487fff32-2809-49c5-8da0-8f34a1bd302c",
+  "name": "generate_sc_driver",
+  "logFile": "",
+  "commandLine": "",
+  "args": [],
+  "iniFiles": [],
+  "cwd": "/home/coder/ntt-butterfly-sky26c/alveo_demo/build"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Fri Aug 21 18:22:24 2026",
+ "timestampMillis": "1787336544588",
+ "status": {
+  "cmdId": "487fff32-2809-49c5-8da0-8f34a1bd302c",
+  "state": "CS_RUNNING"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Fri Aug 21 18:22:24 2026",
+ "timestampMillis": "1787336544588",
+ "status": {
+  "cmdId": "487fff32-2809-49c5-8da0-8f34a1bd302c",
+  "state": "CS_PASSED"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Fri Aug 21 18:22:24 2026",
+ "timestampMillis": "1787336544675",
+ "report": {
+  "path": "/home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/reports/link/system_estimate_demo_top_krnl.hw.xtxt",
+  "name": "",
+  "fileType": "TEXT",
+  "reportType": "GLOBAL_SYSTEM_ESTIMATE",
+  "cmdId": ""
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Fri Aug 21 18:22:25 2026",
+ "timestampMillis": "1787336545058",
+ "report": {
+  "path": "/home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/logs/optraceViewer.html",
+  "name": "",
+  "fileType": "HTML",
+  "reportType": "OPERATION_TRACE",
+  "cmdId": ""
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Fri Aug 21 18:22:25 2026",
+ "timestampMillis": "1787336545059",
+ "status": {
+  "cmdId": "74000d1c-c417-44fd-b4d9-2f86cc2c8bf5",
+  "state": "CS_PASSED"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Fri Aug 21 18:22:25 2026",
+ "timestampMillis": "1787336545076",
+ "report": {
+  "path": "/home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/reports/link/v++_link_demo_top_krnl.hw_guidance.html",
+  "name": "",
+  "fileType": "HTML",
+  "reportType": "GLOBAL_RULECHECK_GUIDANCE",
+  "cmdId": ""
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Fri Aug 21 18:22:25 2026",
+ "timestampMillis": "1787336545076",
+ "report": {
+  "path": "/home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/v++_link_demo_top_krnl.hw_guidance.pb3",
+  "name": "",
+  "fileType": "BINARY_PROTOBUF",
+  "reportType": "GLOBAL_RULECHECK_GUIDANCE",
+  "cmdId": ""
+ }
+}
+</ENTRY>

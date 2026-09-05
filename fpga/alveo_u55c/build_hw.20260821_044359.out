@@ -1,0 +1,292 @@
+Autocomplete not enabled for XRT tools
+XILINX_XRT        : /opt/xilinx/xrt
+PATH              : /opt/xilinx/xrt/bin:/tools/Xilinx/Vitis/2023.2/bin:/tools/Xilinx/Vitis_HLS/2023.2/bin:/tools/Xilinx/Model_Composer/2023.2/bin:/tools/Xilinx/Vivado/2023.2/bin:/tools/Xilinx/DocNav:/home/coder/.local/bin:/tools/Xilinx/Vitis_HLS/2023.1/bin:/tools/Xilinx/Model_Composer/2023.1/bin:/tools/Xilinx/Vivado/2023.1/bin:/tools/Xilinx/DocNav:/opt/xilinx/xrt/bin:/tools/Xilinx/Vitis_HLS/2023.1/bin:/tools/Xilinx/Model_Composer/2023.1/bin:/tools/Xilinx/Vivado/2023.1/bin:/tools/Xilinx/DocNav:/opt/xilinx/xrt/bin:/tmp/coder-script-data/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/tmp/coder.0WaosM
+LD_LIBRARY_PATH   : /opt/xilinx/xrt/lib:/tools/Xilinx/Vivado/2023.1/lib/lnx64.o:
+PYTHONPATH        : /opt/xilinx/xrt/python:/opt/xilinx/xrt/python:/opt/xilinx/xrt/python
+===================================================================
+ LINK  target=hw  platform=xilinx_u55c_gen3x16_xdma_3_202210_1
+===================================================================
+WARNING: [v++ 60-1603] The supplied option 'clock.freqHz' is deprecated. The supplied option is replaced by an alternative feature controlled by option 'freqhz'. 
+Option Map File Used: '/tools/Xilinx/Vitis/2023.2/data/vitis/vpp/optMap.xml'
+
+****** v++ v2023.2 (64-bit)
+  **** SW Build 4026344 on 2023-10-11-15:42:10
+    ** Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+    ** Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+
+INFO: [v++ 60-1306] Additional information associated with this v++ link can be found at:
+	Reports: /home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/reports/link
+	Log files: /home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/logs/link
+Running Dispatch Server on port: 37409
+INFO: [v++ 60-1548] Creating build summary session with primary output /home/coder/ntt-butterfly-sky26c/alveo_demo/build/demo_top_krnl.hw.xclbin.link_summary, at Fri Aug 21 04:44:03 2026
+INFO: [v++ 60-1315] Creating rulecheck session with output '/home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/reports/link/v++_link_demo_top_krnl.hw_guidance.html', at Fri Aug 21 04:44:03 2026
+INFO: [v++ 60-895]   Target platform: /opt/xilinx/platforms/xilinx_u55c_gen3x16_xdma_3_202210_1/xilinx_u55c_gen3x16_xdma_3_202210_1.xpfm
+INFO: [v++ 60-1578]   This platform contains Xilinx Shell Archive '/opt/xilinx/platforms/xilinx_u55c_gen3x16_xdma_3_202210_1/hw/hw.xsa'
+INFO: [v++ 74-78] Compiler Version string: 2023.2
+INFO: [v++ 60-629] Linking for hardware target
+INFO: [v++ 60-423]   Target device: xilinx_u55c_gen3x16_xdma_3_202210_1
+INFO: [v++ 60-1332] Run 'run_link' status: Not started
+INFO: [v++ 60-1443] [04:44:07] Run run_link: Step system_link: Started
+INFO: [v++ 60-1453] Command Line: system_link --xo /home/coder/ntt-butterfly-sky26c/alveo_demo/build/demo_top_krnl.xo --config /home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/link/int/syslinkConfig.ini --xpfm /opt/xilinx/platforms/xilinx_u55c_gen3x16_xdma_3_202210_1/xilinx_u55c_gen3x16_xdma_3_202210_1.xpfm --target hw --output_dir /home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/link/int --temp_dir /home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/link/sys_link
+INFO: [v++ 60-1454] Run Directory: /home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/link/run_link
+INFO: [SYSTEM_LINK 82-70] Extracting xo v3 file /home/coder/ntt-butterfly-sky26c/alveo_demo/build/demo_top_krnl.xo
+INFO: [SYSTEM_LINK 82-53] Creating IP database /home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/link/sys_link/_sysl/.cdb/xd_ip_db.xml
+INFO: [SYSTEM_LINK 82-38] [04:44:09] build_xd_ip_db started: /tools/Xilinx/Vitis/2023.2/bin/build_xd_ip_db -ip_search 0  -sds-pf /home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/link/sys_link/hw.hpfm -clkid 0 -ip /home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/link/sys_link/iprepo/xilinx_com_RTLKernel_demo_top_s_axi_1_0,demo_top_krnl -o /home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/link/sys_link/_sysl/.cdb/xd_ip_db.xml
+INFO: [SYSTEM_LINK 82-37] [04:44:13] build_xd_ip_db finished successfully
+Time (s): cpu = 00:00:04 ; elapsed = 00:00:04 . Memory (MB): peak = 457.227 ; gain = 0.000 ; free physical = 395042 ; free virtual = 850177
+INFO: [SYSTEM_LINK 82-51] Create system connectivity graph
+INFO: [SYSTEM_LINK 82-102] Applying explicit connections to the system connectivity graph: /home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/link/sys_link/cfgraph/cfgen_cfgraph.xml
+INFO: [SYSTEM_LINK 82-38] [04:44:13] cfgen started: /tools/Xilinx/Vitis/2023.2/bin/cfgen  -nk demo_top_krnl:1:demo_top_krnl_1 -clock.freqHz 300000000:demo_top_krnl_1 -dpa_mem_offload false -dmclkid 0 -r /home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/link/sys_link/_sysl/.cdb/xd_ip_db.xml -o /home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/link/sys_link/cfgraph/cfgen_cfgraph.xml
+INFO: [CFGEN 83-0] Kernel Specs: 
+INFO: [CFGEN 83-0]   kernel: demo_top_krnl, num: 1  {demo_top_krnl_1}
+INFO: [SYSTEM_LINK 82-37] [04:44:22] cfgen finished successfully
+Time (s): cpu = 00:00:09 ; elapsed = 00:00:09 . Memory (MB): peak = 457.227 ; gain = 0.000 ; free physical = 395356 ; free virtual = 850495
+INFO: [SYSTEM_LINK 82-52] Create top-level block diagram
+INFO: [SYSTEM_LINK 82-38] [04:44:22] cf2bd started: /tools/Xilinx/Vitis/2023.2/bin/cf2bd  --linux --trace_buffer 1024 --input_file /home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/link/sys_link/cfgraph/cfgen_cfgraph.xml --ip_db /home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/link/sys_link/_sysl/.cdb/xd_ip_db.xml --cf_name dr --working_dir /home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/link/sys_link/_sysl/.xsd --temp_dir /home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/link/sys_link --output_dir /home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/link/int --target_bd ulp.bd
+INFO: [CF2BD 82-31] Launching cf2xd: cf2xd -linux -trace-buffer 1024 -i /home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/link/sys_link/cfgraph/cfgen_cfgraph.xml -r /home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/link/sys_link/_sysl/.cdb/xd_ip_db.xml -o dr.xml
+INFO: [CF2BD 82-28] cf2xd finished successfully
+INFO: [CF2BD 82-31] Launching cf_xsd: cf_xsd -disable-address-gen -bd ulp.bd -dn dr -dp /home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/link/sys_link/_sysl/.xsd
+INFO: [CF2BD 82-28] cf_xsd finished successfully
+INFO: [SYSTEM_LINK 82-37] [04:44:25] cf2bd finished successfully
+Time (s): cpu = 00:00:03 ; elapsed = 00:00:04 . Memory (MB): peak = 457.227 ; gain = 0.000 ; free physical = 394969 ; free virtual = 850117
+INFO: [v++ 60-1441] [04:44:25] Run run_link: Step system_link: Completed
+Time (s): cpu = 00:00:18 ; elapsed = 00:00:18 . Memory (MB): peak = 488.152 ; gain = 0.000 ; free physical = 395037 ; free virtual = 850180
+INFO: [v++ 60-1443] [04:44:25] Run run_link: Step cf2sw: Started
+INFO: [v++ 60-1453] Command Line: cf2sw -sdsl /home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/link/int/sdsl.dat -rtd /home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/link/int/cf2sw.rtd -nofilter /home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/link/int/cf2sw_full.rtd -xclbin /home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/link/int/xclbin_orig.xml -o /home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/link/int/xclbin_orig.1.xml
+INFO: [v++ 60-1454] Run Directory: /home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/link/run_link
+INFO: [v++ 60-1441] [04:44:31] Run run_link: Step cf2sw: Completed
+Time (s): cpu = 00:00:05 ; elapsed = 00:00:05 . Memory (MB): peak = 488.152 ; gain = 0.000 ; free physical = 395164 ; free virtual = 850310
+INFO: [v++ 60-1443] [04:44:31] Run run_link: Step rtd2_system_diagram: Started
+INFO: [v++ 60-1453] Command Line: rtd2SystemDiagram
+INFO: [v++ 60-1454] Run Directory: /home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/link/run_link
+INFO: [v++ 60-1441] [04:44:31] Run run_link: Step rtd2_system_diagram: Completed
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.27 . Memory (MB): peak = 488.152 ; gain = 0.000 ; free physical = 395291 ; free virtual = 850442
+INFO: [v++ 60-1443] [04:44:31] Run run_link: Step vpl: Started
+INFO: [v++ 60-1453] Command Line: vpl -t hw -f xilinx_u55c_gen3x16_xdma_3_202210_1 --remote_ip_cache /home/coder/ntt-butterfly-sky26c/alveo_demo/build/.ipcache --output_dir /home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/link/int --log_dir /home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/logs/link --report_dir /home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/reports/link --config /home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/link/int/vplConfig.ini -k /home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/link/int/kernel_info.dat --webtalk_flag Vitis --temp_dir /home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/link --no-info --iprepo /home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/link/int/xo/ip_repo/xilinx_com_RTLKernel_demo_top_s_axi_1_0 --messageDb /home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/link/run_link/vpl.pb /home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/link/int/dr.bd.tcl
+INFO: [v++ 60-1454] Run Directory: /home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/link/run_link
+
+****** vpl v2023.2 (64-bit)
+  **** SW Build 4026344 on 2023-10-11-15:42:10
+    ** Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+    ** Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+
+INFO: [VPL 60-839] Read in kernel information from file '/home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/link/int/kernel_info.dat'.
+INFO: [VPL 74-78] Compiler Version string: 2023.2
+INFO: [VPL 60-423]   Target device: xilinx_u55c_gen3x16_xdma_3_202210_1
+INFO: [VPL 60-1032] Extracting hardware platform to /home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/link/vivado/vpl/.local/hw_platform
+[04:44:44] Run vpl: Step create_project: Started
+Creating Vivado project.
+[04:44:53] Run vpl: Step create_project: Completed
+[04:44:53] Run vpl: Step create_bd: Started
+[04:45:36] Run vpl: Step create_bd: Completed
+[04:45:36] Run vpl: Step update_bd: Started
+[04:45:37] Run vpl: Step update_bd: Completed
+[04:45:37] Run vpl: Step generate_target: Started
+[04:46:45] Run vpl: Step generate_target: Completed
+[04:46:45] Run vpl: Step config_hw_runs: Started
+[04:48:01] Run vpl: Step config_hw_runs: RUNNING...
+[04:48:20] Run vpl: Step config_hw_runs: Completed
+[04:48:20] Run vpl: Step synth: Started
+[04:49:21] Block-level synthesis in progress, 0 of 134 jobs complete, 8 jobs running.
+[04:49:52] Block-level synthesis in progress, 0 of 134 jobs complete, 8 jobs running.
+[04:50:22] Block-level synthesis in progress, 0 of 134 jobs complete, 8 jobs running.
+[04:50:54] Block-level synthesis in progress, 0 of 134 jobs complete, 8 jobs running.
+[04:51:26] Block-level synthesis in progress, 7 of 134 jobs complete, 3 jobs running.
+[04:51:56] Block-level synthesis in progress, 9 of 134 jobs complete, 6 jobs running.
+[04:52:27] Block-level synthesis in progress, 10 of 134 jobs complete, 7 jobs running.
+[04:52:57] Block-level synthesis in progress, 11 of 134 jobs complete, 8 jobs running.
+[04:53:27] Block-level synthesis in progress, 14 of 134 jobs complete, 5 jobs running.
+[04:53:57] Block-level synthesis in progress, 16 of 134 jobs complete, 7 jobs running.
+[04:54:28] Block-level synthesis in progress, 17 of 134 jobs complete, 7 jobs running.
+[04:54:58] Block-level synthesis in progress, 19 of 134 jobs complete, 6 jobs running.
+[04:55:28] Block-level synthesis in progress, 21 of 134 jobs complete, 6 jobs running.
+[04:55:59] Block-level synthesis in progress, 24 of 134 jobs complete, 6 jobs running.
+[04:56:29] Block-level synthesis in progress, 27 of 134 jobs complete, 6 jobs running.
+[04:57:00] Block-level synthesis in progress, 30 of 134 jobs complete, 5 jobs running.
+[04:57:30] Block-level synthesis in progress, 32 of 134 jobs complete, 6 jobs running.
+[04:58:01] Block-level synthesis in progress, 36 of 134 jobs complete, 7 jobs running.
+[04:58:31] Block-level synthesis in progress, 39 of 134 jobs complete, 7 jobs running.
+[04:59:01] Block-level synthesis in progress, 40 of 134 jobs complete, 7 jobs running.
+[04:59:32] Block-level synthesis in progress, 41 of 134 jobs complete, 7 jobs running.
+[05:00:02] Block-level synthesis in progress, 44 of 134 jobs complete, 5 jobs running.
+[05:00:33] Block-level synthesis in progress, 48 of 134 jobs complete, 5 jobs running.
+[05:01:03] Block-level synthesis in progress, 51 of 134 jobs complete, 5 jobs running.
+[05:01:34] Block-level synthesis in progress, 54 of 134 jobs complete, 6 jobs running.
+[05:02:04] Block-level synthesis in progress, 59 of 134 jobs complete, 6 jobs running.
+[05:02:34] Block-level synthesis in progress, 66 of 134 jobs complete, 3 jobs running.
+[05:03:05] Block-level synthesis in progress, 73 of 134 jobs complete, 3 jobs running.
+[05:03:35] Block-level synthesis in progress, 79 of 134 jobs complete, 3 jobs running.
+[05:04:06] Block-level synthesis in progress, 82 of 134 jobs complete, 5 jobs running.
+[05:04:36] Block-level synthesis in progress, 86 of 134 jobs complete, 6 jobs running.
+[05:05:07] Block-level synthesis in progress, 88 of 134 jobs complete, 6 jobs running.
+[05:05:37] Block-level synthesis in progress, 89 of 134 jobs complete, 7 jobs running.
+[05:06:08] Block-level synthesis in progress, 89 of 134 jobs complete, 8 jobs running.
+[05:06:39] Block-level synthesis in progress, 91 of 134 jobs complete, 6 jobs running.
+[05:07:09] Block-level synthesis in progress, 95 of 134 jobs complete, 5 jobs running.
+[05:07:40] Block-level synthesis in progress, 98 of 134 jobs complete, 5 jobs running.
+[05:08:10] Block-level synthesis in progress, 98 of 134 jobs complete, 8 jobs running.
+[05:08:41] Block-level synthesis in progress, 99 of 134 jobs complete, 7 jobs running.
+[05:09:12] Block-level synthesis in progress, 102 of 134 jobs complete, 5 jobs running.
+[05:09:42] Block-level synthesis in progress, 104 of 134 jobs complete, 8 jobs running.
+[05:10:12] Block-level synthesis in progress, 107 of 134 jobs complete, 6 jobs running.
+[05:10:43] Block-level synthesis in progress, 108 of 134 jobs complete, 8 jobs running.
+[05:11:14] Block-level synthesis in progress, 108 of 134 jobs complete, 8 jobs running.
+[05:11:45] Block-level synthesis in progress, 110 of 134 jobs complete, 6 jobs running.
+[05:12:15] Block-level synthesis in progress, 111 of 134 jobs complete, 7 jobs running.
+[05:12:46] Block-level synthesis in progress, 114 of 134 jobs complete, 7 jobs running.
+[05:13:17] Block-level synthesis in progress, 114 of 134 jobs complete, 8 jobs running.
+[05:13:48] Block-level synthesis in progress, 114 of 134 jobs complete, 8 jobs running.
+[05:14:19] Block-level synthesis in progress, 118 of 134 jobs complete, 5 jobs running.
+[05:14:49] Block-level synthesis in progress, 123 of 134 jobs complete, 4 jobs running.
+[05:15:20] Block-level synthesis in progress, 123 of 134 jobs complete, 8 jobs running.
+[05:15:51] Block-level synthesis in progress, 123 of 134 jobs complete, 8 jobs running.
+[05:16:22] Block-level synthesis in progress, 125 of 134 jobs complete, 6 jobs running.
+[05:16:53] Block-level synthesis in progress, 129 of 134 jobs complete, 5 jobs running.
+[05:17:23] Block-level synthesis in progress, 133 of 134 jobs complete, 1 job running.
+[05:17:53] Block-level synthesis in progress, 133 of 134 jobs complete, 1 job running.
+[05:18:24] Block-level synthesis in progress, 134 of 134 jobs complete, 0 jobs running.
+[05:18:54] Top-level synthesis in progress.
+[05:19:24] Top-level synthesis in progress.
+[05:20:08] Run vpl: Step synth: Completed
+[05:20:08] Run vpl: Step impl: Started
+[05:28:14] Finished 2nd of 6 tasks (FPGA linking synthesized kernels to platform). Elapsed time: 00h 43m 41s 
+
+[05:28:14] Starting logic optimization..
+[05:28:44] Phase 1 Initialization
+[05:28:44] Phase 1.1 Core Generation And Design Setup
+[05:29:15] Phase 1.2 Setup Constraints And Sort Netlist
+[05:29:15] Phase 2 Timer Update And Timing Data Collection
+[05:29:15] Phase 2.1 Timer Update
+[05:29:45] Phase 2.2 Timing Data Collection
+[05:29:45] Phase 3 Retarget
+[05:30:15] Phase 4 Constant propagation
+[05:30:15] Phase 5 Sweep
+[05:31:16] Phase 6 BUFG optimization
+[05:31:16] Phase 7 Shift Register Optimization
+[05:31:46] Phase 8 Post Processing Netlist
+[05:32:17] Phase 9 Finalization
+[05:32:17] Phase 9.1 Finalizing Design Cores and Updating Shapes
+[05:32:17] Phase 9.2 Verifying Netlist Connectivity
+[05:33:17] Finished 3rd of 6 tasks (FPGA logic optimization). Elapsed time: 00h 05m 03s 
+
+[05:33:17] Starting logic placement..
+[05:33:48] Phase 1 Placer Initialization
+[05:33:48] Phase 1.1 Placer Initialization Netlist Sorting
+[05:36:50] Phase 1.2 IO Placement/ Clock Placement/ Build Placer Device
+[05:37:20] Phase 1.3 Build Placer Netlist Model
+[05:39:22] Phase 1.4 Constrain Clocks/Macros
+[05:39:52] Phase 2 Global Placement
+[05:39:52] Phase 2.1 Floorplanning
+[05:40:23] Phase 2.1.1 Partition Driven Placement
+[05:40:23] Phase 2.1.1.1 PBP: Partition Driven Placement
+[05:40:23] Phase 2.1.1.2 PBP: Clock Region Placement
+[05:41:23] Phase 2.1.1.3 PBP: Compute Congestion
+[05:41:54] Phase 2.1.1.4 PBP: UpdateTiming
+[05:42:24] Phase 2.1.1.5 PBP: Add part constraints
+[05:42:24] Phase 2.2 Physical Synthesis After Floorplan
+[05:42:55] Phase 2.3 Update Timing before SLR Path Opt
+[05:43:25] Phase 2.4 Post-Processing in Floorplanning
+[05:43:25] Phase 2.5 Global Placement Core
+[05:54:05] Phase 2.5.1 UpdateTiming Before Physical Synthesis
+[05:54:36] Phase 2.5.2 Physical Synthesis In Placer
+[05:57:38] Phase 3 Detail Placement
+[05:57:38] Phase 3.1 Commit Multi Column Macros
+[05:58:09] Phase 3.2 Commit Most Macros & LUTRAMs
+[05:59:10] Phase 3.3 Small Shape DP
+[05:59:10] Phase 3.3.1 Small Shape Clustering
+[05:59:40] Phase 3.3.2 Slice Area Swap
+[05:59:40] Phase 3.3.2.1 Slice Area Swap Initial
+[06:00:41] Phase 3.4 Place Remaining
+[06:01:12] Phase 3.5 Re-assign LUT pins
+[06:01:42] Phase 3.6 Pipeline Register Optimization
+[06:01:42] Phase 3.7 Fast Optimization
+[06:03:14] Phase 4 Post Placement Optimization and Clean-Up
+[06:03:14] Phase 4.1 Post Commit Optimization
+[06:04:15] Phase 4.1.1 Post Placement Optimization
+[06:04:15] Phase 4.1.1.1 BUFG Insertion
+[06:04:15] Phase 1 Physical Synthesis Initialization
+[06:04:45] Phase 4.1.1.2 BUFG Replication
+[06:05:16] Phase 4.1.1.3 Post Placement Timing Optimization
+[06:07:48] Phase 4.1.1.4 Replication
+[06:09:19] Phase 4.2 Post Placement Cleanup
+[06:09:19] Phase 4.3 Placer Reporting
+[06:09:19] Phase 4.3.1 Print Estimated Congestion
+[06:09:19] Phase 4.4 Final Placement Cleanup
+[06:18:26] Finished 4th of 6 tasks (FPGA logic placement). Elapsed time: 00h 45m 08s 
+
+[06:18:26] Starting logic routing..
+[06:18:57] Phase 1 Build RT Design
+[06:20:28] Phase 2 Router Initialization
+[06:20:28] Phase 2.1 Fix Topology Constraints
+[06:20:28] Phase 2.2 Pre Route Cleanup
+[06:20:28] Phase 2.3 Global Clock Net Routing
+[06:20:59] Phase 2.4 Update Timing
+[06:22:00] Phase 2.5 Update Timing for Bus Skew
+[06:22:00] Phase 2.5.1 Update Timing
+[06:23:01] Phase 3 Initial Routing
+[06:23:01] Phase 3.1 Global Routing
+[06:23:01] Phase 3.2 Initial Net Routing
+[06:23:31] Phase 4 Rip-up And Reroute
+[06:23:31] Phase 4.1 Global Iteration 0
+[06:30:08] Phase 4.2 Global Iteration 1
+[06:33:10] Phase 4.3 Global Iteration 2
+[06:35:42] Phase 4.4 Global Iteration 3
+[06:37:44] Phase 4.5 Global Iteration 4
+[06:40:46] Phase 4.6 Global Iteration 5
+[06:43:18] Phase 5 Delay and Skew Optimization
+[06:43:18] Phase 5.1 Delay CleanUp
+[06:43:18] Phase 5.1.1 Update Timing
+[06:43:49] Phase 5.1.2 Update Timing
+[06:44:19] Phase 5.1.3 Update Timing
+[06:44:50] Phase 5.2 Clock Skew Optimization
+[06:44:50] Phase 6 Post Hold Fix
+[06:44:50] Phase 6.1 Hold Fix Iter
+[06:44:50] Phase 6.1.1 Update Timing
+[06:45:21] Phase 6.2 Non Free Resource Hold Fix Iter
+[06:45:21] Phase 7 Leaf Clock Prog Delay Opt
+[06:45:51] Phase 7.1 Optimize Skews
+[06:45:51] Phase 7.1.1 Leaf ClockOpt Init
+[06:47:23] Phase 7.2 Post SkewOpt Delay Cleanup
+[06:47:23] Phase 7.2.1 Delay CleanUp
+[06:47:23] Phase 7.2.1.1 Update Timing
+[06:47:53] Phase 7.2.1.2 Update Timing
+[06:47:53] Phase 7.2.1.3 Update Timing
+[06:48:24] Phase 7.3 Post SkewOpt Hold Fix
+[06:48:24] Phase 7.3.1 Hold Fix Iter
+[06:48:24] Phase 7.3.1.1 Update Timing
+[06:49:55] Phase 8 Route finalize
+[06:49:55] Phase 9 Verifying routed nets
+[06:49:55] Phase 10 Depositing Routes
+[06:50:26] Phase 11 Resolve XTalk
+[06:50:26] Phase 12 Post Router Timing
+[06:51:27] Phase 13 Physical Synthesis in Router
+[06:51:27] Phase 13.1 Physical Synthesis Initialization
+[06:51:58] Phase 13.2 Critical Path Optimization
+[06:52:28] Finished 5th of 6 tasks (FPGA routing). Elapsed time: 00h 34m 01s 
+
+[06:52:28] Starting bitstream generation..
+[06:52:28] Phase 14 Post-Route Event Processing
+[06:57:56] Run vpl: Step impl: Failed
+[06:57:57] Run vpl: FINISHED. Run Status: impl ERROR
+
+===>The following messages were generated while  Compiling (bitstream) accelerator binary: demo_top_krnl.hw Log file: /home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/link/vivado/vpl/prj/prj.runs/impl_1/runme.log  :
+ERROR: [VPL 101-2] design did not meet timing - Design did not meet timing. One or more unscalable system clocks did not meet their required target frequency. For all system clocks, this design is using 0 nanoseconds as the threshold worst negative slack (WNS) value. List of system clocks with timing failure:
+system clock: clk_out1_ulp_clk_wiz_0; slack: -0.006 ns
+ERROR: [VPL 101-3] sourcing script /home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/link/vivado/vpl/scripts/impl_1/_full_write_bitstream_pre.tcl failed
+
+===>The following messages were generated while  creating FPGA bitstream. Log file: /home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/link/vivado/vpl/runme.log :
+ERROR: [VPL 12-13638] Failed runs(s) : 'impl_1'
+ERROR: [VPL 60-773] In '/home/coder/ntt-butterfly-sky26c/alveo_demo/build/_x/link/vivado/vpl/runme.log', caught Tcl error:  ERROR: [Common 17-39] 'wait_on_runs' failed due to earlier errors.
+WARNING: [VPL 60-732] Link warning: No monitor points found for BD automation.
+ERROR: [VPL 60-704] Integration error, Failed to complete hardware generation. The run name is 'impl_1'. An error stack with function names and arguments may be available in the 'vivado.log'.
+ERROR: [VPL 60-1328] Vpl run 'vpl' failed
+ERROR: [VPL 60-806] Failed to finish platform linker
+INFO: [v++ 60-1442] [06:58:00] Run run_link: Step vpl: Failed
+Time (s): cpu = 00:01:17 ; elapsed = 02:13:29 . Memory (MB): peak = 488.152 ; gain = 0.000 ; free physical = 380908 ; free virtual = 830089
+ERROR: [v++ 60-661] v++ link run 'run_link' failed
+ERROR: [v++ 60-626] Kernel link failed to complete
+ERROR: [v++ 60-703] Failed to finish linking
+INFO: [v++ 60-1653] Closing dispatch client.
+===================================================================
+ DONE: build/demo_top_krnl.hw.xclbin
+===================================================================

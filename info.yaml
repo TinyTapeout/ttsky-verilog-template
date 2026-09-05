@@ -1,55 +1,71 @@
 # Tiny Tapeout project information
 project:
-  title:        ""      # Project title
-  author:       ""      # Your name
+  title:        "ML-KEM NTT/INTT Accelerator"      # Project title
+  author:       "Brendon"      # Your name
   discord:      ""      # Your discord username, for communication and automatically assigning you a Tapeout role (optional)
-  description:  ""      # One line description of what your project does
+  description:  "Modular arithmetic engine for the ML-KEM-512 number theoretic transform: Cooley-Tukey and Gentleman-Sande butterflies over BOTH Montgomery and Barrett reduction, with the twiddle table on chip."      # One line description of what your project does
   language:     "Verilog" # other examples include SystemVerilog, Amaranth, VHDL, etc
-  clock_hz:     0       # Clock frequency in Hz (or 0 if not applicable)
-
+  clock_hz:     50000000       # 50 MHz -- matches CLOCK_PERIOD: 20 (ns) in src/config.json
   # How many tiles your design occupies? A single tile is about 167x108 uM.
-  tiles: "1x1"          # Valid values: 1x1, 1x2, 2x2, 3x2, 4x2, 6x2 or 8x2
+  #
+  # Synthesis puts the design at 4,718 cells, about 37,500 um2 at this
+  # project's measured 7.94 um2 per cell. That is 109% of a 1x2 tile's core
+  # and 53% of a 2x2, so 2x2 it is. The growth over the previous 1x2 build
+  # (2,756 cells) is the price of carrying both reductions and a signed
+  # 16-bit datapath: fqmul 2,345 cells, barrett_reduce 1,058, twiddle_rom
+  # 468, ntt_io 176, butterfly muxing 670.
+  #
+  # The shuttle offers no SRAM macro, so the coefficient array would have to be
+  # flip-flops. 256 coefficients of 16 bits is 4,096 of them, which no tile can
+  # hold, so the host keeps the polynomial and the chip does the arithmetic.
+  tiles: "2x2"          # Valid values: 1x1, 1x2, 2x2, 3x2, 4x2, 6x2 or 8x2
 
   # Your top module name must start with "tt_um_". Make it unique by including your github username:
-  top_module:  "tt_um_example"
+  top_module:  "tt_um_ntt"
 
   # List your project's source files here.
   # Source files must be in ./src and you must list each source file separately, one per line.
   # Don't forget to also update `PROJECT_SOURCES` in test/Makefile.
   source_files:
-    - "project.v"
+  - "tt_um_ntt.v"
+  - "ntt_top.v"
+  - "ntt_io.v"
+  - "twiddle_rom.v"
+  - "butterfly.v"
+  - "fqmul.v"
+  - "barrett_reduce.v"
 
 # The pinout of your project. Leave unused pins blank. DO NOT delete or add any pins.
 # This section is for the datasheet/website. Use descriptive names (e.g., RX, TX, MOSI, SCL, SEG_A, etc.).
 pinout:
-  # Inputs
-  ui[0]: ""
-  ui[1]: ""
-  ui[2]: ""
-  ui[3]: ""
-  ui[4]: ""
-  ui[5]: ""
-  ui[6]: ""
-  ui[7]: ""
+  # Inputs -- data byte in
+  ui[0]: "din0"
+  ui[1]: "din1"
+  ui[2]: "din2"
+  ui[3]: "din3"
+  ui[4]: "din4"
+  ui[5]: "din5"
+  ui[6]: "din6"
+  ui[7]: "din7"
 
-  # Outputs
-  uo[0]: ""
-  uo[1]: ""
-  uo[2]: ""
-  uo[3]: ""
-  uo[4]: ""
-  uo[5]: ""
-  uo[6]: ""
-  uo[7]: ""
+  # Outputs -- data byte out
+  uo[0]: "dout0"
+  uo[1]: "dout1"
+  uo[2]: "dout2"
+  uo[3]: "dout3"
+  uo[4]: "dout4"
+  uo[5]: "dout5"
+  uo[6]: "dout6"
+  uo[7]: "dout7"
 
-  # Bidirectional pins
-  uio[0]: ""
-  uio[1]: ""
-  uio[2]: ""
-  uio[3]: ""
-  uio[4]: ""
-  uio[5]: ""
-  uio[6]: ""
+  # Bidirectional pins -- register interface in, status out
+  uio[0]: "addr0"
+  uio[1]: "addr1"
+  uio[2]: "addr2"
+  uio[3]: "we"
+  uio[4]: "start"
+  uio[5]: "out_valid"
+  uio[6]: "busy"
   uio[7]: ""
 
 # Do not change!

@@ -1,0 +1,101 @@
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+---------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2023.2 (lin64) Build 4029153 Fri Oct 13 20:13:54 MDT 2023
+| Date         : Wed Aug 26 16:30:19 2026
+| Host         : coder-mboudames-tt26 running 64-bit Ubuntu 24.04.4 LTS
+| Command      : report_control_sets -verbose -file demo_top_control_sets_placed.rpt
+| Design       : demo_top
+| Device       : xcu55c
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+Control Set Information
+
+Table of Contents
+-----------------
+1. Summary
+2. Histogram
+3. Flip-Flop Distribution
+4. Detailed Control Set Information
+
+1. Summary
+----------
+
++----------------------------------------------------------+-------+
+|                          Status                          | Count |
++----------------------------------------------------------+-------+
+| Total control sets                                       |    23 |
+|    Minimum number of control sets                        |    23 |
+|    Addition due to synthesis replication                 |     0 |
+|    Addition due to physical synthesis replication        |     0 |
+| Unused register locations in slices containing registers |    17 |
++----------------------------------------------------------+-------+
+* Control sets can be merged at opt_design using control_set_merge or merge_equivalent_drivers
+** Run report_qor_suggestions for automated merging and remapping suggestions
+
+
+2. Histogram
+------------
+
++--------------------+-------+
+|       Fanout       | Count |
++--------------------+-------+
+| Total control sets |    23 |
+| >= 0 to < 4        |     5 |
+| >= 4 to < 6        |     1 |
+| >= 6 to < 8        |     1 |
+| >= 8 to < 10       |     6 |
+| >= 10 to < 12      |     2 |
+| >= 12 to < 14      |     0 |
+| >= 14 to < 16      |     0 |
+| >= 16              |     8 |
++--------------------+-------+
+* Control sets can be remapped at either synth_design or opt_design
+
+
+3. Flip-Flop Distribution
+-------------------------
+
++--------------+-----------------------+------------------------+-----------------+--------------+
+| Clock Enable | Synchronous Set/Reset | Asynchronous Set/Reset | Total Registers | Total Slices |
++--------------+-----------------------+------------------------+-----------------+--------------+
+| No           | No                    | No                     |              60 |           20 |
+| No           | No                    | Yes                    |               0 |            0 |
+| No           | Yes                   | No                     |               4 |            4 |
+| Yes          | No                    | No                     |               0 |            0 |
+| Yes          | No                    | Yes                    |               0 |            0 |
+| Yes          | Yes                   | No                     |             163 |           37 |
++--------------+-----------------------+------------------------+-----------------+--------------+
+
+
+4. Detailed Control Set Information
+-----------------------------------
+
++--------------+-------------------------------------------+-------------------------+------------------+----------------+--------------+
+| Clock Signal |               Enable Signal               |     Set/Reset Signal    | Slice Load Count | Bel Load Count | Bels / Slice |
++--------------+-------------------------------------------+-------------------------+------------------+----------------+--------------+
+|  clk         | u_inv_fsm/FSM_sequential_state[1]_i_1_n_0 | rst                     |                1 |              2 |         2.00 |
+|  clk         | u_fwd_fsm/FSM_onehot_state[2]_i_1_n_0     | rst                     |                1 |              3 |         3.00 |
+|  clk         | u_fwd_fsm/phase_cnt[2]_i_1_n_0            | rst                     |                1 |              3 |         3.00 |
+|  clk         | load_phase_cnt                            | rst                     |                1 |              3 |         3.00 |
+|  clk         | u_inv_fsm/phase_cnt[2]_i_1__0_n_0         | rst                     |                1 |              3 |         3.00 |
+|  clk         |                                           | rst                     |                4 |              4 |         1.00 |
+|  clk         | u_inv_fsm/E[0]                            | rst                     |                4 |              6 |         1.50 |
+|  clk         | u_inv_fsm/FSM_onehot_state_reg[3][0]      | rst                     |                3 |              8 |         2.67 |
+|  clk         | load_i[7]_i_1_n_0                         | rst                     |                3 |              8 |         2.67 |
+|  clk         | u_fwd_fsm/j_off[7]_i_1_n_0                | rst                     |                2 |              8 |         4.00 |
+|  clk         | u_inv_fsm/j_off[7]_i_1__0_n_0             | rst                     |                4 |              8 |         2.00 |
+|  clk         | u_inv_fsm/scale_i[7]_i_1_n_0              | rst                     |                3 |              8 |         2.67 |
+|  clk         | cmp_i_d1__0                               | rst                     |                5 |              9 |         1.80 |
+|  clk         | u_inv_fsm/layer[2]_i_1__0_n_0             | rst                     |                6 |             10 |         1.67 |
+|  clk         | u_fwd_fsm/layer[2]_i_1_n_0                | rst                     |                6 |             11 |         1.83 |
+|  clk         | u_inv_fsm/start_r[7]_i_1__0_n_0           | rst                     |                5 |             20 |         4.00 |
+|  clk         | u_fwd_fsm/start_r[7]_i_1_n_0              | rst                     |                6 |             21 |         3.50 |
+|  clk         | orig_mem_reg_r1_64_127_0_6_i_1_n_0        |                         |                4 |             32 |         8.00 |
+|  clk         | busy                                      | cycle_cnt_r[31]_i_1_n_0 |                4 |             32 |         8.00 |
+|  clk         | orig_mem_reg_r1_128_191_0_6_i_1_n_0       |                         |                4 |             32 |         8.00 |
+|  clk         | orig_mem_reg_r1_0_63_0_6_i_8_n_0          |                         |                4 |             32 |         8.00 |
+|  clk         | orig_mem_reg_r1_192_255_0_6_i_1_n_0       |                         |                4 |             32 |         8.00 |
+|  clk         |                                           |                         |               20 |             60 |         3.00 |
++--------------+-------------------------------------------+-------------------------+------------------+----------------+--------------+
+
+

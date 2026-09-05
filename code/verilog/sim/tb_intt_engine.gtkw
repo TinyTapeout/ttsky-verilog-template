@@ -1,0 +1,41 @@
+[*] GTKWave save file - inverse NTT engine (one 256-point inverse transform)
+[dumpfile] "tb_intt_engine.vcd"
+[timestart] 0
+[size] 1600 900
+[treeopen] tb_intt_engine.
+[treeopen] tb_intt_engine.dut.
+@28
+tb_intt_engine.clk
+tb_intt_engine.rst_n
+-Control_handshake
+@28
+tb_intt_engine.start
+tb_intt_engine.busy
+tb_intt_engine.done
+-Phase_(0=transform,1=scale)
+@28
+tb_intt_engine.dut.phase
+-FSM_state_(len,k,start_idx,j)
+@22
+tb_intt_engine.dut.len[7:0]
+tb_intt_engine.dut.k[7:0]
+tb_intt_engine.dut.start_idx[8:0]
+tb_intt_engine.dut.j[7:0]
+@22
+tb_intt_engine.dut.sc[7:0]
+-Gentleman-Sande_datapath
+@22
+tb_intt_engine.dut.a_cur[15:0]
+tb_intt_engine.dut.b_cur[15:0]
+tb_intt_engine.dut.zeta[15:0]
+tb_intt_engine.dut.a_new[15:0]
+tb_intt_engine.dut.b_new[15:0]
+tb_intt_engine.dut.sc_new[15:0]
+-Result
+@22
+tb_intt_engine.rd_addr[7:0]
+tb_intt_engine.rd_data[15:0]
+@24
+tb_intt_engine.errors[31:0]
+[pattern_trace] 1
+[pattern_trace] 0

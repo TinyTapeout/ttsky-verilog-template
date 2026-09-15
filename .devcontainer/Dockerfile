@@ -25,4 +25,4 @@ RUN umask 022 && \
     chmod 755 /usr/local/bin
 
 # Install LibreLane
-RUN /ttsetup/venv/bin/pip install librelane==2.4.2
+RUN /ttsetup/venv/bin/pip install librelane==3.0.14

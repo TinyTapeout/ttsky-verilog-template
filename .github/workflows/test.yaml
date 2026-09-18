@@ -28,8 +28,8 @@ jobs:
           cd test
           make clean
           make
-          # make will return success even if the test fails, so check for failure in the results.xml
-          ! grep failure results.xml
+          # make will return success even if the test fails, so check for failed tests in results.xml.
+          ! grep -E '<(failure|error)' results.xml
 
       - name: Test Summary
         uses: test-summary/action@v2.4

@@ -28,8 +28,8 @@ jobs:
           cd test
           make clean
           make
-          # make will return success even if the test fails, so check for failed tests in results.xml.
-          ! grep -E '<(failure|error)' results.xml
+          # make will return success even if the tests fail, so check results.xml for failed tests
+          python -m cocotb_tools.check_results results.xml
 
       - name: Test Summary
         uses: test-summary/action@v2.4

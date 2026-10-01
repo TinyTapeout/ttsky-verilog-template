@@ -33,7 +33,7 @@ src/            the chip, the RTL that taped out
 test/           the chip's testbenches, 27 cocotb tests
 scripts/        generate_twiddle.py, which writes src/twiddle_rom.v
 docs/           the guide, the architecture, how to reproduce, the demo
-results/        what the hardening run produced: GDS, netlist, metrics, die images
+results/        what the hardening run produced: GDS, netlist, and the signoff metrics
 code/           the reference models and the earlier design lineage
 fpga/           the FPGA engine, its tests, and both board builds
 info.yaml       the Tiny Tapeout shuttle descriptor
@@ -55,7 +55,7 @@ constants, so the host sends a twiddle **index** and never a value.
 | 4 | BARRETT | `barrett(a)` | same | range control |
 | 5 | ADD | `a + b` | `a − b` | polynomial add and subtract |
 
-Values are signed 16-bit and centred; `q = 3329`, `R = 2¹⁶`. Every operation takes 5 clocks.
+Values are signed 16 bit and centred; `q = 3329`, `R = 2¹⁶`. Every operation takes 5 clocks.
 
 ## Results
 

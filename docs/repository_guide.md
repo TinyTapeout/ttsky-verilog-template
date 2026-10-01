@@ -25,7 +25,7 @@ src/            the chip. The RTL that taped out on SKY130
 test/           the chip's testbenches, 27 cocotb tests
 scripts/        generate_twiddle.py, which writes src/twiddle_rom.v
 docs/           this guide and the rest of the documentation
-results/        what the hardening run produced: GDS, netlist, metrics, die images
+results/        what the hardening run produced: GDS, netlist, and the signoff metrics
 code/           the reference models and the earlier design lineage
 fpga/           the FPGA engine, its tests, and both board builds
 info.yaml       the Tiny Tapeout shuttle descriptor
@@ -58,7 +58,6 @@ info.yaml       the Tiny Tapeout shuttle descriptor
 | `metrics.json` | all 314 signoff metrics |
 | `commit_id.json` | the commit and workflow run that produced them |
 | `openroad-globalplacement.log` | kept only for the `GPL-0019` utilization line |
-| `images/chip_2d.png`, `images/chip_3d.png` | the routed die, flat and through the metal stack |
 
 Every ASIC number quoted anywhere in this repository comes from these files.
 [reproducing.md](reproducing.md) maps each one to its key.

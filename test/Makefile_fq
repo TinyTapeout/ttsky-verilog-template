@@ -1,0 +1,9 @@
+# Makefile_fq -- the pipelined multiply and its Montgomery reduction (Theorem 6.1)
+SIM ?= icarus
+TOPLEVEL_LANG ?= verilog
+SRC_DIR = $(PWD)/../src
+SIM_BUILD = sim_build/fq
+VERILOG_SOURCES = $(SRC_DIR)/fqmul.v
+TOPLEVEL = fqmul
+COCOTB_TEST_MODULES = test_fqmul
+include $(shell cocotb-config --makefiles)/Makefile.sim

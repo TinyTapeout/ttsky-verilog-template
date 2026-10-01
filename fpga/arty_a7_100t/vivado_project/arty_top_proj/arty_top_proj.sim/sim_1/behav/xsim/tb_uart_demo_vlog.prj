@@ -1,0 +1,21 @@
+# compile verilog/system verilog design source files
+verilog xil_defaultlib  \
+"../../../../../../../src/butterfly.v" \
+"../../../../../../../src/coeff_mem.v" \
+"../../../../../../../src/control_fsm.v" \
+"../../../../../../../src/intt_butterfly.v" \
+"../../../../../../../src/intt_control_fsm.v" \
+"../../../../../../../src/mod_add.v" \
+"../../../../../../../src/mod_mult.v" \
+"../../../../../../../src/mod_sub.v" \
+"../../../../../../../src/twiddle_rom.v" \
+"../../../../../../../src/uart_demo_top.v" \
+"../../../../../../../src/uart_rx.v" \
+"../../../../../../../src/uart_tx.v" \
+"../../../../../../../src/tb_uart_demo.v" \
+
+# compile glbl module
+verilog xil_defaultlib "glbl.v"
+
+# Do not sort compile order
+nosort

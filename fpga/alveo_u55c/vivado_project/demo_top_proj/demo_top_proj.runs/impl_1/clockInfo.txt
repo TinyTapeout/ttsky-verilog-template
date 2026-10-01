@@ -1,0 +1,10 @@
+-------------------------------------
+| Tool Version : Vivado v.2023.2
+| Date         : Wed Aug 26 16:27:45 2026
+| Host         : coder-mboudames-tt26
+| Design       : design_1
+| Device       : xcu55c-fsvh2892-2L-E-
+-------------------------------------
+
+For more information on clockInfo.txt clock routing debug file see https://support.xilinx.com/s/article/000035660?language=en_US
+

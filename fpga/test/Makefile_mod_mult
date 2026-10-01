@@ -1,0 +1,6 @@
+SIM = icarus
+TOPLEVEL_LANG = verilog
+VERILOG_SOURCES = $(PWD)/../src/mod_mult.v
+TOPLEVEL = mod_mult
+MODULE = test_mod_mult
+include $(shell cocotb-config --makefiles)/Makefile.sim

@@ -1,0 +1,32 @@
+[*] GTKWave save file - NTT+INTT round-trip: INTT(NTT(f)) == f
+[dumpfile] "tb_ntt_roundtrip.vcd"
+[timestart] 0
+[size] 1600 900
+[treeopen] tb_ntt_roundtrip.
+@28
+tb_ntt_roundtrip.clk
+tb_ntt_roundtrip.rst_n
+-Forward_engine
+@28
+tb_ntt_roundtrip.n_start
+tb_ntt_roundtrip.n_busy
+tb_ntt_roundtrip.n_done
+@22
+tb_ntt_roundtrip.n_rd_data[15:0]
+-Inverse_engine
+@28
+tb_ntt_roundtrip.i_start
+tb_ntt_roundtrip.i_busy
+tb_ntt_roundtrip.i_done
+@22
+tb_ntt_roundtrip.i_rd_data[15:0]
+-Montgomery_correction_(x*R^-1)
+@22
+tb_ntt_roundtrip.mont_in[15:0]
+tb_ntt_roundtrip.mont_t[15:0]
+tb_ntt_roundtrip.corr[15:0]
+-Result
+@24
+tb_ntt_roundtrip.errors[31:0]
+[pattern_trace] 1
+[pattern_trace] 0

@@ -1,0 +1,7 @@
+SIM = icarus
+TOPLEVEL_LANG = verilog
+VERILOG_SOURCES = $(PWD)/../src/debounce_pulse.v
+TOPLEVEL = debounce_pulse
+MODULE = test_debounce_pulse
+COMPILE_ARGS += -Pdebounce_pulse.STABLE_CYCLES=20
+include $(shell cocotb-config --makefiles)/Makefile.sim

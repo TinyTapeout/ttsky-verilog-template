@@ -1,0 +1,9 @@
+Time resolution is 1 ps
+--- Starting UART Write Test ---
+--- Memory Write Complete. Starting UART Read Test ---
+Received LSB: bc
+Received MSB: 0a
+SUCCESS: Data read matches data written!
+--- Starting NTT Execution Test ---
+Simulation Complete.
+$finish called at time : 910094 ns : File "/home/carson_dawg01/projects/ml_kem/ntt-butterfly-sky26c/src/tb_uart_demo.v" Line 136

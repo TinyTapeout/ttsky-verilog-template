@@ -1,0 +1,7 @@
+SIM = icarus
+TOPLEVEL_LANG = verilog
+VERILOG_SOURCES = $(PWD)/../src/pulse_stretch.v
+TOPLEVEL = pulse_stretch
+MODULE = test_pulse_stretch
+COMPILE_ARGS += -Ppulse_stretch.STRETCH_CYCLES=20
+include $(shell cocotb-config --makefiles)/Makefile.sim

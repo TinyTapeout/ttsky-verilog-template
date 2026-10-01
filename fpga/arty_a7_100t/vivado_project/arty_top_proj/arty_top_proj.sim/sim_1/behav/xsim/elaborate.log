@@ -1,0 +1,60 @@
+Vivado Simulator v2023.2
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+Running: /mnt/vivado_ssd/xilinx/Vivado/2023.2/bin/unwrapped/lnx64.o/xelab --incr --debug typical --relax --mt 8 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip --snapshot tb_uart_demo_behav xil_defaultlib.tb_uart_demo xil_defaultlib.glbl -log elaborate.log 
+Using 8 slave threads.
+Starting static elaboration
+Pass Through NonSizing Optimizer
+Completed static elaboration
+Starting simulation data flow analysis
+WARNING: [XSIM 43-4099] "/home/carson_dawg01/projects/ml_kem/ntt-butterfly-sky26c/src/uart_demo_top.v" Line 7. Module uart_demo_top doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/carson_dawg01/projects/ml_kem/ntt-butterfly-sky26c/src/uart_rx.v" Line 1. Module uart_rx doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/carson_dawg01/projects/ml_kem/ntt-butterfly-sky26c/src/uart_tx.v" Line 1. Module uart_tx doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/carson_dawg01/projects/ml_kem/ntt-butterfly-sky26c/src/coeff_mem.v" Line 30. Module coeff_mem doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/carson_dawg01/projects/ml_kem/ntt-butterfly-sky26c/src/control_fsm.v" Line 33. Module control_fsm doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/carson_dawg01/projects/ml_kem/ntt-butterfly-sky26c/src/twiddle_rom.v" Line 1. Module twiddle_rom doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/carson_dawg01/projects/ml_kem/ntt-butterfly-sky26c/src/butterfly.v" Line 20. Module butterfly doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/carson_dawg01/projects/ml_kem/ntt-butterfly-sky26c/src/mod_mult.v" Line 22. Module mod_mult doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/carson_dawg01/projects/ml_kem/ntt-butterfly-sky26c/src/mod_add.v" Line 6. Module mod_add doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/carson_dawg01/projects/ml_kem/ntt-butterfly-sky26c/src/mod_sub.v" Line 8. Module mod_sub doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/carson_dawg01/projects/ml_kem/ntt-butterfly-sky26c/src/intt_control_fsm.v" Line 27. Module intt_control_fsm doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/carson_dawg01/projects/ml_kem/ntt-butterfly-sky26c/src/twiddle_rom.v" Line 1. Module twiddle_rom doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/carson_dawg01/projects/ml_kem/ntt-butterfly-sky26c/src/intt_butterfly.v" Line 14. Module intt_butterfly doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/carson_dawg01/projects/ml_kem/ntt-butterfly-sky26c/src/mod_add.v" Line 6. Module mod_add doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/carson_dawg01/projects/ml_kem/ntt-butterfly-sky26c/src/mod_sub.v" Line 8. Module mod_sub doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/carson_dawg01/projects/ml_kem/ntt-butterfly-sky26c/src/mod_mult.v" Line 22. Module mod_mult doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/carson_dawg01/projects/ml_kem/ntt-butterfly-sky26c/src/mod_mult.v" Line 22. Module mod_mult doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/carson_dawg01/projects/ml_kem/ntt-butterfly-sky26c/src/uart_demo_top.v" Line 7. Module uart_demo_top doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/carson_dawg01/projects/ml_kem/ntt-butterfly-sky26c/src/uart_rx.v" Line 1. Module uart_rx doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/carson_dawg01/projects/ml_kem/ntt-butterfly-sky26c/src/uart_tx.v" Line 1. Module uart_tx doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/carson_dawg01/projects/ml_kem/ntt-butterfly-sky26c/src/coeff_mem.v" Line 30. Module coeff_mem doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/carson_dawg01/projects/ml_kem/ntt-butterfly-sky26c/src/control_fsm.v" Line 33. Module control_fsm doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/carson_dawg01/projects/ml_kem/ntt-butterfly-sky26c/src/twiddle_rom.v" Line 1. Module twiddle_rom doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/carson_dawg01/projects/ml_kem/ntt-butterfly-sky26c/src/butterfly.v" Line 20. Module butterfly doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/carson_dawg01/projects/ml_kem/ntt-butterfly-sky26c/src/mod_mult.v" Line 22. Module mod_mult doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/carson_dawg01/projects/ml_kem/ntt-butterfly-sky26c/src/mod_add.v" Line 6. Module mod_add doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/carson_dawg01/projects/ml_kem/ntt-butterfly-sky26c/src/mod_sub.v" Line 8. Module mod_sub doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/carson_dawg01/projects/ml_kem/ntt-butterfly-sky26c/src/intt_control_fsm.v" Line 27. Module intt_control_fsm doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/carson_dawg01/projects/ml_kem/ntt-butterfly-sky26c/src/twiddle_rom.v" Line 1. Module twiddle_rom doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/carson_dawg01/projects/ml_kem/ntt-butterfly-sky26c/src/intt_butterfly.v" Line 14. Module intt_butterfly doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/carson_dawg01/projects/ml_kem/ntt-butterfly-sky26c/src/mod_add.v" Line 6. Module mod_add doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/carson_dawg01/projects/ml_kem/ntt-butterfly-sky26c/src/mod_sub.v" Line 8. Module mod_sub doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/carson_dawg01/projects/ml_kem/ntt-butterfly-sky26c/src/mod_mult.v" Line 22. Module mod_mult doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/carson_dawg01/projects/ml_kem/ntt-butterfly-sky26c/src/mod_mult.v" Line 22. Module mod_mult doesn't have a timescale but at least one module in design has a timescale.
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling module xil_defaultlib.uart_rx
+Compiling module xil_defaultlib.uart_tx
+Compiling module xil_defaultlib.coeff_mem
+Compiling module xil_defaultlib.control_fsm
+Compiling module xil_defaultlib.twiddle_rom
+Compiling module xil_defaultlib.mod_mult
+Compiling module xil_defaultlib.mod_add
+Compiling module xil_defaultlib.mod_sub
+Compiling module xil_defaultlib.butterfly
+Compiling module xil_defaultlib.intt_control_fsm
+Compiling module xil_defaultlib.intt_butterfly
+Compiling module xil_defaultlib.uart_demo_top
+Compiling module xil_defaultlib.tb_uart_demo
+Compiling module xil_defaultlib.glbl
+Built simulation snapshot tb_uart_demo_behav

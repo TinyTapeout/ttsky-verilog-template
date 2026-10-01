@@ -1,0 +1,9 @@
+# Makefile_bf -- the six-operation datapath, over both reductions
+SIM ?= icarus
+TOPLEVEL_LANG ?= verilog
+SRC_DIR = $(PWD)/../src
+SIM_BUILD = sim_build/bf
+VERILOG_SOURCES = $(SRC_DIR)/butterfly.v $(SRC_DIR)/fqmul.v $(SRC_DIR)/barrett_reduce.v
+TOPLEVEL = butterfly
+COCOTB_TEST_MODULES = test_butterfly
+include $(shell cocotb-config --makefiles)/Makefile.sim

@@ -11,3 +11,72 @@ test/sim_build
 test/__pycache__/
 test/results.xml
 test/gate_level_netlist.v
+
+# --- code/ : regenerable tool output, not source ---
+
+# Vitis/Vivado build trees (alveo)
+code/alveo/build/
+code/alveo/build.*/
+code/alveo/_x/
+*.xclbin
+*.xclbin.info
+*.xo
+*.dcp
+*.ltx
+
+# Vivado scratch + synthesis run dirs
+.Xil/
+code/verilog/synth/.Xil/
+
+# XSim simulation output
+xsim.dir/
+*.wdb
+*.jou
+*.pb
+*.str
+xelab.log
+xvlog.log
+xsim.log
+
+# Waveforms (*.vcd already covered above)
+*.ghw
+*.vvp
+
+# Compiled binaries (sources are tracked)
+*.so
+*.so.*
+code/cpp/test_mlkem
+code/cpp/test_ntt
+code/cpp/test_acvp
+code/verilog/cosim/cosim_ntt
+code/verilog/tb/gen_vectors
+code/verilog/tb/gen_ntt_vectors
+
+# Python caches
+__pycache__/
+*.pyc
+
+# Results: run logs, synthesis/implementation reports, captured output
+code/alveo/reports/
+code/alveo/*.out
+code/verilog/synth/*.log
+code/verilog/synth/*.rpt
+code/verilog/sim/*.out
+code/verilog/cosim/accel.log
+code/verilog/cosim/accel_in.mem
+code/verilog/cosim/accel_out.mem
+*.rpt
+
+# --- final-research: the FPGA board folders and the signoff results ---
+# The root rules above ignore build output globally (*.rpt, *.dcp, *.xclbin,
+# *.xo, *.ltx, *.so.*). Inside fpga/ and results/ those files are the evidence
+# behind the published numbers, so they are re-included.
+!fpga/**/*.rpt
+!fpga/**/*.dcp
+!fpga/**/*.xclbin
+!fpga/**/*.xo
+!fpga/**/*.ltx
+!fpga/**/*.so.*
+!fpga/**/*.bit
+!results/**
+!fpga/**/xvlog.log

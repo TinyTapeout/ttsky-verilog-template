@@ -1,0 +1,36 @@
+===============================================================================
+Version:    v++ v2023.2 (64-bit)
+Build:      SW Build 4026344 on 2023-10-11-15:42:10
+Copyright:  Copyright 1986-2023 Xilinx, Inc. All Rights Reserved.
+Created:    Fri Aug 21 18:22:24 2026
+===============================================================================
+
+-------------------------------------------------------------------------------
+Design Name:             demo_top_krnl.hw
+Target Device:           xilinx:u55c:gen3x16_xdma_3:202210.1
+Target Clock:            300.000000MHz
+Total number of kernels: 1
+-------------------------------------------------------------------------------
+
+Kernel Summary
+Kernel Name    Type  Target              OpenCL Library    Compute Units
+-------------  ----  ------------------  ----------------  -------------
+demo_top_krnl  ip    fpga0:OCL_REGION_0  demo_top_krnl.hw  1
+
+
+-------------------------------------------------------------------------------
+OpenCL Binary:     demo_top_krnl.hw
+Kernels mapped to: clc_region
+
+Timing Information (MHz)
+Compute Unit  Kernel Name  Module Name  Target Frequency  Estimated Frequency
+------------  -----------  -----------  ----------------  -------------------
+
+Latency Information
+Compute Unit  Kernel Name  Module Name  Start Interval  Best (cycles)  Avg (cycles)  Worst (cycles)  Best (absolute)  Avg (absolute)  Worst (absolute)
+------------  -----------  -----------  --------------  -------------  ------------  --------------  ---------------  --------------  ----------------
+
+Area Information
+Compute Unit  Kernel Name  Module Name  FF  LUT  DSP  BRAM  URAM
+------------  -----------  -----------  --  ---  ---  ----  ----
+-------------------------------------------------------------------------------

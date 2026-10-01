@@ -1,0 +1,7 @@
+SIM = icarus
+TOPLEVEL_LANG = verilog
+VERILOG_SOURCES = $(PWD)/../src/arty_top.v $(PWD)/../src/debounce_pulse.v $(PWD)/../src/pulse_stretch.v $(PWD)/../src/demo_top.v $(PWD)/../src/control_fsm.v $(PWD)/../src/intt_control_fsm.v $(PWD)/../src/butterfly.v $(PWD)/../src/intt_butterfly.v $(PWD)/../src/coeff_mem.v $(PWD)/../src/twiddle_rom.v $(PWD)/../src/mod_mult.v $(PWD)/../src/mod_add.v $(PWD)/../src/mod_sub.v
+TOPLEVEL = arty_top
+MODULE = test_arty_top
+COMPILE_ARGS += -Party_top.START_DEBOUNCE_CYCLES=10 -Party_top.BUSY_STRETCH_CYCLES=10
+include $(shell cocotb-config --makefiles)/Makefile.sim

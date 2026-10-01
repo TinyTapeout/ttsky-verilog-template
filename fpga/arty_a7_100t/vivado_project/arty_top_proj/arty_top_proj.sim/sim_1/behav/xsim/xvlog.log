@@ -1,0 +1,27 @@
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/carson_dawg01/projects/ml_kem/ntt-butterfly-sky26c/src/butterfly.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module butterfly
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/carson_dawg01/projects/ml_kem/ntt-butterfly-sky26c/src/coeff_mem.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module coeff_mem
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/carson_dawg01/projects/ml_kem/ntt-butterfly-sky26c/src/control_fsm.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module control_fsm
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/carson_dawg01/projects/ml_kem/ntt-butterfly-sky26c/src/intt_butterfly.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module intt_butterfly
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/carson_dawg01/projects/ml_kem/ntt-butterfly-sky26c/src/intt_control_fsm.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module intt_control_fsm
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/carson_dawg01/projects/ml_kem/ntt-butterfly-sky26c/src/mod_add.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module mod_add
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/carson_dawg01/projects/ml_kem/ntt-butterfly-sky26c/src/mod_mult.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module mod_mult
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/carson_dawg01/projects/ml_kem/ntt-butterfly-sky26c/src/mod_sub.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module mod_sub
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/carson_dawg01/projects/ml_kem/ntt-butterfly-sky26c/src/twiddle_rom.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module twiddle_rom
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/carson_dawg01/projects/ml_kem/ntt-butterfly-sky26c/src/uart_demo_top.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module uart_demo_top
+WARNING: [VRFC 10-3380] identifier 'ext_addr' is used before its declaration [/home/carson_dawg01/projects/ml_kem/ntt-butterfly-sky26c/src/uart_demo_top.v:41]
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/carson_dawg01/projects/ml_kem/ntt-butterfly-sky26c/src/uart_rx.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module uart_rx
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/carson_dawg01/projects/ml_kem/ntt-butterfly-sky26c/src/uart_tx.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module uart_tx
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/carson_dawg01/projects/ml_kem/ntt-butterfly-sky26c/src/tb_uart_demo.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module tb_uart_demo

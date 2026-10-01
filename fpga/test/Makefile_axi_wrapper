@@ -1,0 +1,6 @@
+SIM = icarus
+TOPLEVEL_LANG = verilog
+VERILOG_SOURCES = $(PWD)/../src/demo_top_axi_wrapper.v $(PWD)/../src/demo_top.v $(PWD)/../src/control_fsm.v $(PWD)/../src/intt_control_fsm.v $(PWD)/../src/butterfly.v $(PWD)/../src/intt_butterfly.v $(PWD)/../src/coeff_mem.v $(PWD)/../src/twiddle_rom.v $(PWD)/../src/mod_mult.v $(PWD)/../src/mod_add.v $(PWD)/../src/mod_sub.v
+TOPLEVEL = demo_top_axi_wrapper
+MODULE = test_demo_top_axi_wrapper
+include $(shell cocotb-config --makefiles)/Makefile.sim

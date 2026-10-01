@@ -1,0 +1,6 @@
+SIM = icarus
+TOPLEVEL_LANG = verilog
+VERILOG_SOURCES = $(PWD)/../src/mod_add.v
+TOPLEVEL = mod_add
+MODULE = test_mod_add
+include $(shell cocotb-config --makefiles)/Makefile.sim

@@ -1,0 +1,6 @@
+SIM = icarus 
+TOPLEVEL_LANG = verilog 
+VERILOG_SOURCES = $(PWD)/../src/twiddle_rom.v
+TOPLEVEL = twiddle_rom 
+MODULE = test_twiddle_rom
+include $(shell cocotb-config --makefiles)/Makefile.sim

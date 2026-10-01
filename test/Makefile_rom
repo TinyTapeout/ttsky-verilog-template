@@ -1,0 +1,9 @@
+# Makefile_rom -- the on-chip twiddle table
+SIM ?= icarus
+TOPLEVEL_LANG ?= verilog
+SRC_DIR = $(PWD)/../src
+SIM_BUILD = sim_build/rom
+VERILOG_SOURCES = $(SRC_DIR)/twiddle_rom.v
+TOPLEVEL = twiddle_rom
+COCOTB_TEST_MODULES = test_twiddle_rom
+include $(shell cocotb-config --makefiles)/Makefile.sim

@@ -1,0 +1,35 @@
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+------------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2023.2 (lin64) Build 4029153 Fri Oct 13 20:13:54 MDT 2023
+| Date         : Wed Aug 26 04:19:10 2026
+| Host         : coder-mboudames-tt26 running 64-bit Ubuntu 24.04.4 LTS
+| Command      : report_timing -sort_by group -max_paths 10 -path_type summary -file ./vivado_project/reports/post_route_timing_worst_paths.rpt
+| Design       : arty_top
+| Device       : 7a100t-csg324
+| Speed File   : -1  PRODUCTION 1.23 2018-06-13
+| Design State : Routed
+------------------------------------------------------------------------------------------------------------------------------------------------
+
+Timing Report
+
+Startpoint                     Endpoint                       Slack(ns)     
+----------------------------------------------------------------------------
+u_demo/u_mem/mem_reg/CLKBWRCLK u_demo/u_inv_bf/u_mult/T_r_reg/B[11]
+                                                              1.219         
+u_demo/u_mem/mem_reg/CLKBWRCLK u_demo/u_inv_bf/u_mult/T_r_reg/B[10]
+                                                              1.297         
+u_demo/u_mem/mem_reg/CLKBWRCLK u_demo/u_mem/mem_reg/DIBDI[9]  1.315         
+u_demo/u_mem/mem_reg/CLKBWRCLK u_demo/u_inv_bf/u_mult/T_r_reg/B[4]
+                                                              1.341         
+u_demo/u_mem/mem_reg/CLKBWRCLK u_demo/u_mem/mem_reg/DIBDI[10] 1.373         
+u_demo/u_mem/mem_reg/CLKBWRCLK u_demo/u_inv_bf/u_mult/T_r_reg/B[3]
+                                                              1.413         
+u_demo/u_mem/mem_reg/CLKBWRCLK u_demo/u_mem/mem_reg/DIBDI[11] 1.454         
+u_demo/u_mem/mem_reg/CLKBWRCLK u_demo/u_inv_bf/u_mult/T_r_reg/B[7]
+                                                              1.480         
+u_demo/u_mem/mem_reg/CLKBWRCLK u_demo/u_inv_bf/u_mult/T_r_reg/B[8]
+                                                              1.564         
+u_demo/u_mem/mem_reg/CLKBWRCLK u_demo/u_mem/mem_reg/DIBDI[7]  1.583         
+
+
+
